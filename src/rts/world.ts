@@ -11,12 +11,13 @@ export interface Player {faction:Faction;stock:Stock;era:number;armor:number;too
 export interface Shot {id:number;owner:Side;from:Point;to:Point;target:number;damage:number;remaining:number;duration:number;splash:number;kind:string;fire?:boolean;launchHeight?:number;targetHeight?:number;}
 export type AiLevel='easy'|'normal'|'hard'|'expert';
 export type VillagerAI='manual'|'assist'|'auto';
-// interval: seconds between AI decisions; gather: enemy gather multiplier; counter: chance to pick a counter unit.
-export const AI_LEVELS:Record<AiLevel,{interval:number;workers:number;wave:number;gather:number;counter:number;queue:number}>={
- easy:{interval:9,workers:10,wave:12,gather:.8,counter:0,queue:1},
- normal:{interval:5,workers:18,wave:7,gather:1,counter:0,queue:2},
- hard:{interval:3.5,workers:24,wave:8,gather:1.1,counter:.6,queue:2},
- expert:{interval:2.5,workers:30,wave:10,gather:1.25,counter:.85,queue:3},
+// interval: seconds between AI decisions; gather: enemy gather multiplier; counter: chance to pick a counter unit;
+// peace: seconds before the AI launches its first attack (it still defends).
+export const AI_LEVELS:Record<AiLevel,{interval:number;workers:number;wave:number;gather:number;counter:number;queue:number;peace:number}>={
+ easy:{interval:9,workers:10,wave:12,gather:.8,counter:0,queue:1,peace:600},
+ normal:{interval:5,workers:18,wave:7,gather:1,counter:0,queue:2,peace:420},
+ hard:{interval:3.5,workers:24,wave:8,gather:1.1,counter:.6,queue:2,peace:300},
+ expert:{interval:2.5,workers:30,wave:10,gather:1.25,counter:.85,queue:3,peace:180},
 };
 export interface Snapshot {version:3;mapSize?:number;time:number;nextId:number;rng:number;players:Player[];entities:Entity[];shots:Shot[];explored:number[][];winner:number|null;mode:string;deposited:Stock;aiTimer:number;}
 const dist=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -278,7 +279,7 @@ export class World {
  if(!town.research)this.research(town,'age');const guard=units.filter(u=>!['worker','trader','healer','scout'].includes(UNITS[u.def].role)).length,ageCost=AGE_COSTS[p.era];
   const saving=this.aiLevel!=='easy'&&p.era<3&&!town.research&&(guard>=4||this.time>240)&&!!ageCost&&!this.afford(side,ageCost);
   for(const b of buildings){if(b.def==='smithy')this.research(b,'armor');if(b.def==='mill')this.research(b,'tools');if(b.queue.length<level.queue&&!saving&&b.def!=='town'){const choices=Object.values(UNITS).filter(d=>d.role!=='worker'&&d.role!=='scout'&&d.role!=='healer'&&d.role!=='trader'&&this.canTrain(b,d));if(choices.length){const counters=this.counterRoles(),picked=this.random()<level.counter?choices.filter(d=>counters.includes(d.role)):[],pool=picked.length?picked:choices;this.train(b,pool[Math.floor(this.random()*pool.length)].id);}}}
- const army=units.filter(u=>!['worker','trader','healer','scout'].includes(UNITS[u.def].role));if(army.length>0&&(army.length>=level.wave||this.mode==='siege')){
+ const army=units.filter(u=>!['worker','trader','healer','scout'].includes(UNITS[u.def].role));if(army.length>0&&(this.mode==='siege'||army.length>=level.wave&&this.time>=level.peace)){
   const objectives=[...this.alive(0,'unit').filter(u=>!['worker','trader'].includes(UNITS[u.def].role)&&this.canSee(side,u)),...this.alive(0,'building').filter(b=>this.canSee(side,b))].sort((a,b)=>Math.min(...army.map(u=>dist(u,a)))-Math.min(...army.map(u=>dist(u,b)))).slice(0,8);
   let goal:Entity|Point|null=null,best=-Infinity;
   for(const candidate of objectives.slice(0,4)){const scout=army.reduce((a,b)=>dist(a,candidate)<dist(b,candidate)?a:b);const route=this.path(scout,candidate,this.footprint(scout)),end=route.at(-1);if(!end||dist(end,candidate)>(candidate.type==='building'?BUILDINGS[candidate.def].radius+3:3))continue;const score=100-route.length;if(score>best){best=score;goal=candidate;}}
