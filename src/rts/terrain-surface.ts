@@ -1,11 +1,11 @@
-import {MAP_HALF,MAP_SIZE,elevation,worldCell,gridIndex} from './map';
+import {MAP_HALF,MAP_SIZE,elevation,elevationFast,worldCell,gridIndex} from './map';
 import type {World,Point} from './world';
 const RES=6,PAD=100,FOG_STEP=4;
 export class TerrainSurface {
- private depths=new Float32Array(0);
+ private depths=new Float32Array(0);private raise=new Float32Array(0);private raiseW=0;private raiseOf?:Float32Array;
  private image=document.createElement('canvas');private fog=document.createElement('canvas');private softFog=document.createElement('canvas');
  constructor(){this.image.width=MAP_SIZE*RES*2;this.image.height=MAP_SIZE*RES+PAD*2;for(const c of [this.fog,this.softFog]){c.width=this.image.width/2;c.height=this.image.height/2;}}
- private point(x:number,z:number){return{x:(x-z)*RES+MAP_SIZE*RES,y:(x+z)*RES*.5+MAP_HALF*RES+PAD-elevation(x,z)*RES};}
+ private point(x:number,z:number){return{x:(x-z)*RES+MAP_SIZE*RES,y:(x+z)*RES*.5+MAP_HALF*RES+PAD-elevationFast(x,z)*RES};}
  rebuild(source:HTMLCanvasElement,rock?:HTMLImageElement){
   const c=this.image.getContext('2d')!;c.clearRect(0,0,this.image.width,this.image.height);
   c.save();c.translate(MAP_SIZE*RES,MAP_HALF*RES+PAD);c.transform(RES,RES*.5,-RES,RES*.5,0,0);c.drawImage(source,-MAP_HALF,-MAP_HALF,MAP_SIZE,MAP_SIZE);c.restore();
@@ -33,10 +33,16 @@ export class TerrainSurface {
   c.putImageData(out,0,0);
  }
 
+ private buildRaise(){const w=this.image.width,h=this.image.height,bw=Math.ceil(w/16),bh=Math.ceil(h/16),raise=new Float32Array(bw*bh).fill(-Infinity);
+  for(let y=0;y<h;y++){const flat=((y+.5-MAP_HALF*RES-PAD)*2)/RES,row=Math.floor(y/16)*bw;for(let x=0;x<w;x++){const v=(flat-this.depths[y*w+x])*.5,k=row+(x>>4);if(v>raise[k])raise[k]=v;}}
+  this.raise=raise;this.raiseW=bw;this.raiseOf=this.depths;}
  clipObject(c:CanvasRenderingContext2D,focus:Point,width:number,height:number,scale:number,bounds:{x:number;y:number;width:number;height:number},depth:number,baseY:number,groundElevation:number){
   if(!this.depths.length)return;
   const ratio=scale/RES,ox=width/2+(-focus.x+focus.z)*scale-MAP_SIZE*scale,oy=height*.53+(-focus.x-focus.z)*scale*.5-(MAP_HALF*RES+PAD)*ratio;
   const left=Math.max(0,Math.floor((bounds.x-ox)/ratio)),right=Math.min(this.image.width,Math.ceil((bounds.x+bounds.width-ox)/ratio)),top=Math.max(0,Math.floor((bounds.y-oy)/ratio)),bottom=Math.min(this.image.height,Math.ceil((bounds.y+bounds.height-oy)/ratio));
+  // Fast reject: highest terrain rise in the covered 16×16 blocks cannot hide the object.
+  if(left>=right||top>=bottom)return;if(this.raiseOf!==this.depths)this.buildRaise();
+  {let peak=-Infinity;for(let by=Math.floor(top/16);by<=Math.floor((bottom-1)/16);by++)for(let bx=Math.floor(left/16);bx<=Math.floor((right-1)/16);bx++)peak=Math.max(peak,this.raise[by*this.raiseW+bx]);if(peak<=groundElevation+.55)return;}
   const occludes=(x:number,y:number)=>{const terrainDepth=this.depths[y*this.image.width+x],flatDepth=(y+.5-MAP_HALF*RES-PAD)*2/RES;return (flatDepth-terrainDepth)*.5>groundElevation+.55&&terrainDepth>depth-2*(baseY-(oy+y*ratio))/scale;};
   let hidden=false;for(let y=top;y<bottom&&!hidden;y++)for(let x=left;x<right;x++)if(occludes(x,y)){hidden=true;break;}
   if(!hidden)return;

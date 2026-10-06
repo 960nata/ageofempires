@@ -1,3 +1,4 @@
+import {assetUrl} from './assets';
 export type VillagerAppearance='male'|'female';
 type Action='chop'|'mine'|'farm'|'orchard'|'build';
 type Rect={x:number;y:number;w:number;h:number;anchorX:number};
@@ -11,7 +12,7 @@ export class VillagerSprites {
  get count(){return 3;}
  constructor(){this.ready=Promise.all((Object.entries(files) as [keyof typeof files,string][]).map(([key,file])=>new Promise<void>((resolve,reject)=>{
   const image=new Image();image.onload=()=>{try{const rows=key==='femaleActions'?5:8,cols=key==='femaleActions'?8:6;this.sheets.set(key,this.measure(image,rows,cols));resolve();}catch(error){reject(error);}};
-  image.onerror=()=>reject(new Error('Villager atlas unavailable: '+file));image.src='/assets/isometric/'+file;
+  image.onerror=()=>reject(new Error('Villager atlas unavailable: '+file));image.src=assetUrl(file);
  }))).then(()=>{});}
  private measure(image:HTMLImageElement,rows:number,cols:number):Sheet{
   const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;

@@ -1,3 +1,4 @@
+import {assetUrl} from './assets';
 import frames from './scene-frames.json';
 import {coastX} from './map';
 import eraFrames from './era-frames.json';
@@ -6,13 +7,14 @@ export interface SceneSprite {image:HTMLImageElement;sx:number;sy:number;sw:numb
 export const BUILDING_VIEWS:Record<string,number>={town:0,keep:1,house:2,barracks:3,range:4,stable:5,market:6,smithy:7,academy:8,government:9,healing:10,siege:11,camel:5,wall:12,gate:13,tower:14,'archer-tower':14,'cannon-tower':14,lumber:15,mine:16,mill:17,palisade:18,landmark:19,specialist:20,farm:-1,orchard:-2};
 export const FACING_NAMES=['South','East','North','West'];
 export class SceneArt {
- private images=new Map<string,HTMLImageElement>();private alpha=new Map<HTMLImageElement,{width:number;data:Uint8ClampedArray}>();
+ private images=new Map<string,HTMLImageElement>();private alpha=new Map<HTMLImageElement,{width:number;data:Uint8Array}>();
  readonly count=Object.keys(frames).length;readonly ready:Promise<void>;
  private eraPending=new Set<string>();private eraFailed=new Set<string>();
- constructor(){this.ready=Promise.all(Object.keys(frames).map(name=>new Promise<void>((resolve,reject)=>{const image=new Image();this.images.set(name,image);image.onload=()=>{const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const c=canvas.getContext('2d')!;c.drawImage(image,0,0);this.alpha.set(image,{width:image.width,data:c.getImageData(0,0,image.width,image.height).data});resolve();};image.onerror=()=>reject(Error('Scene art unavailable: '+name));image.src='/assets/isometric/'+name+'.png';}))).then(()=>{});}
- opaque(image:HTMLImageElement,x:number,y:number){const data=this.alpha.get(image);return data?data.data[(y*data.width+x)*4+3]>70:undefined;}
+ constructor(){this.ready=Promise.all(Object.keys(frames).map(name=>new Promise<void>((resolve,reject)=>{const image=new Image();this.images.set(name,image);image.onload=()=>resolve();image.onerror=()=>reject(Error('Scene art unavailable: '+name));image.src=assetUrl(name+'.png');}))).then(()=>{});}
+ // Alpha masks are built on the first pick of an atlas (not at load) and keep one byte per pixel.
+ opaque(image:HTMLImageElement,x:number,y:number){let data=this.alpha.get(image);if(!data&&image.naturalWidth){const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const c=canvas.getContext('2d',{willReadFrequently:true})!;c.drawImage(image,0,0);const rgba=c.getImageData(0,0,image.width,image.height).data,alpha=new Uint8Array(image.width*image.height);for(let i=0;i<alpha.length;i++)alpha[i]=rgba[i*4+3];data={width:image.width,data:alpha};this.alpha.set(image,data);}return data?data.data[y*data.width+x]>70:undefined;}
  sprite(name:string,index:number,width:number,anchor=1):SceneSprite|null{const image=this.images.get(name),rect=allFrames[name]?.[index];if(!image?.naturalWidth||!rect)return null;return{image,sx:rect.x,sy:rect.y,sw:rect.w,sh:rect.h,width,height:width*rect.h/rect.w,anchor};}
- private requestEra(name:string){if(this.images.has(name)||this.eraPending.has(name)||this.eraFailed.has(name))return;this.eraPending.add(name);const image=new Image();this.images.set(name,image);image.onload=()=>{this.eraPending.delete(name);const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const c=canvas.getContext('2d')!;c.drawImage(image,0,0);this.alpha.set(image,{width:image.width,data:c.getImageData(0,0,image.width,image.height).data});};image.onerror=()=>{this.eraPending.delete(name);this.eraFailed.add(name);this.images.delete(name);};image.src='/assets/isometric/'+name+'.png';}
+ private requestEra(name:string){if(this.images.has(name)||this.eraPending.has(name)||this.eraFailed.has(name))return;this.eraPending.add(name);const image=new Image();this.images.set(name,image);image.onload=()=>{this.eraPending.delete(name);};image.onerror=()=>{this.eraPending.delete(name);this.eraFailed.add(name);this.images.delete(name);};image.src=assetUrl(name+'.png');}
  building(def:string,persian:boolean,facing:number,radius:number,scale:number,age=2){const index=BUILDING_VIEWS[def];if(index===undefined||index<0)return null;const direction=((facing%4)+4)%4,civ=persian?'persian':'roman';let name='',cell=0,width=radius*3.65*scale;
   if(index<12&&age!==2){const era=age===0?'dark':age===1?'feudal':'imperial',view=['','-east','-north','-west'][direction],version=civ==='persian'&&era==='imperial'?'-v3':'';name=`${civ}-${era}${view}${version}-${String(index).padStart(2,'0')}`;if((eraFrames as Record<string,unknown>)[name]){this.requestEra(name);const art=this.sprite(name,0,width);if(art){art.anchor=1-art.width*.22/art.height;return art;}}
   }
