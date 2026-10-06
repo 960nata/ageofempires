@@ -1,0 +1,49 @@
+check_id,requirement_id,phase,feature,scenario,pass_condition,required_evidence,result
+ART-01,R01,T1,Manusia realistis,"Inspect warga, swordsman dan archer pada zoom normal/dekat dari 4 sudut","Tubuh anatomis, alat dan tangan terbaca; tidak ada proxy kapsul/bola sebagai model final",turntable + in-game close-up,not_run
+ART-02,R01,T4,Mount dan rider,"Periksa horse/camel berjalan, berbelok, menyerang dan mati",Spesies/rig berbeda; penunggang mengikuti saddle; tidak melayang atau pecah,video 4 sudut,not_run
+ART-03,R03,T1,Kontak kaki,Rekam 10 detik walk/run datar pada 0.5x/1x/2x,Gerak sendi benar; slip kontak <=10 cm per stance; tidak snapping,video dengan skala dunia,not_run
+ART-04,R03,T4,Semua kelas senjata,Mainkan serang/block/reload/brace sesuai roster,Pose cocok dengan senjata; shield hanya pada varian shield; tidak clipping utama,clip coverage report,not_run
+ART-05,R01,T6,LOD,Zoom dekat-jauh saat pasukan bergerak,Silhouette terbaca; tidak popping besar; detail normal tidak berubah menjadi proxy,capture transisi LOD,not_run
+ECO-01,R02,T2,Ambil dan setor,Wood 100; pohon 300; worker mengambil 12 lalu menyetor,Saat carry: stok100/node288/cargo12; sesudah setor stok112/node288/cargo0,transaction log + video,not_run
+ECO-02,R02,T2,Resource command,Pilih worker lalu klik kanan deposit; deselect selama kerja,Job tetap aktif; seleksi UI tidak menghapus pekerjaan,replay,not_run
+ECO-03,R02,T2,Worker diam bekerja,Worker mencapai node lalu berhenti berjalan,Gather terus berlangsung sesuai sim; tidak tergantung delta render/locomotion,transaction log,not_run
+ECO-04,R02,T2,Deposit depleted,Dua workers memperebutkan sisa node yang lebih kecil dari kapasitas total,Node tidak negatif; total cargo sesuai pengurangan; auto-retarget/idle jelas,transaction log,not_run
+ECO-05,R02,T2,Dropoff hilang,Hancurkan dropoff saat worker bermuatan berjalan pulang,Cari rute dropoff alternatif atau blocked; tidak menyetor dari jauh,replay,not_run
+ECO-06,R02,T2,Pindah pekerjaan,Worker membawa wood dialihkan ke mine lalu retreat,Setor sebelum job baru kecuali retreat; tidak mencampur atau menggandakan cargo,log state,not_run
+ECO-07,R02,T2,Farm reseed,Farm habis saat wood cukup lalu saat wood tidak cukup,Biaya hanya sekali; menunggu bila kurang; stok tidak negatif,transaction log,not_run
+ECO-08,R02,T5,Trade,Caravan menyelesaikan putaran lalu mati di tengah putaran lain,Gold hanya ketika kembali; tidak dibayar untuk putaran yang gagal,transaction log,not_run
+ECO-09,R02,T5,Market roundtrip,Beli dan jual resource berulang pada kurs tidak berubah eksternal,Tidak mendapat gold gratis dari putaran transaksi,transaction log,not_run
+BLD-01,R05,T2,Placement,"Coba fondasi valid, overlap, air, terrain curam dan exit terblokir",Alasan invalid jelas; biaya hanya placement valid; tidak jebak unit,video + ledger,not_run
+BLD-02,R05,T2,Konstruksi bertahap,Bangun rumah dengan satu lalu beberapa pekerja,Ada durasi/tahap; bonus pop hanya saat selesai; percepatan mengikuti aturan,replay + timer,not_run
+BLD-03,R05,T2,Cancel/refund,"Batal sebelum kerja, setelah sebagian kerja, lalu hancurkan fondasi musuh",Refund sesuai rumus; tidak ganda; tidak ada refund untuk destruction,ledger,not_run
+BLD-04,R05,T4,Keep tiers,Upgrade Keep I ke II ke III,Mesh benar berubah; HP ratio tetap; range/armor/garrison berubah sekali,before-after + stats,not_run
+BLD-05,R05,T4,Upgrade terinterupsi,Hancurkan keep ketika upgrade 50 persen,Tidak spawn tier baru; efek upgrade tidak diterapkan,replay,not_run
+BLD-06,R05,T3,Garrison,Isi/keluarkan garrison lalu hancurkan bangunan berisi unit,Kapasitas benar; keluar tidak menembus collider; evakuasi mengikuti aturan,replay,not_run
+PRD-01,R04,T2,Queue dan populasi,"Train unit ketika cap penuh, cancel dan buka cap lewat rumah",Tidak spawn sebelum waktu; reservasi/refund tepat; antrean menunggu cap,queue ledger,not_run
+PRD-02,R04,T2,Exit blocked,Tutup semua exit produksi sampai training selesai,Unit ready menunggu; spawn ketika slot bebas; tidak overlap,replay,not_run
+AGE-01,R06,T4,Riset era,Coba riset tanpa syarat lalu selesaikan riset valid,Syarat/cost/durasi/unlock sesuai; bukan perubahan label instan,video + tech snapshot,not_run
+AGE-02,R06,T4,Upgrade unit hidup,Upgrade armor pasukan yang terluka dan sedang menyerang,"HP ratio benar, hit lama selesai, stat/gear baru berlaku satu kali",combat log + capture,not_run
+WAR-01,R04,T3,Melee,Pedang/tombak menyerang pada beberapa frame rate,Damage hanya saat hit valid; DPS konsisten terhadap waktu sim,damage log,not_run
+WAR-02,R04,T3,Projectile,"Archer draw, release, arrow travel dan impact",Damage pada hit; panah dari bow; reload membatasi fire rate,slow-motion + log,not_run
+WAR-03,R04,T4,Counter/perisai,Tembak shield dari depan/samping/belakang; charge pike brace,Modifier sesuai arah/tags; tanpa shield tidak mendapat bonus block,damage comparison,not_run
+WAR-04,R04,T4,Mounted archer,Horse archer move/aim/fire/move,Rider sinkron; batas aim/pause berlaku; bukan tembak omnidirectional,video + order log,not_run
+WAR-05,R04,T4,Camels,Recruit kedua loadout unta lalu gerak/attack/death,"Model unta riil, senjata berbeda, rig species benar dan pop/cost sesuai",replay,not_run
+SIEGE-01,R05,T3,Ram dan gerbang,Kirim ram ke gerbang tertutup dan hancurkan,"Approach valid, swing/contact damage, gate rubble membuka jalur",replay + nav snapshot,not_run
+SIEGE-02,R05,T4,Trebuchet,Move lalu deploy/fire/pack/move,Tidak fire saat packed/moving; waktu transisi dan proyektil tepat,state log,not_run
+NAV-01,R03,T3,Bottleneck,50 mixed units melewati gerbang dan jembatan,Membentuk kolom; no collider penetration; tidak deadlock permanen,replay,not_run
+NAV-02,R03,T3,Jalur berubah,Lock gate atau runtuhkan wall ketika unit bergerak,Rute invalid diperbarui; fallback blocked setelah aturan gagal,nav log,not_run
+FOG-01,R04,T3,Fog dan minimap,Musuh bergerak keluar sight lalu kembali,Hidden di world/minimap; last-known building bukan live intel,video + visibility log,not_run
+CIV-01,R07,T5,Faksi,Bandingkan 5 paket pada era sama,Arsitektur/loadout/roster/bonus/landmark berbeda dan sesuai data,comparison capture,not_run
+CIV-02,R07,T5,Landmark,"Bangun, hancurkan dan bangun kembali landmark bonus",Bonus start/stop sekali; footprint/model unik; tidak stacking ilegal,modifier log,not_run
+AI-01,R09,T5,AI ekonomi,Main 20 menit termasuk resource dekat habis,AI gather/deposit/train/expand/siege memakai resource nyata,replay + AI ledger,not_run
+AI-02,R09,T5,AI sight,Pindahkan unit pemain ke area tanpa sight AI,AI tidak membaca posisi baru melalui fog; debug memakai observasi,decision log,not_run
+SAVE-01,R09,T6,Save pemulihan,"Save saat carry, research, projectile dan queue aktif lalu reload",Tidak ganda/kehilangan state; fog/tick/RNG/objective konsisten,before-after snapshot,not_run
+SAVE-02,R09,T6,Save gagal,Simulasikan storage tidak tersedia atau save korup,Pesan gagal benar; save lama dipertahankan; Continue tidak palsu,error capture,not_run
+UI-01,R10,T6,Menu dan sesi,New/Continue/Resume/Return to Menu,New reset; Continue load; Resume mempertahankan dunia; tidak tutorial paksa,flow recording,not_run
+UI-02,R10,T6,Pause dan overlay,Pause/open settings lalu tekan tombol game dan tunggu,World tick berhenti; keyboard form tidak menjalankan perintah dunia,tick/command log,not_run
+UI-03,R10,T6,Settings,Apply/cancel/reset video audio hotkeys dan reload,Efek nyata dan persistence benar; no empty active controls,video + stored prefs,not_run
+WIN-01,R09,T5,Victory countdown,Hancurkan semua civic centres lalu satu dibangun ulang sebelum 30s,Countdown terlihat/dibatalkan tepat; keadaan win/lose konsisten,replay,not_run
+PERF-01,R08,T6,Performa profil,Ukur 60/150/300 units 30 menit pada perangkat target,Memenuhi budget bagian23; metadata mesin/browser tercatat,performance report,not_run
+RIGHTS-01,R12,T1,Hak aset,Audit seluruh file model/audio/texture yang diimpor,Ada bukti dan syarat; pending tidak release_ready,private rights register,not_run
+REL-01,R11,T6,Catatan update,Tinjau satu release gameplay dan satu release data,"Status jujur; requirement IDs, save compatibility dan evidence tersedia",changelog review,not_run
+CAM-01,R09,T6,Campaign,Selesaikan dan reload 4 misi,Objective/trigger/reward tidak ganda; periode/tech sesuai dossier,campaign replay,not_run

@@ -1,0 +1,1 @@
+import './rts/app';

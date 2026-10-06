@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {fileURLToPath} from 'node:url';
+const result=await build({entryPoints:[fileURLToPath(new URL('../src/rts/world.ts',import.meta.url))],bundle:true,platform:'node',format:'esm',write:false,logLevel:'silent'});
+const {World}=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'));
+function base(){const w=new World('roman','persian',42,'skirmish',false);w.ai=()=>{};w.add('building','town',0,-52,-34);w.add('building','town',1,52,34);return w;}
+function run(w,seconds){for(let i=0;i<seconds*20;i++)w.tick(.05);}
+function start(w,workers,node){w.rebuildNav();w.updateFog();w.command(workers.map(u=>u.id),{kind:'gather',target:node.id});}
+const results=[];
+for(const resource of ['wood','gold','stone','food']){const w=base(),a=w.node(resource,-39,-34,8),b=w.node(resource,-36,-31,80),u=w.add('unit','worker',0,-44,-28);start(w,[u],a);run(w,120);assert.equal(a.amount,0,resource+' original depleted');assert.ok(w.deposited[resource]>8,resource+' resumes nearby and deposits');assert.equal(u.order.resource,resource);results.push({scenario:resource,deposited:+w.deposited[resource].toFixed(2),nextRemaining:+b.amount.toFixed(2)});}
+for(const def of ['farm','orchard']){const w=base(),field=w.add('building',def,0,-40,-30),u=w.add('unit','worker',0,-44,-28);field.resource='food';field.amount=360;field.initialAmount=360;field.growth=0;start(w,[u],field);run(w,150);assert.ok(w.deposited.food>0,def+' harvest and deposit');results.push({scenario:def,deposited:+w.deposited.food.toFixed(2),growth:field.growth});}
+{const w=base(),trees=[];for(let x=0;x<3;x++)for(let z=0;z<3;z++)trees.push(w.node('wood',-39+x*2,-36+z*2,30));const workers=Array.from({length:4},(_,i)=>w.add('unit','worker',0,-45-i,-29));start(w,workers,trees[4]);run(w,120);assert.ok(w.deposited.wood>=60);assert.ok(workers.every(u=>Object.values(u.cargo).some(v=>v>0)||u.state==='gather'||u.state==='deposit'));results.push({scenario:'four workers / enclosed target',deposited:w.deposited.wood,felled:trees.filter(t=>t.felledAt!==undefined).length});const restored=World.restore(w.snapshot());restored.ai=()=>{};const before=restored.deposited.wood;run(restored,60);assert.ok(restored.deposited.wood>before,'save restore resumes work');results.push({scenario:'save / restore',additionalWood:restored.deposited.wood-before});}
+{const w=base(),b=w.add('building','house',0,-39,-34,false),workers=[w.add('unit','worker',0,-44,-28),w.add('unit','worker',0,-45,-29)];w.rebuildNav();w.updateFog();w.command(workers.map(u=>u.id),{kind:'build',target:b.id});run(w,70);assert.equal(b.progress,1,'construct');w.hit(b,120);w.command(workers.map(u=>u.id),{kind:'repair',target:b.id});run(w,50);assert.equal(b.hp,b.maxHp,'repair');results.push({scenario:'construction / repair',progress:b.progress,hp:b.hp});}
+console.log(JSON.stringify(results,null,2));

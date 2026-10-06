@@ -1,0 +1,1988 @@
+[
+  {
+    "id": "worker",
+    "file": "/assets/3d/generated/worker.glb",
+    "bytes": 204368,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "explorer",
+    "file": "/assets/3d/generated/explorer.glb",
+    "bytes": 219904,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "scout",
+    "file": "/assets/3d/generated/scout.glb",
+    "bytes": 385712,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "militia",
+    "file": "/assets/3d/generated/militia.glb",
+    "bytes": 222752,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "swordsman",
+    "file": "/assets/3d/generated/swordsman.glb",
+    "bytes": 231636,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "heavy",
+    "file": "/assets/3d/generated/heavy.glb",
+    "bytes": 263136,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "spearman",
+    "file": "/assets/3d/generated/spearman.glb",
+    "bytes": 209892,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "shield-spear",
+    "file": "/assets/3d/generated/shield-spear.glb",
+    "bytes": 218780,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "pike",
+    "file": "/assets/3d/generated/pike.glb",
+    "bytes": 209876,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "archer",
+    "file": "/assets/3d/generated/archer.glb",
+    "bytes": 225356,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "longbow",
+    "file": "/assets/3d/generated/longbow.glb",
+    "bytes": 225356,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "crossbow",
+    "file": "/assets/3d/generated/crossbow.glb",
+    "bytes": 205704,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "javelin",
+    "file": "/assets/3d/generated/javelin.glb",
+    "bytes": 218780,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "light-horse",
+    "file": "/assets/3d/generated/light-horse.glb",
+    "bytes": 385712,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "lancer",
+    "file": "/assets/3d/generated/lancer.glb",
+    "bytes": 404344,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "knight",
+    "file": "/assets/3d/generated/knight.glb",
+    "bytes": 426104,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "horse-archer",
+    "file": "/assets/3d/generated/horse-archer.glb",
+    "bytes": 388316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "camel-spear",
+    "file": "/assets/3d/generated/camel-spear.glb",
+    "bytes": 386036,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "camel-sword",
+    "file": "/assets/3d/generated/camel-sword.glb",
+    "bytes": 398896,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "healer",
+    "file": "/assets/3d/generated/healer.glb",
+    "bytes": 219904,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "ram",
+    "file": "/assets/3d/generated/ram.glb",
+    "bytes": 63984,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "mangonel",
+    "file": "/assets/3d/generated/mangonel.glb",
+    "bytes": 75820,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "trebuchet",
+    "file": "/assets/3d/generated/trebuchet.glb",
+    "bytes": 77752,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "bombard",
+    "file": "/assets/3d/generated/bombard.glb",
+    "bytes": 66148,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "trader",
+    "file": "/assets/3d/generated/trader.glb",
+    "bytes": 62564,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "legionary",
+    "file": "/assets/3d/generated/legionary.glb",
+    "bytes": 273248,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "centurion",
+    "file": "/assets/3d/generated/centurion.glb",
+    "bytes": 283748,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "equites",
+    "file": "/assets/3d/generated/equites.glb",
+    "bytes": 390996,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "immortal",
+    "file": "/assets/3d/generated/immortal.glb",
+    "bytes": 233660,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "royal-archer",
+    "file": "/assets/3d/generated/royal-archer.glb",
+    "bytes": 237116,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "cataphract",
+    "file": "/assets/3d/generated/cataphract.glb",
+    "bytes": 439636,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "war-elephant",
+    "file": "/assets/3d/generated/war-elephant.glb",
+    "bytes": 447632,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "chariot",
+    "file": "/assets/3d/generated/chariot.glb",
+    "bytes": 414236,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "ballista",
+    "file": "/assets/3d/generated/ballista.glb",
+    "bytes": 71444,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "gather",
+      "build",
+      "carry",
+      "heal",
+      "death"
+    ]
+  },
+  {
+    "id": "b-town",
+    "file": "/assets/3d/generated/b-town.glb",
+    "bytes": 128260,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house",
+    "file": "/assets/3d/generated/b-house.glb",
+    "bytes": 38136,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill",
+    "file": "/assets/3d/generated/b-mill.glb",
+    "bytes": 52884,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber",
+    "file": "/assets/3d/generated/b-lumber.glb",
+    "bytes": 56056,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine",
+    "file": "/assets/3d/generated/b-mine.glb",
+    "bytes": 105244,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm",
+    "file": "/assets/3d/generated/b-farm.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks",
+    "file": "/assets/3d/generated/b-barracks.glb",
+    "bytes": 77660,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range",
+    "file": "/assets/3d/generated/b-range.glb",
+    "bytes": 63872,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable",
+    "file": "/assets/3d/generated/b-stable.glb",
+    "bytes": 45696,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel",
+    "file": "/assets/3d/generated/b-camel.glb",
+    "bytes": 45696,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy",
+    "file": "/assets/3d/generated/b-smithy.glb",
+    "bytes": 41632,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market",
+    "file": "/assets/3d/generated/b-market.glb",
+    "bytes": 120716,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade",
+    "file": "/assets/3d/generated/b-palisade.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower",
+    "file": "/assets/3d/generated/b-tower.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall",
+    "file": "/assets/3d/generated/b-wall.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate",
+    "file": "/assets/3d/generated/b-gate.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep",
+    "file": "/assets/3d/generated/b-keep.glb",
+    "bytes": 141320,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege",
+    "file": "/assets/3d/generated/b-siege.glb",
+    "bytes": 77660,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing",
+    "file": "/assets/3d/generated/b-healing.glb",
+    "bytes": 40872,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy",
+    "file": "/assets/3d/generated/b-academy.glb",
+    "bytes": 38136,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark",
+    "file": "/assets/3d/generated/b-landmark.glb",
+    "bytes": 128260,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist",
+    "file": "/assets/3d/generated/b-specialist.glb",
+    "bytes": 128260,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-english",
+    "file": "/assets/3d/generated/b-town-english.glb",
+    "bytes": 128260,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-english",
+    "file": "/assets/3d/generated/b-house-english.glb",
+    "bytes": 38136,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-english",
+    "file": "/assets/3d/generated/b-mill-english.glb",
+    "bytes": 52884,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-english",
+    "file": "/assets/3d/generated/b-lumber-english.glb",
+    "bytes": 56056,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-english",
+    "file": "/assets/3d/generated/b-mine-english.glb",
+    "bytes": 105244,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-english",
+    "file": "/assets/3d/generated/b-farm-english.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-english",
+    "file": "/assets/3d/generated/b-barracks-english.glb",
+    "bytes": 77660,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-english",
+    "file": "/assets/3d/generated/b-range-english.glb",
+    "bytes": 63872,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-english",
+    "file": "/assets/3d/generated/b-stable-english.glb",
+    "bytes": 45696,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-english",
+    "file": "/assets/3d/generated/b-camel-english.glb",
+    "bytes": 45696,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-english",
+    "file": "/assets/3d/generated/b-smithy-english.glb",
+    "bytes": 41632,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-english",
+    "file": "/assets/3d/generated/b-market-english.glb",
+    "bytes": 120716,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-english",
+    "file": "/assets/3d/generated/b-palisade-english.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-english",
+    "file": "/assets/3d/generated/b-tower-english.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-english",
+    "file": "/assets/3d/generated/b-wall-english.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-english",
+    "file": "/assets/3d/generated/b-gate-english.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-english",
+    "file": "/assets/3d/generated/b-keep-english.glb",
+    "bytes": 141320,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-english",
+    "file": "/assets/3d/generated/b-siege-english.glb",
+    "bytes": 77660,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-english",
+    "file": "/assets/3d/generated/b-healing-english.glb",
+    "bytes": 40872,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-english",
+    "file": "/assets/3d/generated/b-academy-english.glb",
+    "bytes": 38136,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-english",
+    "file": "/assets/3d/generated/b-landmark-english.glb",
+    "bytes": 128260,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-english",
+    "file": "/assets/3d/generated/b-specialist-english.glb",
+    "bytes": 128260,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-french",
+    "file": "/assets/3d/generated/b-town-french.glb",
+    "bytes": 129508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-french",
+    "file": "/assets/3d/generated/b-house-french.glb",
+    "bytes": 39400,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-french",
+    "file": "/assets/3d/generated/b-mill-french.glb",
+    "bytes": 54152,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-french",
+    "file": "/assets/3d/generated/b-lumber-french.glb",
+    "bytes": 57324,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-french",
+    "file": "/assets/3d/generated/b-mine-french.glb",
+    "bytes": 106504,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-french",
+    "file": "/assets/3d/generated/b-farm-french.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-french",
+    "file": "/assets/3d/generated/b-barracks-french.glb",
+    "bytes": 78932,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-french",
+    "file": "/assets/3d/generated/b-range-french.glb",
+    "bytes": 65136,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-french",
+    "file": "/assets/3d/generated/b-stable-french.glb",
+    "bytes": 46964,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-french",
+    "file": "/assets/3d/generated/b-camel-french.glb",
+    "bytes": 46964,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-french",
+    "file": "/assets/3d/generated/b-smithy-french.glb",
+    "bytes": 42892,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-french",
+    "file": "/assets/3d/generated/b-market-french.glb",
+    "bytes": 121980,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-french",
+    "file": "/assets/3d/generated/b-palisade-french.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-french",
+    "file": "/assets/3d/generated/b-tower-french.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-french",
+    "file": "/assets/3d/generated/b-wall-french.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-french",
+    "file": "/assets/3d/generated/b-gate-french.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-french",
+    "file": "/assets/3d/generated/b-keep-french.glb",
+    "bytes": 141320,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-french",
+    "file": "/assets/3d/generated/b-siege-french.glb",
+    "bytes": 78932,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-french",
+    "file": "/assets/3d/generated/b-healing-french.glb",
+    "bytes": 42132,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-french",
+    "file": "/assets/3d/generated/b-academy-french.glb",
+    "bytes": 39400,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-french",
+    "file": "/assets/3d/generated/b-landmark-french.glb",
+    "bytes": 129508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-french",
+    "file": "/assets/3d/generated/b-specialist-french.glb",
+    "bytes": 129508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-castilian",
+    "file": "/assets/3d/generated/b-town-castilian.glb",
+    "bytes": 129508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-castilian",
+    "file": "/assets/3d/generated/b-house-castilian.glb",
+    "bytes": 39396,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-castilian",
+    "file": "/assets/3d/generated/b-mill-castilian.glb",
+    "bytes": 54152,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-castilian",
+    "file": "/assets/3d/generated/b-lumber-castilian.glb",
+    "bytes": 57324,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-castilian",
+    "file": "/assets/3d/generated/b-mine-castilian.glb",
+    "bytes": 106504,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-castilian",
+    "file": "/assets/3d/generated/b-farm-castilian.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-castilian",
+    "file": "/assets/3d/generated/b-barracks-castilian.glb",
+    "bytes": 78928,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-castilian",
+    "file": "/assets/3d/generated/b-range-castilian.glb",
+    "bytes": 65132,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-castilian",
+    "file": "/assets/3d/generated/b-stable-castilian.glb",
+    "bytes": 46960,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-castilian",
+    "file": "/assets/3d/generated/b-camel-castilian.glb",
+    "bytes": 46960,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-castilian",
+    "file": "/assets/3d/generated/b-smithy-castilian.glb",
+    "bytes": 42892,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-castilian",
+    "file": "/assets/3d/generated/b-market-castilian.glb",
+    "bytes": 121976,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-castilian",
+    "file": "/assets/3d/generated/b-palisade-castilian.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-castilian",
+    "file": "/assets/3d/generated/b-tower-castilian.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-castilian",
+    "file": "/assets/3d/generated/b-wall-castilian.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-castilian",
+    "file": "/assets/3d/generated/b-gate-castilian.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-castilian",
+    "file": "/assets/3d/generated/b-keep-castilian.glb",
+    "bytes": 141320,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-castilian",
+    "file": "/assets/3d/generated/b-siege-castilian.glb",
+    "bytes": 78928,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-castilian",
+    "file": "/assets/3d/generated/b-healing-castilian.glb",
+    "bytes": 42132,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-castilian",
+    "file": "/assets/3d/generated/b-academy-castilian.glb",
+    "bytes": 39396,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-castilian",
+    "file": "/assets/3d/generated/b-landmark-castilian.glb",
+    "bytes": 129508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-castilian",
+    "file": "/assets/3d/generated/b-specialist-castilian.glb",
+    "bytes": 129508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-ayyubid",
+    "file": "/assets/3d/generated/b-town-ayyubid.glb",
+    "bytes": 158124,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-ayyubid",
+    "file": "/assets/3d/generated/b-house-ayyubid.glb",
+    "bytes": 67980,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-ayyubid",
+    "file": "/assets/3d/generated/b-mill-ayyubid.glb",
+    "bytes": 82728,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-ayyubid",
+    "file": "/assets/3d/generated/b-lumber-ayyubid.glb",
+    "bytes": 85900,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-ayyubid",
+    "file": "/assets/3d/generated/b-mine-ayyubid.glb",
+    "bytes": 135088,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-ayyubid",
+    "file": "/assets/3d/generated/b-farm-ayyubid.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-ayyubid",
+    "file": "/assets/3d/generated/b-barracks-ayyubid.glb",
+    "bytes": 107508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-ayyubid",
+    "file": "/assets/3d/generated/b-range-ayyubid.glb",
+    "bytes": 93720,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-ayyubid",
+    "file": "/assets/3d/generated/b-stable-ayyubid.glb",
+    "bytes": 75540,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-ayyubid",
+    "file": "/assets/3d/generated/b-camel-ayyubid.glb",
+    "bytes": 75540,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-ayyubid",
+    "file": "/assets/3d/generated/b-smithy-ayyubid.glb",
+    "bytes": 71532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-ayyubid",
+    "file": "/assets/3d/generated/b-market-ayyubid.glb",
+    "bytes": 150564,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-ayyubid",
+    "file": "/assets/3d/generated/b-palisade-ayyubid.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-ayyubid",
+    "file": "/assets/3d/generated/b-tower-ayyubid.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-ayyubid",
+    "file": "/assets/3d/generated/b-wall-ayyubid.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-ayyubid",
+    "file": "/assets/3d/generated/b-gate-ayyubid.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-ayyubid",
+    "file": "/assets/3d/generated/b-keep-ayyubid.glb",
+    "bytes": 141320,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-ayyubid",
+    "file": "/assets/3d/generated/b-siege-ayyubid.glb",
+    "bytes": 107508,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-ayyubid",
+    "file": "/assets/3d/generated/b-healing-ayyubid.glb",
+    "bytes": 70712,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-ayyubid",
+    "file": "/assets/3d/generated/b-academy-ayyubid.glb",
+    "bytes": 67980,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-ayyubid",
+    "file": "/assets/3d/generated/b-landmark-ayyubid.glb",
+    "bytes": 158124,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-ayyubid",
+    "file": "/assets/3d/generated/b-specialist-ayyubid.glb",
+    "bytes": 158124,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-steppe",
+    "file": "/assets/3d/generated/b-town-steppe.glb",
+    "bytes": 138352,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-steppe",
+    "file": "/assets/3d/generated/b-house-steppe.glb",
+    "bytes": 47208,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-steppe",
+    "file": "/assets/3d/generated/b-mill-steppe.glb",
+    "bytes": 61792,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-steppe",
+    "file": "/assets/3d/generated/b-lumber-steppe.glb",
+    "bytes": 65128,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-steppe",
+    "file": "/assets/3d/generated/b-mine-steppe.glb",
+    "bytes": 114316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-steppe",
+    "file": "/assets/3d/generated/b-farm-steppe.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-steppe",
+    "file": "/assets/3d/generated/b-barracks-steppe.glb",
+    "bytes": 86732,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-steppe",
+    "file": "/assets/3d/generated/b-range-steppe.glb",
+    "bytes": 71820,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-steppe",
+    "file": "/assets/3d/generated/b-stable-steppe.glb",
+    "bytes": 54768,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-steppe",
+    "file": "/assets/3d/generated/b-camel-steppe.glb",
+    "bytes": 54768,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-steppe",
+    "file": "/assets/3d/generated/b-smithy-steppe.glb",
+    "bytes": 51848,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-steppe",
+    "file": "/assets/3d/generated/b-market-steppe.glb",
+    "bytes": 129792,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-steppe",
+    "file": "/assets/3d/generated/b-palisade-steppe.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-steppe",
+    "file": "/assets/3d/generated/b-tower-steppe.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-steppe",
+    "file": "/assets/3d/generated/b-wall-steppe.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-steppe",
+    "file": "/assets/3d/generated/b-gate-steppe.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-steppe",
+    "file": "/assets/3d/generated/b-keep-steppe.glb",
+    "bytes": 141320,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-steppe",
+    "file": "/assets/3d/generated/b-siege-steppe.glb",
+    "bytes": 86732,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-steppe",
+    "file": "/assets/3d/generated/b-healing-steppe.glb",
+    "bytes": 48820,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-steppe",
+    "file": "/assets/3d/generated/b-academy-steppe.glb",
+    "bytes": 47208,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-steppe",
+    "file": "/assets/3d/generated/b-landmark-steppe.glb",
+    "bytes": 138352,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-steppe",
+    "file": "/assets/3d/generated/b-specialist-steppe.glb",
+    "bytes": 138352,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-roman",
+    "file": "/assets/3d/generated/b-town-roman.glb",
+    "bytes": 93992,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-roman",
+    "file": "/assets/3d/generated/b-house-roman.glb",
+    "bytes": 71688,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-roman",
+    "file": "/assets/3d/generated/b-mill-roman.glb",
+    "bytes": 91984,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-roman",
+    "file": "/assets/3d/generated/b-lumber-roman.glb",
+    "bytes": 85288,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-roman",
+    "file": "/assets/3d/generated/b-mine-roman.glb",
+    "bytes": 71688,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-roman",
+    "file": "/assets/3d/generated/b-farm-roman.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-roman",
+    "file": "/assets/3d/generated/b-barracks-roman.glb",
+    "bytes": 71688,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-roman",
+    "file": "/assets/3d/generated/b-range-roman.glb",
+    "bytes": 91152,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-roman",
+    "file": "/assets/3d/generated/b-stable-roman.glb",
+    "bytes": 77568,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-roman",
+    "file": "/assets/3d/generated/b-camel-roman.glb",
+    "bytes": 77568,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-roman",
+    "file": "/assets/3d/generated/b-smithy-roman.glb",
+    "bytes": 73368,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-roman",
+    "file": "/assets/3d/generated/b-market-roman.glb",
+    "bytes": 75052,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-roman",
+    "file": "/assets/3d/generated/b-palisade-roman.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-roman",
+    "file": "/assets/3d/generated/b-tower-roman.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-roman",
+    "file": "/assets/3d/generated/b-wall-roman.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-roman",
+    "file": "/assets/3d/generated/b-gate-roman.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-roman",
+    "file": "/assets/3d/generated/b-keep-roman.glb",
+    "bytes": 109956,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-roman",
+    "file": "/assets/3d/generated/b-siege-roman.glb",
+    "bytes": 85288,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-roman",
+    "file": "/assets/3d/generated/b-healing-roman.glb",
+    "bytes": 72536,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-roman",
+    "file": "/assets/3d/generated/b-academy-roman.glb",
+    "bytes": 72536,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-roman",
+    "file": "/assets/3d/generated/b-landmark-roman.glb",
+    "bytes": 93992,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-roman",
+    "file": "/assets/3d/generated/b-specialist-roman.glb",
+    "bytes": 93992,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-town-persian",
+    "file": "/assets/3d/generated/b-town-persian.glb",
+    "bytes": 196908,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-house-persian",
+    "file": "/assets/3d/generated/b-house-persian.glb",
+    "bytes": 65108,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mill-persian",
+    "file": "/assets/3d/generated/b-mill-persian.glb",
+    "bytes": 85404,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-lumber-persian",
+    "file": "/assets/3d/generated/b-lumber-persian.glb",
+    "bytes": 78712,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-mine-persian",
+    "file": "/assets/3d/generated/b-mine-persian.glb",
+    "bytes": 65108,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-farm-persian",
+    "file": "/assets/3d/generated/b-farm-persian.glb",
+    "bytes": 48708,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-barracks-persian",
+    "file": "/assets/3d/generated/b-barracks-persian.glb",
+    "bytes": 65108,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-range-persian",
+    "file": "/assets/3d/generated/b-range-persian.glb",
+    "bytes": 85688,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-stable-persian",
+    "file": "/assets/3d/generated/b-stable-persian.glb",
+    "bytes": 70992,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-camel-persian",
+    "file": "/assets/3d/generated/b-camel-persian.glb",
+    "bytes": 70992,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-smithy-persian",
+    "file": "/assets/3d/generated/b-smithy-persian.glb",
+    "bytes": 66792,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-market-persian",
+    "file": "/assets/3d/generated/b-market-persian.glb",
+    "bytes": 68476,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-palisade-persian",
+    "file": "/assets/3d/generated/b-palisade-persian.glb",
+    "bytes": 6592,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-tower-persian",
+    "file": "/assets/3d/generated/b-tower-persian.glb",
+    "bytes": 99280,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-wall-persian",
+    "file": "/assets/3d/generated/b-wall-persian.glb",
+    "bytes": 5532,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-gate-persian",
+    "file": "/assets/3d/generated/b-gate-persian.glb",
+    "bytes": 13316,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-keep-persian",
+    "file": "/assets/3d/generated/b-keep-persian.glb",
+    "bytes": 83812,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-siege-persian",
+    "file": "/assets/3d/generated/b-siege-persian.glb",
+    "bytes": 78712,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-healing-persian",
+    "file": "/assets/3d/generated/b-healing-persian.glb",
+    "bytes": 157516,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-academy-persian",
+    "file": "/assets/3d/generated/b-academy-persian.glb",
+    "bytes": 157516,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-landmark-persian",
+    "file": "/assets/3d/generated/b-landmark-persian.glb",
+    "bytes": 196908,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  },
+  {
+    "id": "b-specialist-persian",
+    "file": "/assets/3d/generated/b-specialist-persian.glb",
+    "bytes": 196908,
+    "origin": "Original procedural mesh authoring for Iron Crown",
+    "status": "integrated_original_art_pending_visual_acceptance",
+    "animations": []
+  }
+]
