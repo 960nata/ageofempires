@@ -68,6 +68,11 @@ export class Battlefield {
    else if(shore[k]*step<1.8){const a=1-shore[k]*step/1.8;px[o]=pal.sand[0];px[o+1]=pal.sand[1];px[o+2]=pal.sand[2];px[o+3]=Math.round(a*190);}
    else if(marsh[k]){const n=Math.sin(k*.37)*Math.sin(k*.0113);px[o]=78+n*10;px[o+1]=88+n*12;px[o+2]=58;px[o+3]=biome==='winter'?70:125;}}
   const layer=document.createElement('canvas');layer.width=layer.height=N;layer.getContext('2d')!.putImageData(img,0,0);c.save();c.imageSmoothingEnabled=true;c.drawImage(layer,0,0,c.canvas.width,c.canvas.height);c.restore();}
+ // One object failing to draw must not hide everything drawn after it (the loop runs back to front).
+ // Unwind any save() left open by the failed object, restore the base transform, and log each distinct error once.
+ private drawErrors=new Set<string>();
+ private drawError(err:unknown,e:Entity){const c=this.ctx;for(let i=0;i<6;i++)c.restore();c.setTransform(this.ratio,0,0,this.ratio,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.filter='none';
+  const key=`${e.type}:${e.def}:${e.state}:${String((err as Error)?.message??err)}`;if(this.drawErrors.has(key))return;this.drawErrors.add(key);console.error('[Iron Crown] could not draw',e.type,e.def,'state',e.state,'id',e.id,err);}
  private paintTerrain(){const t=this.terrain;t.width=t.height=2048;const c=t.getContext('2d')!;let seed=847;const r=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};const px=(n:number)=>(n+MAP_HALF)*8;
  paintGround(c,this.groundImage);this.tintBiome(c);const unit=2048/(MAP_SIZE*8);c.setTransform(unit,0,0,unit,0,0);
  const roadTexture=terrainPattern(c,this.groundImage,2,96);
@@ -203,7 +208,7 @@ export class Battlefield {
   const paintRock=(r:typeof rocks[number])=>{const s=this.scene.sprite('rock-formations-v1',r.index,r.width*this.scale,.83);if(!s)return;const p=this.project(r);if(p.x+s.width<0||p.x-s.width>this.width||p.y+s.height<0||p.y-s.height>this.height)return;c.save();if(!this.world.canSee(0,r))c.globalAlpha=.5;c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,p.x-s.width/2,p.y-s.height*s.anchor,s.width,s.height);c.restore();};
   // Grass tufts only change when buildings or exploration change, so the filtered list is cached on that signature.
   const wildKey=this.world.navVersion+'|'+this.world.entities.length+'|'+this.world.explored[0].size;if(wildKey!==this.wildKey){const occupiedGround=this.world.entities.filter(e=>e.type==='building'&&e.hp>0);this.wildList=this.wilds.filter(w=>!occupiedGround.some(b=>Math.hypot(b.x-w.x,b.z-w.z)<BUILDINGS[b.def].radius+.4)&&this.world.explored[0].has(gridIndex(worldCell(w).x,worldCell(w).z))).sort((a,b)=>a.x+a.z-b.x-b.z);this.wildKey=wildKey;}const wilds=this.wildList;let wildIndex=0;const paintWild=(w:typeof wilds[number])=>{const s=this.scene.wildgrass(w.index,w.width*this.scale);if(!s)return;const p=this.project(w);if(p.x+s.width<0||p.x-s.width>this.width||p.y+s.height<0||p.y-s.height>this.height)return;c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,p.x-s.width/2,p.y-s.height,s.width,s.height);};
-  for(const e of entities){while(wildIndex<wilds.length&&wilds[wildIndex].x+wilds[wildIndex].z<e.x+e.z)paintWild(wilds[wildIndex++]);while(rockIndex<rocks.length&&rocks[rockIndex].x+rocks[rockIndex].z<e.x+e.z)paintRock(rocks[rockIndex++]);const p=this.project(e.type==='unit'?(this.motion.get(e.id)??e):e);
+  for(const e of entities){try{while(wildIndex<wilds.length&&wilds[wildIndex].x+wilds[wildIndex].z<e.x+e.z)paintWild(wilds[wildIndex++]);while(rockIndex<rocks.length&&rocks[rockIndex].x+rocks[rockIndex].z<e.x+e.z)paintRock(rocks[rockIndex++]);const p=this.project(e.type==='unit'?(this.motion.get(e.id)??e):e);
    if(e.def==='__field-plot'){const field=(e as Entity&{field:Entity}).field,orchard=field.def==='orchard',picked=e.amount<(e.initialAmount??(orchard?420:360))*(orchard?.82:.98);let plant:Sprite|null;
     if(orchard)plant=this.scene.orchard(picked,(1.55)*this.scale,e.facing??0);
     else{const growth=Math.max(0,Math.min(1,field.growth??1)),stage=growth<.22?0:growth<.62?1:growth<1?2:3;plant=this.atlasSprite(this.resourceImage,1,stage,(.98+(Math.abs(e.id)%3)*.035)*this.scale,1);if(plant){const variation=.94+(Math.abs(e.id)%7)*.02;plant.height=(.12+1.42*Math.pow(growth,.8))*this.scale*variation;plant.anchor=1;}}
@@ -228,7 +233,7 @@ export class Battlefield {
    if(!e.inside)this.hits.push({entity:e,x:s.flip?2*p.x-x-s.width:x,y,width:s.width,height:s.height,sprite:s,constructionFrame});this.drawActivity(e,p,s);if(e.type==='building')this.drawProduction(e,p,s);
    if(this.selected.has(e.id)||e.hp<e.maxHp){const width=e.type==='building'?46:24;c.fillStyle='#161811';c.fillRect(p.x-width/2,y-7,width,4);c.fillStyle=e.owner===0?'#7dd269':'#d97459';c.fillRect(p.x-width/2+1,y-6,(width-2)*e.hp/e.maxHp,2);}
    if(e.type==='building'&&e.progress<1){c.fillStyle='#d9bb76';c.fillRect(x+s.width*.2,p.y+6,s.width*.6*e.progress,3);}if(e.type==='unit'&&Object.values(e.cargo).some(v=>v>0)){c.fillStyle='#ceaa62';c.fillRect(p.x+5,p.y-s.height*.45,4,4);}
-  }
+  }catch(err){this.drawError(err,e);}}
   while(rockIndex<rocks.length)paintRock(rocks[rockIndex++]);while(wildIndex<wilds.length)paintWild(wilds[wildIndex++]);
   // Own units stay readable behind buildings and trees: a faint ghost on top (over an unobstructed unit it only darkens slightly).
   if(this.unitGhosts){c.save();c.globalAlpha=.32;
