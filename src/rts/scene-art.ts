@@ -22,11 +22,13 @@ export class SceneArt {
   const regional=this.regional.building(faction,index,direction,width,age);if(regional)return regional;
   if(index<12&&age!==2){const era=age===0?'dark':age===1?'feudal':'imperial',view=['','-east','-north','-west'][direction],version=civ==='persian'&&era==='imperial'?'-v3':'';name=`${civ}-${era}${view}${version}-${String(index).padStart(2,'0')}`;if((eraFrames as Record<string,unknown>)[name]){this.requestEra(name);const art=this.sprite(name,0,width);if(art){art.anchor=1-art.width*.22/art.height;return art;}}
   }
+  // Wall runs use one frontal source view; the renderer shears it along the run (see iso-view).
+  const runs=def==='wall'||def==='palisade';
   if(index<12){name=`${civ}-settlement${['','-east','-north','-west'][direction]}-v2`;cell=index;}
-  else if(index<15){name=`${civ}-fortifications-v2`;cell=(index-12)*4+direction;if(index===14)width=radius*2.3*scale;}
+  else if(index<15){name=`${civ}-fortifications-v2`;cell=(index-12)*4+(runs?0:direction);if(runs)width=radius*2.5*scale;if(index===14)width=radius*2.3*scale;}
   else if(index<18){name=`${civ}-utilities-v2`;cell=(index-15)*4+direction;}
-  else{name='landmarks-palisade-v2';cell=(index===18?0:persian?2:1)*4+direction;}
-  const s=this.sprite(name,cell,width);if(s)s.anchor=1-s.width*(def==='wall'||def==='palisade'?.08:.22)/s.height;return s;
+  else{name='landmarks-palisade-v2';cell=(index===18?0:persian?2:1)*4+(runs?0:direction);if(runs)width=radius*2.5*scale;}
+  const s=this.sprite(name,cell,width);if(s)s.anchor=1-s.width*(runs?.08:.22)/s.height;return s;
  }
 
  vegetationSpecies(id:number,x:number,z:number){const {biome,type}=mapSpec();if(x>coastX(z)-19)return[8,9][id%2];if(biome==='winter')return[4,5][id%2];if(biome==='arid')return id%3?[8,9][id%2]:[0,7][id%2];return type==='borderlands'&&z<-45?[4,5][id%2]:[0,1,2,3,4,7][id%6];}
