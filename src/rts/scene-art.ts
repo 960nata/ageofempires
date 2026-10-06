@@ -1,7 +1,7 @@
 import {RegionalArt} from './regional-art';
 import {assetUrl} from './assets';
 import frames from './scene-frames.json';
-import {coastX} from './map';
+import {coastX,mapSpec} from './map';
 import eraFrames from './era-frames.json';
 const allFrames:Record<string,{x:number;y:number;w:number;h:number}[]>={...frames,...eraFrames};
 export interface SceneSprite {image:HTMLImageElement;sx:number;sy:number;sw:number;sh:number;width:number;height:number;anchor:number;anchorX?:number;flip?:boolean;}
@@ -29,9 +29,20 @@ export class SceneArt {
   const s=this.sprite(name,cell,width);if(s)s.anchor=1-s.width*(def==='wall'||def==='palisade'?.08:.22)/s.height;return s;
  }
 
- vegetationSpecies(id:number,x:number,z:number){return x>coastX(z)-19?[8,9][id%2]:z<-45?[4,5][id%2]:[0,1,2,3,4,7][id%6];}
+ vegetationSpecies(id:number,x:number,z:number){const {biome,type}=mapSpec();if(x>coastX(z)-19)return[8,9][id%2];if(biome==='winter')return[4,5][id%2];if(biome==='arid')return id%3?[8,9][id%2]:[0,7][id%2];return type==='borderlands'&&z<-45?[4,5][id%2]:[0,1,2,3,4,7][id%6];}
  vegetationFamily(id:number,x:number,z:number){const species=this.vegetationSpecies(id,x,z);return species>=8&&species<=9?2:species===5||species===6?1:0;}
- vegetation(id:number,x:number,z:number,scale:number){const species=this.vegetationSpecies(id,x,z),s=this.sprite('woodland-v2',species,1);if(s){const height=(species===6?7.8:species<2?7.5:6.5)*(1+(id%7-3)*.035)*scale;s.width=height*s.sw/s.sh;s.height=height;}return s;}
+ // Biome recolour of the woodland atlas, done once per biome on the CPU (ctx.filter is missing on Safari).
+ private tinted='temperate';private baseWoodland?:HTMLImageElement;
+ private syncBiome(){const biome=mapSpec().biome;if(biome===this.tinted)return;const name='woodland-v2',base=this.baseWoodland??this.images.get(name);if(!base?.naturalWidth)return;this.baseWoodland=base;this.tinted=biome;if(biome==='temperate'){this.images.set(name,base);return;}
+  const canvas=document.createElement('canvas');canvas.width=base.width;canvas.height=base.height;const c=canvas.getContext('2d',{willReadFrequently:true})!;c.drawImage(base,0,0);const img=c.getImageData(0,0,canvas.width,canvas.height),p=img.data;
+  for(let i=0;i<p.length;i+=4){if(!p[i+3])continue;const r=p[i],g=p[i+1],b=p[i+2],leaf=g>r*.92&&g>b;
+   if(biome==='autumn'&&leaf){p[i]=Math.min(255,r*.75+g*.75);p[i+1]=g*.62+r*.15;p[i+2]=b*.55;}
+   else if(biome==='arid'&&leaf){p[i]=Math.min(255,r*.9+g*.35);p[i+1]=g*.88;p[i+2]=b*.7;}
+   else if(biome==='winter'){const l=.3*r+.59*g+.11*b,m=leaf?.72:.35;p[i]=r+(Math.min(255,l*.8+70)-r)*m;p[i+1]=g+(Math.min(255,l*.85+74)-g)*m;p[i+2]=b+(Math.min(255,l*.9+86)-b)*m;}}
+  c.putImageData(img,0,0);
+  // The canvas stands in for the atlas image; naturalWidth lets the existing "is it loaded" checks accept it.
+  Object.defineProperty(canvas,'naturalWidth',{value:canvas.width});this.images.set(name,canvas as unknown as HTMLImageElement);}
+ vegetation(id:number,x:number,z:number,scale:number){this.syncBiome();const species=this.vegetationSpecies(id,x,z),s=this.sprite('woodland-v2',species,1);if(s){const height=(species===6?7.8:species<2?7.5:6.5)*(1+(id%7-3)*.035)*scale;s.width=height*s.sw/s.sh;s.height=height;}return s;}
  rubble(def:string,persian:boolean,width:number){let index=def==='house'?0:['barracks','range','stable'].includes(def)?1:['keep','tower','gate'].includes(def)?3:2;index+=persian?4:0;if(['siege','lumber','mine','smithy'].includes(def))index=8;if(def==='farm')index=9;if(def==='market')index=10;if(['wall','palisade'].includes(def))index=11;const s=this.sprite('ruins-v1',index,width);if(s){s.height*=.58;s.anchor=1-s.width*.19/s.height;}return s;}
  orchard(picked:boolean,width:number,facing:number){return this.sprite('orchard-grasses-v3',(picked?4:0)+((facing%4+4)%4),width);}
  wildgrass(id:number,width:number){return this.sprite('orchard-grasses-v3',8+id%4,width);}

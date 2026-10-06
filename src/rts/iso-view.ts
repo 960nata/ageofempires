@@ -9,7 +9,7 @@ import {VillagerSprites} from './villager-sprites';
 import {paintGround,terrainPattern} from './ground-materials';
 import {CombatSprites} from './combat-sprites';
 import {TerrainSurface} from './terrain-surface';
-import {MAP_HALF,MAP_SIZE,GRID_SIZE,worldCell,gridIndex,coastX,elevationFast,HIGHLANDS,isCliff,isWater,ravineX,MAP_SCALE} from './map';
+import {MAP_HALF,MAP_SIZE,GRID_SIZE,worldCell,gridIndex,coastX,elevationFast,HIGHLANDS,isCliff,isWater,ravineX,MAP_SCALE,mapSpec,hasSea,hasRavine,isMarsh,isRiver,isFord} from './map';
 import {BUILDINGS,UNITS} from './data';
 import {World,type Entity,type Point} from './world';
 
@@ -46,8 +46,30 @@ export class Battlefield {
  groundPoint(clientX:number,clientY:number):Point {const b=this.canvas.getBoundingClientRect(),a=(clientX-b.left-this.width/2)/this.scale,v=(clientY-b.top-this.height*.53)/(this.scale*.5);let h=0,p={x:0,z:0};for(let i=0;i<12;i++){p={x:this.focus.x+(a+v)/2+h,z:this.focus.z+(v-a)/2+h};h=h*.4+elevationFast(p.x,p.z)*.6;}return p;}
  private readAlpha(image:HTMLImageElement){const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const c=canvas.getContext('2d',{willReadFrequently:true})!;c.drawImage(image,0,0);this.alphaData.set(image,{width:image.width,data:alphaOnly(c.getImageData(0,0,image.width,image.height).data)});}
  pick(clientX:number,clientY:number){const b=this.canvas.getBoundingClientRect(),x=clientX-b.left,y=clientY-b.top;const hit=(h:Hit)=>{if(x<h.x||x>h.x+h.width||y<h.y||y>h.y+h.height)return false;if(h.constructionFrame){const frame=h.constructionFrame,px=Math.min(frame.width-1,Math.max(0,Math.floor((x-h.x)/h.width*frame.width))),py=Math.min(frame.height-1,Math.max(0,Math.floor((y-h.y)/h.height*frame.height)));return frame.getContext('2d')!.getImageData(px,py,1,1).data[3]>50;}const s=h.sprite,data=this.alphaData.get(s.image);if(h.entity.def==='road')return true;const u=(x-h.x)/h.width,v=(y-h.y)/h.height,sx=Math.min(s.image.width-1,Math.floor(s.sx+(s.flip?1-u:u)*s.sw)),sy=Math.min(s.image.height-1,Math.floor(s.sy+v*s.sh));return data?data.data[sy*data.width+sx]>70:this.scene.opaque(s.image,sx,sy)??this.walking.opaque(s.image,sx,sy)??this.villagers.opaque(s.image,sx,sy)??this.combat.opaque(s.image,sx,sy)??true;};for(const h of [...this.hits].reverse())if(h.entity.type==='unit'&&hit(h))return h.entity;for(const h of [...this.hits].reverse())if(hit(h))return h.entity;const ground=this.groundPoint(clientX,clientY);return this.world.entities.find(e=>isField(e.def)&&e.hp>0&&e.progress>=1&&this.world.explored[0].has(gridIndex(worldCell(e).x,worldCell(e).z))&&Math.abs(ground.x-e.x)<=BUILDINGS[e.def].radius&&Math.abs(ground.z-e.z)<=BUILDINGS[e.def].radius);}
+ // Biome wash over the base ground: dry, autumn and snow variants of the same materials.
+ private tintBiome(c:CanvasRenderingContext2D){const biome=mapSpec().biome,size=c.canvas.width;if(biome==='temperate')return;c.save();
+  if(biome==='arid'){c.globalCompositeOperation='multiply';c.fillStyle='#e8cf98';c.fillRect(0,0,size,size);c.globalCompositeOperation='source-over';c.fillStyle='#d9bb8030';c.fillRect(0,0,size,size);}
+  if(biome==='autumn'){c.globalCompositeOperation='multiply';c.fillStyle='#ecd2a2';c.fillRect(0,0,size,size);c.globalCompositeOperation='source-over';c.fillStyle='#a8632a1c';c.fillRect(0,0,size,size);}
+  if(biome==='winter'){c.globalCompositeOperation='source-over';c.fillStyle='#eef3f5a8';c.fillRect(0,0,size,size);c.globalCompositeOperation='multiply';c.fillStyle='#e4ecf2';c.fillRect(0,0,size,size);}
+  c.restore();}
+ // Lakes, rivers, sea, fords and marsh painted from the terrain mask with a distance-to-shore depth ramp.
+ private paintWater(c:CanvasRenderingContext2D){const N=512,step=MAP_SIZE/N,biome=mapSpec().biome,water=new Uint8Array(N*N),ford=new Uint8Array(N*N),marsh=new Uint8Array(N*N);
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=-MAP_HALF+(i+.5)*step,z=-MAP_HALF+(j+.5)*step,k=j*N+i;if(isWater(x,z))water[k]=1;else if(isRiver(x,z)&&isFord(x,z))ford[k]=1;else if(isMarsh(x,z))marsh[k]=1;}
+  // Two-pass chamfer distance: cells into the water (depth) and cells onto land (shore sand).
+  const chamfer=(inside:(k:number)=>boolean)=>{const d=new Float32Array(N*N);for(let k=0;k<N*N;k++)d[k]=inside(k)?1e9:0;
+   for(let j=0;j<N;j++)for(let i=0;i<N;i++){const k=j*N+i;if(!d[k])continue;let v=d[k];if(i)v=Math.min(v,d[k-1]+1);if(j)v=Math.min(v,d[k-N]+1);if(i&&j)v=Math.min(v,d[k-N-1]+1.41);if(j&&i<N-1)v=Math.min(v,d[k-N+1]+1.41);d[k]=v;}
+   for(let j=N-1;j>=0;j--)for(let i=N-1;i>=0;i--){const k=j*N+i;if(!d[k])continue;let v=d[k];if(i<N-1)v=Math.min(v,d[k+1]+1);if(j<N-1)v=Math.min(v,d[k+N]+1);if(i<N-1&&j<N-1)v=Math.min(v,d[k+N+1]+1.41);if(j<N-1&&i)v=Math.min(v,d[k+N-1]+1.41);d[k]=v;}return d;};
+  const depth=chamfer(k=>!!water[k]),shore=chamfer(k=>!water[k]);
+  const pal=biome==='winter'?{sh:[176,208,218],dp:[66,104,134],sand:[226,233,236]}:biome==='arid'?{sh:[86,176,170],dp:[22,84,112],sand:[214,190,140]}:{sh:[92,172,168],dp:[18,59,97],sand:[201,186,142]};
+  const img=new ImageData(N,N),px=img.data;
+  for(let k=0;k<N*N;k++){const o=k*4;
+   if(water[k]){const t=Math.min(1,depth[k]*step/16),mid=Math.min(1,depth[k]*step/2.5);for(let ch=0;ch<3;ch++)px[o+ch]=pal.sand[ch]+(pal.sh[ch]-pal.sand[ch])*mid+(pal.dp[ch]-pal.sh[ch])*t;px[o+3]=255;}
+   else if(ford[k]){px[o]=140;px[o+1]=176;px[o+2]=160;px[o+3]=210;}
+   else if(shore[k]*step<1.8){const a=1-shore[k]*step/1.8;px[o]=pal.sand[0];px[o+1]=pal.sand[1];px[o+2]=pal.sand[2];px[o+3]=Math.round(a*190);}
+   else if(marsh[k]){const n=Math.sin(k*.37)*Math.sin(k*.0113);px[o]=78+n*10;px[o+1]=88+n*12;px[o+2]=58;px[o+3]=biome==='winter'?70:125;}}
+  const layer=document.createElement('canvas');layer.width=layer.height=N;layer.getContext('2d')!.putImageData(img,0,0);c.save();c.imageSmoothingEnabled=true;c.drawImage(layer,0,0,c.canvas.width,c.canvas.height);c.restore();}
  private paintTerrain(){const t=this.terrain;t.width=t.height=2048;const c=t.getContext('2d')!;let seed=847;const r=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};const px=(n:number)=>(n+MAP_HALF)*8;
- paintGround(c,this.groundImage);
+ paintGround(c,this.groundImage);this.tintBiome(c);const unit=2048/(MAP_SIZE*8);c.setTransform(unit,0,0,unit,0,0);
  const roadTexture=terrainPattern(c,this.groundImage,2,96);
  // Layer translucent local soil over the existing terrain: no opaque circular island.
  for(const tree of this.world.entities){if(tree.resource!=='wood')continue;const x=px(tree.x),y=px(tree.z),pine=tree.z<-45,coastal=tree.x>coastX(tree.z)-19;
@@ -58,21 +80,21 @@ export class Battlefield {
 
  const drawRoad=(a:Point,b:Point,width:number)=>{const route=this.world.path(a,b);if(!route.length)return;const points=[a,...route.filter((_,i)=>i%3===0),route[route.length-1]];for(const [extra,color]of [[12,'#82744712'],[6,'#af98612b'],[0,'#b29b70a0']]as const){c.strokeStyle=extra===0&&roadTexture?roadTexture:color;c.lineWidth=width+extra;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(px(a.x),px(a.z));for(let i=1;i<points.length;i++){const p=points[i],q=points[Math.min(i+1,points.length-1)],wobble=Math.sin(p.x*.48+p.z*.31)*.45;c.quadraticCurveTo(px(p.x+wobble),px(p.z-wobble),px((p.x+q.x)/2),px((p.z+q.z)/2));}c.stroke();}};
  const towns=this.world.entities.filter(e=>e.type==='building'&&e.def==='town');const entrances=towns.map(t=>({x:t.x+6,z:t.z+6}));
- if(entrances.length===2){const waypoints=[entrances[0],{x:-33,z:-12},{x:6,z:5},{x:28,z:10},entrances[1]];for(let i=1;i<waypoints.length;i++)drawRoad(waypoints[i-1],waypoints[i],10);}
+ if(entrances.length===2&&mapSpec().type==='borderlands'){const waypoints=[entrances[0],{x:-33,z:-12},{x:6,z:5},{x:28,z:10},entrances[1]];for(let i=1;i<waypoints.length;i++)drawRoad(waypoints[i-1],waypoints[i],10);}
  for(const side of this.world.realms){const buildings=this.world.alive(side,'building'),town=buildings.find(b=>b.def==='town');if(!town)continue;const junctions=[{x:town.x-9,z:town.z-8},{x:town.x+7,z:town.z+7},{x:town.x+15,z:town.z-5}];for(let i=1;i<junctions.length;i++)drawRoad(junctions[i-1],junctions[i],8);for(const b of buildings){if(b.def==='farm')continue;const entrance={x:b.x+BUILDINGS[b.def].radius+1.5,z:b.z+2};const near=[...junctions].sort((a,b)=>Math.hypot(a.x-entrance.x,a.z-entrance.z)-Math.hypot(b.x-entrance.x,b.z-entrance.z))[0];drawRoad(near,entrance,4);const g=c.createRadialGradient(px(b.x),px(b.z),0,px(b.x),px(b.z),(BUILDINGS[b.def].radius+2)*8);g.addColorStop(0,'#95846428');g.addColorStop(1,'#95846400');c.fillStyle=g;c.fillRect(px(b.x)-55,px(b.z)-55,110,110);}}
- // Coast shares the same boundary as the navigation grid.
- for(let z=-MAP_HALF;z<MAP_HALF;z+=.25){const y=px(z),shore=px(coastX(z)),depth=c.createLinearGradient(shore-20,0,shore+180,0);depth.addColorStop(0,'#c9ba8e');depth.addColorStop(.13,'#5caca8');depth.addColorStop(.38,'#258ea6');depth.addColorStop(1,'#123b61');c.fillStyle=depth;c.fillRect(shore-15,y,2048-shore+15,3);}
- for(let i=0;i<4200;i++){const z=r()*MAP_SIZE-MAP_HALF,x=coastX(z)+1+r()*38;if(x>MAP_HALF)continue;c.strokeStyle=i%3?'#b4e4d336':'#16596e45';c.lineWidth=.6;c.beginPath();c.moveTo(px(x),px(z));c.lineTo(px(x)+3+r()*9,px(z)+1);c.stroke();}
- for(let i=0;i<75;i++){const z=42+i*.74,x=coastX(z)-3.5-Math.sin(i*1.7)*1.2;if(this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+3))continue;const radius=12+(i%4)*5,g=c.createRadialGradient(px(x),px(z),0,px(x),px(z),radius);g.addColorStop(0,i%3?'#4c513688':'#493c2d99');g.addColorStop(1,'#64734700');c.fillStyle=g;c.fillRect(px(x)-radius,px(z)-radius,radius*2,radius*2);}
- this.surface.rebuild(this.terrain,this.groundImage);
+ // Water for every map type comes from the same mask navigation uses.
+ c.setTransform(1,0,0,1,0,0);this.paintWater(c);c.setTransform(unit,0,0,unit,0,0);
+ if(hasSea())for(let i=0;i<4200;i++){const z=r()*MAP_SIZE-MAP_HALF,x=coastX(z)+1+r()*38;if(x>MAP_HALF)continue;c.strokeStyle=i%3?'#b4e4d336':'#16596e45';c.lineWidth=.6;c.beginPath();c.moveTo(px(x),px(z));c.lineTo(px(x)+3+r()*9,px(z)+1);c.stroke();}
+ if(hasSea())for(let i=0;i<75;i++){const z=42+i*.74,x=coastX(z)-3.5-Math.sin(i*1.7)*1.2;if(this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+3))continue;const radius=12+(i%4)*5,g=c.createRadialGradient(px(x),px(z),0,px(x),px(z),radius);g.addColorStop(0,i%3?'#4c513688':'#493c2d99');g.addColorStop(1,'#64734700');c.fillStyle=g;c.fillRect(px(x)-radius,px(z)-radius,radius*2,radius*2);}
+ c.setTransform(1,0,0,1,0,0);this.surface.rebuild(this.terrain,this.groundImage);
  this.rocks=[];this.wilds=[];
  for(const hill of HIGHLANDS)for(let i=0;i<Math.round(19*MAP_SCALE);i++){const angle=i*2.399+hill.x,r=hill.r*(.85+(i%4)*.035),x=hill.x+Math.cos(angle)*r,z=hill.z+Math.sin(angle)*r;if(!isCliff(x,z)||this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+5))continue;this.rocks.push({x,z,index:8+(i%3),width:4.5+(i%4)*.8});}
  const grassN=Math.round(50*MAP_SCALE);for(let gz=0;gz<grassN;gz++)for(let gx=0;gx<grassN;gx++){const x=-118*MAP_SCALE+gx*4.8,z=-118*MAP_SCALE+gz*4.8,seed=Math.abs(Math.sin(gx*127.1+gz*311.7)*43758.5453)%1;if(seed>.24||isWater(x,z)||isCliff(x,z)||this.world.realms.some(s=>{const h=this.world.home(s);return Math.hypot(x-h.x,z-h.z)<34;})||this.world.entities.some(e=>e.type==='resource'&&Math.hypot(e.x-x,e.z-z)<3.5)||this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+2))continue;this.wilds.push({x:x+(seed-.5)*2.2,z:z+(Math.sin(seed*88)-.5)*2,index:Math.floor(seed*4),width:.68+seed*.38});if(this.wilds.length>=210)break;}
  // Sparse understory uses existing original ground-cover sprites and stable positions.
  const trees=this.world.entities.filter(e=>e.resource==='wood'&&e.amount>0&&e.felledAt===undefined);
  for(const tree of trees){if(tree.id%3!==0)continue;for(let n=0;n<2;n++){const angle=tree.id*2.399+n*2.7,spread=1.25+(tree.id%4)*.28,x=tree.x+Math.cos(angle)*spread,z=tree.z+Math.sin(angle)*spread;if(isWater(x,z)||isCliff(x,z)||this.world.entities.some(e=>e.type==='building'&&e.hp>0&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+1))continue;this.wilds.push({x,z,index:(tree.id+n)%4,width:.42+(tree.id%4)*.07});}}
- for(let i=0;i<Math.round(21*MAP_SCALE);i++){const z=-89*MAP_SCALE+i*4.9;for(const side of [-1,1])this.rocks.push({x:ravineX(z)+side*5.5,z,index:side<0?8:9,width:4.3+(i%3)*.3});}
- for(let i=0;i<Math.round(46*MAP_SCALE);i++){const z=-120*MAP_SCALE+i*5.2,x=coastX(z)+.25+(i%3)*.25;this.rocks.push({x,z,index:i%4,width:2.2+(i%4)*.5});}
+ if(hasRavine())for(let i=0;i<Math.round(21*MAP_SCALE);i++){const z=-89*MAP_SCALE+i*4.9;for(const side of [-1,1])this.rocks.push({x:ravineX(z)+side*5.5,z,index:side<0?8:9,width:4.3+(i%3)*.3});}
+ if(hasSea())for(let i=0;i<Math.round(46*MAP_SCALE);i++){const z=-120*MAP_SCALE+i*5.2,x=coastX(z)+.25+(i%3)*.25;this.rocks.push({x,z,index:i%4,width:2.2+(i%4)*.5});}
 
  }
  private measureFrames(image:HTMLImageElement){const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const c=canvas.getContext('2d',{willReadFrequently:true})!;c.drawImage(image,0,0);const pixels=c.getImageData(0,0,image.width,image.height).data;this.alphaData.set(image,{width:image.width,data:alphaOnly(pixels)});
@@ -256,7 +278,7 @@ export class Battlefield {
    const dust=this.scene.effect(2,Math.min(3,Math.floor(age*2)),s.width*(.7+age*.4));if(dust)this.blit(dust,{x:p.x,y:p.y+s.width*.2},Math.sin(Math.min(1,age/2.4)*Math.PI)*.75);
   }this.drawFire(e,p,s,true);
  }
- private drawWater(){const c=this.ctx,t=this.visualTime;c.save();c.lineWidth=Math.max(.6,this.scale*.055);
+ private drawWater(){if(!hasSea())return;const c=this.ctx,t=this.visualTime;c.save();c.lineWidth=Math.max(.6,this.scale*.055);
   for(let i=0;i<16;i++){const z=-112+i*14.3,x=coastX(z)+6+(i%3)*3,phase=(t+i*1.731)%9;if(phase>1.05)continue;const q=this.project({x,z}),u=phase/1.05;if(q.x<0||q.x>this.width||q.y<0||q.y>this.height)continue;const leap=Math.sin(u*Math.PI)*this.scale*.9;c.save();c.translate(q.x+(u-.5)*this.scale*1.7,q.y-leap);c.rotate((u-.5)*1.2);c.fillStyle='#a8c8c8';c.beginPath();c.ellipse(0,0,this.scale*.22,this.scale*.085,0,0,Math.PI*2);c.fill();c.beginPath();c.moveTo(-this.scale*.17,0);c.lineTo(-this.scale*.32,-this.scale*.1);c.lineTo(-this.scale*.32,this.scale*.1);c.closePath();c.fill();c.restore();c.strokeStyle=`rgba(197,229,224,${.4*(1-u)})`;c.beginPath();c.ellipse(q.x,q.y,2+u*this.scale,.8+u*this.scale*.3,0,0,Math.PI*2);c.stroke();}
   for(let i=0;i<65;i++){const z=42+i*.86,x=coastX(z)-.5-Math.sin(i*1.7)*.5,q=this.project({x,z});if(q.x<0||q.x>this.width||q.y<0||q.y>this.height)continue;for(let stem=0;stem<3;stem++){const sway=Math.sin(t*1.3+i+stem)*this.scale*.05,dx=(stem-1)*this.scale*.1,h=this.scale*(.55+(i+stem)%4*.13);c.strokeStyle=stem%2?'#667349':'#85925a';c.beginPath();c.moveTo(q.x+dx,q.y);c.quadraticCurveTo(q.x+dx+sway,q.y-h*.6,q.x+dx+sway*2,q.y-h);c.stroke();c.fillStyle='#665039';c.fillRect(q.x+dx+sway*2-1,q.y-h,2,Math.max(2,this.scale*.16));}}
 
