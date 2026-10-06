@@ -3,3 +3,24 @@
 :root{--gold:#c9a45f}.shell{grid-template-rows:64px 1fr 185px}header{height:64px;background:linear-gradient(#28251d,#141814);border-bottom:3px double #8f7749}header .logo{color:#e1c68f}#tech{font-size:9px;letter-spacing:.12em;color:#e0c18b}.map-title{background:#201f17da;border:1px solid #87754c;padding:10px 16px}.minimap{border:3px double #aa8d54;background:#161a11;padding:6px;box-shadow:0 4px 20px #0006}.minimap small{font-size:8px}footer{background:linear-gradient(#272b20,#171e15);border-top:3px double #a58a55}#inspect{background:linear-gradient(110deg,#dbcaa5,#c8b58f);color:#342f23;border-right:3px double #796443}#inspect .section-title,#inspect small,#inspect p{color:#514837}#inspect h3{font-family:Georgia,serif;color:#302a20}.action{background:linear-gradient(#343d2b,#222a1d);border:1px solid #76704b;min-height:42px}.action:hover{border-color:#ddc17c;background:#41472e}.action b{font-size:10px}.action small{font-size:8px}.home-art{background:radial-gradient(ellipse at 50% 40%,#927d4566,transparent 60%),linear-gradient(140deg,#512622,#202919 65%,#302e24)}.home-copy{background:linear-gradient(100deg,#161e14ef,#1e2419de)}.home .sigil{color:#ceab66}.panel{border:3px double #9c8555;background:linear-gradient(130deg,#24291d,#151d16)}.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.tech-node{display:flex;flex-direction:column;padding:16px;background:linear-gradient(120deg,#ddcda7,#c8b58f);border:2px solid #8e7646;color:#372f21}.tech-node h3{font:20px Georgia,serif;margin:10px 0}.panel .tech-node p{color:#514837;flex:1;line-height:1.5}.tech-node small{font-size:10px;color:#62543a}.tech-node button{margin-top:14px;color:#e5d4a9;background:#283421}.tech-node.completed{border-color:#b3bf77}.dependency{font-size:10px;margin-top:10px}.age-heading{display:flex;gap:12px;border-bottom:1px solid #7c744d;padding:10px 0}.age-heading span{font-size:11px;color:#77816b}.age-heading .reached{color:#dcc58c}@media(max-width:760px){.shell{grid-template-rows:100px 1fr 220px}header{height:100px}.tech-grid{grid-template-columns:1fr 1fr}.age-heading{flex-wrap:wrap}.tech-node{padding:10px}.tech-node h3{font-size:16px}}
 
 #object-hint{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);pointer-events:none;background:#172016e8;border:1px solid #8e7a4c;padding:6px 12px;font-size:11px;color:#ead8ac}#object-hint:empty{display:none}
+/* HUD labels never swallow taps or clicks meant for the battlefield. */
+.map-title,.key-hint,#notice,#placement-hint{pointer-events:none}
+/* Touch devices: no keyboard/mouse hint or decorative map title. */
+@media (pointer:coarse){.key-hint,.map-title{display:none}}
+/* Short screens (phones in landscape): give the battlefield most of the height. */
+@media (max-height:560px){
+ .shell{grid-template-rows:44px minmax(150px,1fr) calc(112px*var(--ui-scale));min-height:0}
+ header{height:44px;padding:4px 10px;gap:10px}
+ .logo{font-size:18px}.logo span,#realm small{display:none}
+ #realm{min-width:0;font-size:11px;padding-left:8px}
+ #stocks{gap:12px}#stocks small{font-size:7px}#stocks b{font-size:13px}
+ header button{padding:5px 8px;font-size:11px}
+ .minimap{top:6px;right:6px;padding:4px}.minimap canvas{width:84px;height:84px}.minimap small{display:none}
+ footer{grid-template-columns:26% 48% 26%}
+ footer section{padding:6px 8px}
+ footer h3{font-size:13px;margin:2px 0}footer p{font-size:10px;margin:2px 0}
+ .section-title{font-size:8px}
+ #actions{gap:4px}.action{padding:4px 6px}
+ .overview-actions{gap:4px}.overview-actions button,.overview-actions select{padding:4px 6px;font-size:10px}
+ #era-track{display:none}
+}

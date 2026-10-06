@@ -10,8 +10,8 @@ export const FACTIONS: Record<Faction, {name:string; accent:string; description:
  english:{name:'English Crown',accent:'#416078',description:'Longbow infantry. Food gather +8%.',landmark:'Great Hall'},
  french:{name:'French Crown',accent:'#345b91',description:'Heavy cavalry. Mounted training 10% faster.',landmark:'Royal Palace'},
  castilian:{name:'Crown of Castile',accent:'#963d32',description:'Light cavalry. Defensive stone costs 12% less.',landmark:'Royal Alcázar'},
- ayyubid:{name:'Ayyubid Sultanate',accent:'#5a7847',description:'Camel troops. Caravan income +10%.',landmark:'Citadel Court'},
- steppe:{name:'Steppe Confederation',accent:'#97653b',description:'Horse archers. Mounted movement +8%.',landmark:'Great Assembly'},
+ ayyubid:{name:'Saracen Sultanate',accent:'#5a7847',description:'Camel troops. Caravan income +10%.',landmark:'Citadel Court'},
+ steppe:{name:'Mongol Empire',accent:'#97653b',description:'Horse archers. Mounted movement +8%.',landmark:'Great Assembly'},
 };
 export interface UnitDef {id:string; name:string; era:number; building:string; cost:Cost; seconds:number; pop:number; hp:number; speed:number; attack:number; range:number; cooldown:number; armor:number; role:string; model:string; factions?:Faction[]; shield?:boolean; mounted?:boolean; siege?:boolean; sight:number;stride?:number;turnRate?:number;footprint?:number;}
 const raw: Array<[string,string,number,string,Cost,number,number,number,number,number,number,number,number,string,string]> = [

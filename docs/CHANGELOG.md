@@ -1,3 +1,9 @@
+## 0.21.0 — Animated gates and four regional art sets
+- Gate opening/closing now follows simulation progress and waits for units before closure.
+- Added 48 Castle Age core building sprites and four signature troop atlases for English, French, Saracen and Mongol factions.
+- Renamed Ayyubid/Steppe display names without migrating internal save IDs.
+- Art remains partial: other eras, true rear facades, complete rosters and final animation polish are pending.
+
 # Changelog
 
 ## 0.20.1 — 2026-10-06 — Reachable villager work sites and resource continuation

@@ -144,3 +144,6 @@ Original built-in image generation with transparent background; no third-party g
 | `villager-male-locomotion-v1.png` | `exec-d4807581-959c-4810-b907-7d9b9983e029.png` | 8 directions × 6 cells (idle + 5 walk) |
 | `villager-female-locomotion-v1.png` | `exec-3fa1384c-479d-4c46-9189-42630abe63d6.png` | 8 directions × 6 cells (idle + 5 walk) |
 | `villager-female-actions-v1.png` | `exec-e1ec6919-7e91-46a0-9f93-c8ad7a85477b.png` | 5 jobs × 8 cells (front/rear cycles) |
+
+## 0.21.0 regional and gate atlases
+Built-in image generation, 2026-10-06. Files: gate-motion-v1.png; english/french/saracen/mongol-settlement-v1.png; english/french/saracen/mongol-signature-v1.png. Original generated artwork copied into this project; no third-party paid asset pack acquired. Prompt set and limitations: docs/REGIONAL-ASSET-PROMPTS.json and docs/GATES-AND-FACTIONS-0.21.md.
