@@ -1,7 +1,7 @@
 export type Resource = 'food' | 'wood' | 'gold' | 'stone';
 export type Stock = Record<Resource, number>;
 export type Cost = Partial<Stock>;
-export type Side = 0 | 1 | 2;
+export type Side = 0 | 1 | 2 | 3;
 export type Faction = 'english' | 'french' | 'castilian' | 'ayyubid' | 'steppe' | 'roman' | 'persian';
 export const ERAS = ['Dark Age', 'Feudal Age', 'Castle Age', 'Imperial Age'];
 export const FACTIONS: Record<Faction, {name:string; accent:string; description:string; landmark:string}> = {
