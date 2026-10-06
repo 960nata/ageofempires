@@ -24,3 +24,6 @@
  .overview-actions{gap:4px}.overview-actions button,.overview-actions select{padding:4px 6px;font-size:10px}
  #era-track{display:none}
 }
+
+/* Threat notices stand out from routine messages. */
+#notice.warning{border-color:#d0654c;background:#2a1511f2;color:#f7d9c8;font-weight:600}
