@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('..',import.meta.url));
+const result=await build({stdin:{contents:"export {World} from './world';export {AGE_TIMES} from './data';",resolveDir:root+'/src/rts',loader:'ts'},bundle:true,platform:'node',format:'esm',write:false,logLevel:'silent'});
+const {World,AGE_TIMES}=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'));
+const w=new World('steppe','english',42,'skirmish',false);w.players[0].era=1;w.players[0].stock={food:8000,wood:8000,gold:8000,stone:8000};w.players[1].stock={food:0,wood:0,gold:0,stone:0};
+const town=w.add('building','town',0,-10,0);w.add('building','town',1,60,60);const smith=w.add('building','smithy',0,0,-9),mill=w.add('building','mill',0,0,9);w.add('building','barracks',0,-20,-10);w.add('building','keep',0,-22,10);const berry=w.node('food',6,0,900);const crew=[0,1,2,3].map(i=>w.add('unit','worker',0,0,i*1.5));w.rebuildNav();w.updateFog();w.command(crew.map(u=>u.id),{kind:'gather',target:berry.id});assert(w.ageStatus().ready);assert(w.research(town,'age'));w.updateBuilding(town,AGE_TIMES[1]+.01);assert.equal(w.players[0].era,2);assert(crew.some(u=>u.order?.kind==='repair'),'working villagers must be recruited for renovation');assert(crew.some(u=>u.order?.kind==='gather'),'economy retains workers');
+for(let i=0;i<1800;i++)w.tick(.05);assert.equal(town.visualEra,2,'crew must reach and renovate Town Center');assert(w.ageStatus().missing.some(s=>s.includes('Armour')));assert(w.research(smith,'armor'));assert(w.research(mill,'tools'));w.updateBuilding(smith,46);w.updateBuilding(mill,46);assert(w.ageStatus().ready);assert(w.research(town,'age'));w.updateBuilding(town,AGE_TIMES[2]+.01);assert.equal(w.players[0].era,3);assert(!w.ageStatus().ready);console.log('PASS Feudal → Castle → Imperial; requirements; working renovation crew; economy retained');
+// Isolate economy from raids; side 1 and side 3 use the same AI in enemy/ally stances.
+const ai=new World('roman','steppe',42,'skirmish',true,'english');ai.setStance(0,1,'ally');ai.setStance(0,3,'ally');ai.villagerAI='manual';
+for(let i=0;i<12000;i++){ai.tick(.2);if(i%1500===1499)console.log(JSON.stringify({at:Math.round(ai.time),realms:[1,3].map(s=>({side:s,era:ai.players[s].era,stock:ai.players[s].stock,workers:ai.alive(s,'unit').filter(u=>u.def==='worker').length,buildings:ai.alive(s,'building').map(b=>b.def+(b.progress<1?'*':''))}))}));}
+for(const side of [1,3]){assert(ai.alive(side,'unit').filter(u=>u.def==='worker').length>6,'AI must train workers');assert(ai.alive(side,'building').some(b=>b.def==='farm'&&b.progress>=1),'AI must complete farms');assert(ai.players[side].era===3,'AI must reach Imperial');}
+console.log('PASS both autonomous realms reach Imperial in a peaceful economy scenario with player villagers in manual mode');

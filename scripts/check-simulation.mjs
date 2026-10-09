@@ -17,6 +17,6 @@ const {World,UNITS}=await import('data:text/javascript;base64,'+Buffer.from(resu
  {const w=fixture(),u=w.add('unit','worker',0,0,0),n=w.node('stone',2,0,300);w.command([u.id],{kind:'gather',target:n.id});step(w,5);const saved=w.snapshot();const restored=World.restore(JSON.parse(JSON.stringify(saved)));assert.equal(restored.get(u.id).cargo.stone,w.get(u.id).cargo.stone);step(w,35);step(restored,35);assert(Math.abs(w.players[0].stock.stone-restored.players[0].stock.stone)<.001);assert(Math.abs(w.get(u.id).cargo.stone-restored.get(u.id).cargo.stone)<.001);results.push('SAVE: cargo/job continuation without duplicate deposit pass');}
  {const w=fixture(),b=w.add('building','wall',0,0,0);w.rebuildNav();assert.equal(w.walkable({x:0,z:0}),false);w.hit(b,99999);assert.equal(w.walkable({x:0,z:0}),true);results.push('SIEGE: destroyed wall removes navigation blocker pass');}
  {const w=fixture();const before=w.players[0].stock.gold;w.exchange(0,'food',true);w.exchange(0,'food',false);assert(w.players[0].stock.gold<before);results.push('MARKET: no arbitrage pass');}
- assert.equal(Object.keys(UNITS).length,34);results.push('DATA: unit roster size pass');
+ assert.equal(Object.keys(UNITS).length,38);results.push('DATA: unit roster size pass');
  console.log(results.join('\n'));console.log(`${results.length} meaningful checks passed.`);
 }

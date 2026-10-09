@@ -1,0 +1,72 @@
+{
+  "ayyubid-settlement-era-facades-v1": {
+    "file": "ayyubid-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "castilian-settlement-era-facades-v1": {
+    "file": "castilian-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "chinese-settlement-era-facades-v1": {
+    "file": "chinese-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "english-settlement-era-facades-v1": {
+    "file": "english-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "french-settlement-era-facades-v1": {
+    "file": "french-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "japanese-settlement-era-facades-v1": {
+    "file": "japanese-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "khmer-settlement-era-facades-v1": {
+    "file": "khmer-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "persian-settlement-era-facades-v1": {
+    "file": "persian-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "roman-settlement-era-facades-v1": {
+    "file": "roman-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  },
+  "steppe-settlement-era-facades-v1": {
+    "file": "steppe-settlement-era-facades-v1.avif",
+    "width": 2172,
+    "height": 724,
+    "columns": 12,
+    "rows": 4
+  }
+}

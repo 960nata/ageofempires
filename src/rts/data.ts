@@ -2,15 +2,18 @@ export type Resource = 'food' | 'wood' | 'gold' | 'stone';
 export type Stock = Record<Resource, number>;
 export type Cost = Partial<Stock>;
 export type Side = 0 | 1 | 2 | 3;
-export type Faction = 'english' | 'french' | 'castilian' | 'ayyubid' | 'steppe' | 'roman' | 'persian';
+export type Faction = 'english' | 'french' | 'castilian' | 'ayyubid' | 'steppe' | 'roman' | 'persian' | 'chinese' | 'japanese' | 'khmer';
 export const ERAS = ['Dark Age', 'Feudal Age', 'Castle Age', 'Imperial Age'];
 export const FACTIONS: Record<Faction, {name:string; accent:string; description:string; landmark:string}> = {
+ chinese:{name:'Chinese Empire',accent:'#9d3630',description:'Repeating crossbow infantry and fortified cities.',landmark:'Imperial Court'},
+ japanese:{name:'Japanese Clans',accent:'#75616b',description:'Samurai infantry and roofed stone defenses.',landmark:'Shogun Castle'},
+ khmer:{name:'Khmer Empire',accent:'#997647',description:'War elephants and sandstone temple cities.',landmark:'Royal Temple'},
  roman:{name:'Roman Empire',accent:'#a02f29',description:'Legionaries, centurions and equites. Infantry training 15% faster.',landmark:'Imperial Forum'},
  persian:{name:'Persian Empire',accent:'#374587',description:'Immortals, royal archers and cataphracts. Worker construction 15% faster.',landmark:'Apadana Court'},
  english:{name:'English Crown',accent:'#416078',description:'Longbow infantry. Food gather +8%.',landmark:'Great Hall'},
  french:{name:'French Crown',accent:'#345b91',description:'Heavy cavalry. Mounted training 10% faster.',landmark:'Royal Palace'},
  castilian:{name:'Crown of Castile',accent:'#963d32',description:'Light cavalry. Defensive stone costs 12% less.',landmark:'Royal Alcázar'},
- ayyubid:{name:'Saracen Sultanate',accent:'#5a7847',description:'Camel troops. Caravan income +10%.',landmark:'Citadel Court'},
+ ayyubid:{name:'Saracen Sultanate',accent:'#5a7847',description:'Horse swordsmen, Faris guards, horse archers and camel troops. Caravan income +10%.',landmark:'Citadel Court'},
  steppe:{name:'Mongol Empire',accent:'#97653b',description:'Horse archers. Mounted movement +8%.',landmark:'Great Assembly'},
 };
 export interface UnitDef {id:string; name:string; era:number; building:string; cost:Cost; seconds:number; pop:number; hp:number; speed:number; attack:number; range:number; cooldown:number; armor:number; role:string; model:string; factions?:Faction[]; shield?:boolean; mounted?:boolean; siege?:boolean; sight:number;stride?:number;turnRate?:number;footprint?:number;}
@@ -41,7 +44,7 @@ const raw: Array<[string,string,number,string,Cost,number,number,number,number,n
  ['bombard','Bombard',3,'siege',{wood:200,gold:230},75,3,210,1.0,100,22,6,3,'siege','bombard'],
  ['trader','Trade Caravan',1,'market',{wood:80,gold:40},35,1,100,2.8,0,0,1,0,'trader','trader'],
 ];
-export const UNITS: Record<string,UnitDef> = Object.fromEntries(raw.map(([id,name,era,building,cost,seconds,pop,hp,speed,attack,range,cooldown,armor,role,model])=>[id,{id,name,era,building,cost,seconds,pop,hp,speed,attack,range,cooldown,armor,role,model,sight:role==='scout'?24:16,mounted:['cavalry','heavy-cavalry','mounted-ranged','camel'].includes(role),siege:['ram','siege'].includes(role),shield:['swordsman','heavy','shield-spear','javelin','knight'].includes(id)}]));
+export const UNITS: Record<string,UnitDef> = Object.fromEntries(raw.map(([id,name,era,building,cost,seconds,pop,hp,speed,attack,range,cooldown,armor,role,model])=>[id,{id,name,era,building,cost,seconds,pop,hp,speed,attack,range,cooldown,armor,role,model,sight:role==='scout'||id==='scout'?24:16,mounted:['cavalry','heavy-cavalry','mounted-ranged','camel'].includes(role),siege:['ram','siege'].includes(role),shield:['swordsman','heavy','shield-spear','javelin','knight'].includes(id)}]));
 for(const [id,name,base,faction,cost,hp,attack] of [
  ['legionary','Legionary','heavy','roman',{food:65,gold:40},155,19],
  ['centurion','Centurion','heavy','roman',{food:100,gold:100},210,25],
@@ -55,11 +58,18 @@ for(const [id,name,base,faction,cost,hp,attack] of [
 Object.assign(UNITS['war-elephant'],{pop:4,speed:2.1,range:3,role:'elephant',shield:false,stride:4.6,turnRate:1.7,footprint:1.3});
 Object.assign(UNITS.chariot,{pop:3,speed:3.8,shield:false,stride:4.8,turnRate:2.4,footprint:1.1});
 UNITS.ballista={...UNITS.mangonel,id:'ballista',name:'Ballista',model:'ballista',attack:45,range:20,seconds:55,cost:{wood:210,gold:110},factions:['roman','persian']};
-UNITS.longbow.factions=['english']; UNITS['horse-archer'].factions=['steppe','persian'];
+UNITS.longbow.factions=['english']; UNITS['horse-archer'].factions=['steppe','persian','ayyubid'];
 UNITS.crossbow.factions=['english','french','castilian','ayyubid','steppe'];
 UNITS.trebuchet.factions=['english','french','castilian','ayyubid','steppe'];
 UNITS['camel-spear'].factions=UNITS['camel-sword'].factions=['ayyubid'];
 UNITS.knight.factions=['english','french','castilian']; UNITS.bombard.factions=['english','french','castilian'];
+UNITS['repeating-crossbow']={...UNITS.crossbow,id:'repeating-crossbow',name:'Repeating Crossbow',model:'archer',factions:['chinese'],era:2,attack:9,cooldown:.85,cost:{wood:55,gold:40}};
+UNITS.samurai={...UNITS.heavy,id:'samurai',name:'Samurai',model:'heavy',factions:['japanese'],era:2,speed:2.5,attack:20,cost:{food:65,gold:45}};
+UNITS.samurai.shield=false;
+UNITS.faris={...UNITS.knight,id:'faris',name:'Faris — Sword & Shield',model:'knight',factions:['ayyubid'],hp:180,speed:4.0,attack:21,armor:4,cost:{food:110,gold:60}};
+UNITS['dagger-fighter']={...UNITS.militia,id:'dagger-fighter',name:'Dagger Fighter',model:'militia',factions:['ayyubid'],era:1,hp:60,speed:3.2,attack:7,range:1.3,cooldown:.8,shield:false,cost:{food:40,gold:15},seconds:20};
+UNITS['war-elephant'].factions=['persian','khmer'];
+UNITS.trebuchet.factions!.push('chinese','japanese','khmer');
 export interface BuildingDef {id:string; name:string; era:number; cost:Cost; seconds:number; hp:number; radius:number; model:string; capacity?:number; deposit?:Resource[]; attack?:number; range?:number; garrison?:number; sight?:number; cooldown?:number; splash?:number; projectile?:string; factions?:Faction[];}
 export const BUILDINGS:Record<string,BuildingDef> = {
  road:{id:'road',name:'Build Road',era:0,cost:{wood:2,stone:1},seconds:4,hp:180,radius:.9,model:'road'},
@@ -77,12 +87,12 @@ export const BUILDINGS:Record<string,BuildingDef> = {
  camel:{id:'camel',name:'Camel Stable',era:2,cost:{wood:160},seconds:55,hp:700,radius:3,model:'camel',factions:['ayyubid']},
  smithy:{id:'smithy',name:'Blacksmith & Tool Repair',era:1,cost:{wood:130},seconds:45,hp:650,radius:2.5,model:'smithy'},
  market:{id:'market',name:'Market',era:1,cost:{wood:150},seconds:50,hp:700,radius:3,model:'market'},
- palisade:{id:'palisade',name:'Palisade',era:1,cost:{wood:20},seconds:15,hp:300,radius:1.1,model:'palisade'},
+ palisade:{id:'palisade',name:'Palisade',era:0,cost:{wood:20},seconds:15,hp:300,radius:1.1,model:'palisade'},
  tower:{id:'tower',name:'Watchtower',era:0,cost:{wood:100,stone:60},seconds:50,hp:650,radius:1.8,model:'tower',attack:6,range:13,garrison:3,sight:28},
  'archer-tower':{id:'archer-tower',name:'Archer Tower',era:1,cost:{wood:140,stone:140},seconds:70,hp:1000,radius:1.8,model:'tower',attack:24,range:18,garrison:5,sight:24,cooldown:1.8},
  'cannon-tower':{id:'cannon-tower',name:'Cannon Tower',era:3,cost:{stone:300,gold:220},seconds:100,hp:1600,radius:2.1,model:'tower',attack:75,range:21,garrison:4,sight:25,cooldown:4.2,splash:3,projectile:'cannon'},
- wall:{id:'wall',name:'Stone Wall',era:2,cost:{stone:35},seconds:25,hp:1000,radius:1.1,model:'wall'},
- gate:{id:'gate',name:'Stone Gate',era:2,cost:{stone:100,wood:40},seconds:45,hp:1600,radius:2.4,model:'gate'},
+ wall:{id:'wall',name:'Stone Wall',era:1,cost:{stone:35},seconds:25,hp:1000,radius:1.1,model:'wall'},
+ gate:{id:'gate',name:'Settlement Gate',era:0,cost:{wood:120},seconds:45,hp:1600,radius:2.4,model:'gate'},
  keep:{id:'keep',name:'Castle Keep',era:2,cost:{stone:420,wood:180},seconds:150,hp:2400,radius:4,model:'keep',attack:28,range:17,garrison:15},
  siege:{id:'siege',name:'Siege Workshop',era:2,cost:{wood:200,gold:70},seconds:65,hp:800,radius:3,model:'siege'},
  healing:{id:'healing',name:'Temple & Infirmary',era:2,cost:{wood:140,gold:60},seconds:55,hp:500,radius:2.6,model:'healing'},

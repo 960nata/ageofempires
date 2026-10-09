@@ -1,0 +1,104 @@
+{
+  "assets": [
+    {
+      "name": "anchovy-shrimp-motion",
+      "subject": "4 columns 2 rows. Row1 same small silver anchovy school swimming southeast in 4 sequential poses, synchronized tails oscillating, not jumping. Row2 same reddish translucent shrimp swimming southeast in 4 sequential poses with swimmerets and tail flick. No water scenery.",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric historical strategy game source sprite atlas. 4 columns 2 rows. Row1 same small silver anchovy school swimming southeast in 4 sequential poses, synchronized tails oscillating, not jumping. Row2 same reddish translucent shrimp swimming southeast in 4 sequential poses with swimmerets and tail flick. No water scenery. Orthographic 35 degree downward camera, detailed natural textures, consistent soft upper left light. Exact evenly spaced cells with generous transparent gutters, each entire object fully contained in its own cell with 20 percent transparent padding; no clipping, no overlap, no text or grid. Clean transparent background, no colored fringes or halos. Preserve same ground anchor and scale across animation poses. This is detailed raster art, not low polygon geometry.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-642ffc95-ef60-4ff2-8797-12bbf8c3c7cc.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/nature-expansion-2026-10-08/anchovy-shrimp-motion-v1.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "reef-kelp-motion",
+      "subject": "4 columns 2 rows. Row1 same green brown kelp rooted on small natural rock in 4 sequential gentle underwater swaying poses. Row2 same colorful natural branching coral patch with soft anemones in 4 subtle swaying poses, coral skeleton fixed. No rectangular seafloor tile, no water backdrop.",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric historical strategy game source sprite atlas. 4 columns 2 rows. Row1 same green brown kelp rooted on small natural rock in 4 sequential gentle underwater swaying poses. Row2 same colorful natural branching coral patch with soft anemones in 4 subtle swaying poses, coral skeleton fixed. No rectangular seafloor tile, no water backdrop. Orthographic 35 degree downward camera, detailed natural textures, consistent soft upper left light. Exact evenly spaced cells with generous transparent gutters, each entire object fully contained in its own cell with 20 percent transparent padding; no clipping, no overlap, no text or grid. Clean transparent background, no colored fringes or halos. Preserve same ground anchor and scale across animation poses. This is detailed raster art, not low polygon geometry.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-a1c18231-d004-4dd2-83f3-18fc1251d9a0.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/nature-expansion-2026-10-08/reef-kelp-motion-v1.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "livestock-motion",
+      "subject": "4 columns 3 rows. Row1 same adult brown cow walking southeast in 4 distinct sequential gait poses. Row2 same white goat walking southeast in 4 distinct sequential gait poses. Row3 same wool sheep grazing in 4 sequential head lowering chewing lifting poses. Anatomically correct legs, identical body and scale per row. No scenery.",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric historical strategy game source sprite atlas. 4 columns 3 rows. Row1 same adult brown cow walking southeast in 4 distinct sequential gait poses. Row2 same white goat walking southeast in 4 distinct sequential gait poses. Row3 same wool sheep grazing in 4 sequential head lowering chewing lifting poses. Anatomically correct legs, identical body and scale per row. No scenery. Orthographic 35 degree downward camera, detailed natural textures, consistent soft upper left light. Exact evenly spaced cells with generous transparent gutters, each entire object fully contained in its own cell with 20 percent transparent padding; no clipping, no overlap, no text or grid. Clean transparent background, no colored fringes or halos. Preserve same ground anchor and scale across animation poses. This is detailed raster art, not low polygon geometry.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-2173e083-27e1-46ad-96da-43ca1052c756.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/nature-expansion-2026-10-08/livestock-motion-v1.png",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "pasture-farm",
+      "subject": "3 columns 2 rows. Six distinct original medieval husbandry buildings: cattle timber barn and fenced grassy yard; goat stone shelter and fenced yard; sheep thatched sheepfold; rustic hay shed with hay bales; water trough and livestock feeding racks; small pasture enclosure with wooden swing gate. Natural irregular grass edges, no square base, no animals, readable entrances.",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric historical strategy game source sprite atlas. 3 columns 2 rows. Six distinct original medieval husbandry buildings: cattle timber barn and fenced grassy yard; goat stone shelter and fenced yard; sheep thatched sheepfold; rustic hay shed with hay bales; water trough and livestock feeding racks; small pasture enclosure with wooden swing gate. Natural irregular grass edges, no square base, no animals, readable entrances. Orthographic 35 degree downward camera, detailed natural textures, consistent soft upper left light. Exact evenly spaced cells with generous transparent gutters, each entire object fully contained in its own cell with 20 percent transparent padding; no clipping, no overlap, no text or grid. Clean transparent background, no colored fringes or halos. Preserve same ground anchor and scale across animation poses. This is detailed raster art, not low polygon geometry.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-239d8604-2a3b-4720-9612-b93798b66a5a.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/nature-expansion-2026-10-08/pasture-farm-v1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaRange": [
+        0,
+        254
+      ]
+    },
+    {
+      "name": "biome-rock-shores",
+      "subject": "3 columns 2 rows. Six distinct environmental patches: snowy granite riverbank; spring mossy rounded river stones with wildflowers; desert weathered sandstone and dry sand; autumn wet slate streambank with fallen leaves; tropical volcanic river stones and fern; coastal tidal rocks with barnacles seaweed and shallow brackish mud reeds. Irregular feathered natural ground edges, no isolated rectangular tile, no full scene.",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric historical strategy game source sprite atlas. 3 columns 2 rows. Six distinct environmental patches: snowy granite riverbank; spring mossy rounded river stones with wildflowers; desert weathered sandstone and dry sand; autumn wet slate streambank with fallen leaves; tropical volcanic river stones and fern; coastal tidal rocks with barnacles seaweed and shallow brackish mud reeds. Irregular feathered natural ground edges, no isolated rectangular tile, no full scene. Orthographic 35 degree downward camera, detailed natural textures, consistent soft upper left light. Exact evenly spaced cells with generous transparent gutters, each entire object fully contained in its own cell with 20 percent transparent padding; no clipping, no overlap, no text or grid. Clean transparent background, no colored fringes or halos. Preserve same ground anchor and scale across animation poses. This is detailed raster art, not low polygon geometry.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-0a1a82b4-04a3-40f4-ad27-a750202847b7.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/nature-expansion-2026-10-08/biome-rock-shores-v1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaRange": [
+        0,
+        254
+      ]
+    },
+    {
+      "name": "tall-trees-gardens",
+      "subject": "3 columns 2 rows. Six distinct isolated environmental props: tall mature rainforest dipterocarp with buttress roots full high canopy; flowering pink sakura tree; tall tropical bamboo cluster; tall grass and alang alang clump with feathery seed heads; dense tropical fern and flowering shrub cluster; irregular medieval flower garden bed with mixed flowers. Complete crowns and roots, tall tree genuinely tall with substantial trunk. No square grass bases.",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric historical strategy game source sprite atlas. 3 columns 2 rows. Six distinct isolated environmental props: tall mature rainforest dipterocarp with buttress roots full high canopy; flowering pink sakura tree; tall tropical bamboo cluster; tall grass and alang alang clump with feathery seed heads; dense tropical fern and flowering shrub cluster; irregular medieval flower garden bed with mixed flowers. Complete crowns and roots, tall tree genuinely tall with substantial trunk. No square grass bases. Orthographic 35 degree downward camera, detailed natural textures, consistent soft upper left light. Exact evenly spaced cells with generous transparent gutters, each entire object fully contained in its own cell with 20 percent transparent padding; no clipping, no overlap, no text or grid. Clean transparent background, no colored fringes or halos. Preserve same ground anchor and scale across animation poses. This is detailed raster art, not low polygon geometry.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-c592772d-6a93-42b9-ab0c-554509b43656.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/nature-expansion-2026-10-08/tall-trees-gardens-v1.png",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaRange": [
+        0,
+        253
+      ]
+    }
+  ],
+  "tool": "built-in imagegen",
+  "status": "Source art requiring cleanup and manual frame registration",
+  "limitations": [
+    "Animation sheets contain four poses per subject, not full smooth cycles or eight directions.",
+    "Visible colored fringes require cleanup; alpha channel presence does not establish clean transparency.",
+    "Some static sheets contain colored backdrop pixels and need background extraction.",
+    "Frames are not registered and must not be blindly sliced by equal grid.",
+    "Buildings and terrain are static; their lifecycle and seasonal animations are not included.",
+    "These images do not implement husbandry gameplay or civilization bonuses."
+  ]
+}

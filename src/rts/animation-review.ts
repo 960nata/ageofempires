@@ -1,0 +1,28 @@
+import {FactionAnimations,FACTION_ANIMATION_UNITS} from './faction-animations';
+import {VillagerSprites} from './villager-sprites';
+import {RegionalArt,signatures} from './regional-art';
+import {poses,cyclePose,poseRect} from './pose-sampling';
+import {isolatedAtlas} from './isolated-sprites';
+import {assetUrl,setSpriteSource} from './assets';
+import type {SceneSprite} from './scene-art';
+const select=(id:string)=>document.getElementById(id) as HTMLSelectElement;
+const factions:Record<string,string>={roman:'Romawi',persian:'Persia',english:'Inggris',french:'Prancis',ayyubid:'Saracen',steppe:'Mongol',chinese:'China',japanese:'Jepang',khmer:'Khmer',castilian:'Castile'};
+select('faction').innerHTML=Object.entries(factions).map(([id,name])=>`<option value="${id}">${name}</option>`).join('');
+const names=['Pekerja laki-laki','Pekerja perempuan','Pekerja perempuan · hijab','Infanteri','Pemanah','Kavaleri','Pasukan khas peradaban'];
+const cards=document.getElementById('cards')!;cards.innerHTML=names.map(name=>`<section class="card"><h2>${name}</h2><canvas width="380" height="235" aria-label="${name}"></canvas><small>Memuat…</small></section>`).join('');
+const canvases=Array.from(cards.querySelectorAll('canvas')),captions=Array.from(cards.querySelectorAll('small')),troops=new FactionAnimations(),villagers=new VillagerSprites(),regional=new RegionalArt(),work=new Image();
+let ready=false,paused=false,time=0,previous=0,request=0,activeFaction='roman';
+const status=document.getElementById('status')!;
+const orchardPreview=new Image();orchardPreview.src=assetUrl('orchard-fruit-tree-full-v1.avif');
+const workReady=new Promise<void>((resolve,reject)=>{work.onload=()=>resolve();work.onerror=()=>reject(Error('Aset pekerja tidak tersedia'));setSpriteSource(work,'worker-actions-v1.png');});
+async function load(){const id=++request;ready=false;status.textContent='Memuat aset…';try{const faction=select('faction').value;await Promise.all([villagers.ready,workReady,troops.preload([faction])]);if(id!==request)return;activeFaction=faction;ready=true;status.textContent='Siap · garis di bawah karakter menunjukkan titik pijak.';}catch{if(id===request)status.textContent='Aset gagal dimuat. Muat ulang halaman untuk mencoba lagi.';}}
+select('faction').addEventListener('change',()=>{time=0;void load();});document.getElementById('pause')!.onclick=()=>{paused=!paused;document.getElementById('pause')!.textContent=paused?'Lanjutkan':'Jeda';};
+function draw(canvas:HTMLCanvasElement,sprite:SceneSprite|null,orchard=false){const c=canvas.getContext('2d')!;c.clearRect(0,0,380,235);if(orchard&&orchardPreview.complete&&orchardPreview.naturalWidth){const t=125+(Math.sin(time*5)*1.5);c.save();c.translate(242,201);c.rotate(Math.sin(time*7)*.018);c.drawImage(orchardPreview,0,0,orchardPreview.width,orchardPreview.height,-t/2,-t*.98,t,t);c.restore();}c.strokeStyle='#91a78366';c.beginPath();c.moveTo(58,202);c.lineTo(322,202);c.moveTo(190,194);c.lineTo(190,211);c.stroke();if(!sprite)return;const factor=Math.min(1,170/sprite.height,300/sprite.width),w=sprite.width*factor,h=sprite.height*factor;c.save();c.translate(orchard?160:190,202);if(sprite.flip)c.scale(-1,1);c.drawImage(sprite.image,sprite.sx,sprite.sy,sprite.sw,sprite.sh,-w*(sprite.anchorX??.5),-h*sprite.anchor,w,h);c.restore();}
+function render(now:number){const dt=Math.min(.05,(now-previous)/1000);previous=now;if(ready&&!paused)time+=dt*Number(select('rate').value);if(ready){const direction=Number(select('direction').value),job=select('job').value as 'walk'|'chop'|'mine'|'farm'|'orchard'|'build',motion=select('motion').value;
+ for(let i=0;i<3;i++){let sprite:SceneSprite|null;if(job==='walk')sprite=villagers.locomotion(i===0?'male':'female',direction,time*5/1.15,42,i===2);else if(i>0)sprite=villagers.action('female',job,direction,time/(job==='chop'?1.25:job==='mine'?1.4:1.3)*4,42,i===2);else{const data=isolatedAtlas('worker-actions-v1')!,row={chop:0,mine:1,farm:2,build:3,orchard:4}[job],sample=cyclePose(time/(job==='chop'?1.25:job==='mine'?1.4:1.3)*4,direction>=5?[4,5,6,7]:[0,1,2,3]),a=data.frames[row*8+sample.from],b=data.frames[row*8+sample.to];sprite=poses.sample(work,poseRect(a),poseRect(b),sample.mix,2.65*42/180,direction>=3&&direction<=5);}draw(canvases[i],sprite,job==='orchard');captions[i].textContent=job==='walk'?'5 pose jalan + transisi':'4 pose kerja per tampilan + transisi';}
+ for(let i=0;i<3;i++){const family=['infantry','archer','cavalry'][i],unit=activeFaction==='khmer'&&family==='cavalry'?'war-elephant':Object.entries(FACTION_ANIMATION_UNITS[activeFaction]).find(([,f])=>f===family)?.[0],speed=motion==='idle'||motion==='attack'?0:motion==='run'&&i===2?4.4:2.6,phase=time*speed/(i===2?3.8:2.6),sprite=unit?troops.sprite(activeFaction,unit,direction,phase,speed,motion==='attack'?time%1.5:-1,-1,-1,42):null;draw(canvases[i+3],sprite);captions[i+3].textContent=unit?`${factions[activeFaction]} · ${unit}${unit==='war-elephant'?' · kavaleri gajah':''}`:'Belum ada aset kavaleri khusus yang cocok';}
+  const special=signatures[activeFaction]??({roman:'legionary',persian:'immortal',castilian:'knight'} as Record<string,string>)[activeFaction],speed=motion==='idle'||motion==='attack'?0:motion==='run'?4.4:2.6,phase=time*speed/3.2;
+  const unique=regional.troop(activeFaction,special,direction,speed>0,phase,motion==='attack'?time%1.5:-1,42,speed)??troops.sprite(activeFaction,special,direction,phase,speed,motion==='attack'?time%1.5:-1,-1,-1,42);
+  draw(canvases[6],unique);captions[6].textContent=unique?`${factions[activeFaction]} · ${special}`:`Memuat ${special}…`;
+ }requestAnimationFrame(render);}
+void load();requestAnimationFrame(render);

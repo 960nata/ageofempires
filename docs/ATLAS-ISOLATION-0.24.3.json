@@ -1,0 +1,7237 @@
+[
+  {
+    "atlas": "english-signature-v1",
+    "source": "public/assets/isometric/english-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 244,
+    "details": [
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 31,
+        "keptPixels": 6040
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 35,
+        "keptPixels": 5347
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 178,
+        "keptPixels": 4812
+      }
+    ],
+    "bytes": 337566
+  },
+  {
+    "atlas": "french-signature-v1",
+    "source": "public/assets/isometric/french-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 1297,
+    "details": [
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 111,
+        "keptPixels": 8278
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 28,
+        "keptPixels": 8234
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "removedPixels": 173,
+        "keptPixels": 9390
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 97,
+        "keptPixels": 9526
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 97,
+        "keptPixels": 9667
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 538,
+        "keptPixels": 9632
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 91,
+        "keptPixels": 8850
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 23,
+        "keptPixels": 5880
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 139,
+        "keptPixels": 9272
+      }
+    ],
+    "bytes": 458869
+  },
+  {
+    "atlas": "saracen-signature-v1",
+    "source": "public/assets/isometric/saracen-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 669,
+    "details": [
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 40,
+        "keptPixels": 4855
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 44,
+        "keptPixels": 5036
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 32,
+        "keptPixels": 7326
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 26,
+        "keptPixels": 4725
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 41,
+        "keptPixels": 4620
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 75,
+        "keptPixels": 5049
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 60,
+        "keptPixels": 6921
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "removedPixels": 79,
+        "keptPixels": 6910
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "removedPixels": 27,
+        "keptPixels": 6862
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 245,
+        "keptPixels": 7084
+      }
+    ],
+    "bytes": 397537
+  },
+  {
+    "atlas": "mongol-signature-v1",
+    "source": "public/assets/isometric/mongol-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 36,
+    "details": [
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 36,
+        "keptPixels": 9543
+      }
+    ],
+    "bytes": 435370
+  },
+  {
+    "atlas": "chinese-signature-v1",
+    "source": "art-src/isometric/chinese-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 393184
+  },
+  {
+    "atlas": "japanese-signature-v1",
+    "source": "art-src/isometric/japanese-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 213,
+    "details": [
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 51,
+        "keptPixels": 6060
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 112,
+        "keptPixels": 6601
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 50,
+        "keptPixels": 6216
+      }
+    ],
+    "bytes": 361375
+  },
+  {
+    "atlas": "khmer-signature-v1",
+    "source": "art-src/isometric/khmer-signature-v1.png",
+    "frames": 48,
+    "removedPixels": 579,
+    "details": [
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 22,
+        "keptPixels": 12647
+      },
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 33,
+        "keptPixels": 12208
+      },
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 126,
+        "keptPixels": 13053
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 27,
+        "keptPixels": 12917
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 106,
+        "keptPixels": 13317
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 100,
+        "keptPixels": 12970
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 165,
+        "keptPixels": 11146
+      }
+    ],
+    "bytes": 512815
+  },
+  {
+    "atlas": "villager-male-locomotion-v1",
+    "source": "art-src/isometric/villager-male-locomotion-v1.png",
+    "frames": 48,
+    "removedPixels": 298,
+    "details": [
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 22,
+        "keptPixels": 5775
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 21,
+        "keptPixels": 5800
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 25,
+        "keptPixels": 5822
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 23,
+        "keptPixels": 6156
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 21,
+        "keptPixels": 6077
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 52,
+        "keptPixels": 5763
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 72,
+        "keptPixels": 5940
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 62,
+        "keptPixels": 5465
+      }
+    ],
+    "bytes": 308453
+  },
+  {
+    "atlas": "villager-female-locomotion-v1",
+    "source": "art-src/isometric/villager-female-locomotion-v1.png",
+    "frames": 48,
+    "removedPixels": 452,
+    "details": [
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 33,
+        "keptPixels": 5756
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "removedPixels": 32,
+        "keptPixels": 5815
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 23,
+        "keptPixels": 5333
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 39,
+        "keptPixels": 5272
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 37,
+        "keptPixels": 5354
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 107,
+        "keptPixels": 6050
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 46,
+        "keptPixels": 5970
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 69,
+        "keptPixels": 5345
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 40,
+        "keptPixels": 5529
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 26,
+        "keptPixels": 5578
+      }
+    ],
+    "bytes": 297326
+  },
+  {
+    "atlas": "villager-hijab-locomotion-v1",
+    "source": "art-src/isometric/villager-hijab-locomotion-v1.png",
+    "frames": 48,
+    "removedPixels": 1658,
+    "details": [
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 60,
+        "keptPixels": 9708
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 59,
+        "keptPixels": 9450
+      },
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 35,
+        "keptPixels": 9696
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 35,
+        "keptPixels": 10214
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 60,
+        "keptPixels": 9665
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 67,
+        "keptPixels": 9957
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "removedPixels": 40,
+        "keptPixels": 9759
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 44,
+        "keptPixels": 10516
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 94,
+        "keptPixels": 10132
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 61,
+        "keptPixels": 8548
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 113,
+        "keptPixels": 10534
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 141,
+        "keptPixels": 10522
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 140,
+        "keptPixels": 10648
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 163,
+        "keptPixels": 11575
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 117,
+        "keptPixels": 9943
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 143,
+        "keptPixels": 10304
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 135,
+        "keptPixels": 10802
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 151,
+        "keptPixels": 10609
+      }
+    ],
+    "bytes": 372778
+  },
+  {
+    "atlas": "villager-female-actions-v1",
+    "source": "art-src/isometric/villager-female-actions-v1.png",
+    "frames": 40,
+    "removedPixels": 1727,
+    "details": [
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 207,
+        "keptPixels": 12010
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 307,
+        "keptPixels": 11892
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 92,
+        "keptPixels": 10950
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "removedPixels": 153,
+        "keptPixels": 11910
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "removedPixels": 47,
+        "keptPixels": 10846
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 136,
+        "keptPixels": 9713
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 88,
+        "keptPixels": 13421
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 85,
+        "keptPixels": 8784
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 276,
+        "keptPixels": 14569
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 336,
+        "keptPixels": 14374
+      }
+    ],
+    "bytes": 424464
+  },
+  {
+    "atlas": "villager-hijab-actions-v1",
+    "source": "art-src/isometric/villager-hijab-actions-v1.png",
+    "frames": 40,
+    "removedPixels": 1839,
+    "details": [
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 41,
+        "keptPixels": 13900
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 1074,
+        "keptPixels": 15961
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "removedPixels": 72,
+        "keptPixels": 14620
+      },
+      {
+        "row": 2,
+        "col": 5,
+        "removedPixels": 652,
+        "keptPixels": 16105
+      }
+    ],
+    "bytes": 482893
+  },
+  {
+    "atlas": "saracen-horse-sword-v1",
+    "source": "art-src/isometric/saracen-horse-sword-v1.png",
+    "frames": 64,
+    "removedPixels": 1217,
+    "details": [
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 21,
+        "keptPixels": 8780
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 76,
+        "keptPixels": 8165
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "removedPixels": 420,
+        "keptPixels": 7644
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 39,
+        "keptPixels": 7441
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 36,
+        "keptPixels": 7554
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 69,
+        "keptPixels": 6759
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 262,
+        "keptPixels": 4728
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 28,
+        "keptPixels": 8079
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "removedPixels": 266,
+        "keptPixels": 7280
+      }
+    ],
+    "bytes": 500330
+  },
+  {
+    "atlas": "saracen-horse-shield-v1",
+    "source": "art-src/isometric/saracen-horse-shield-v1.png",
+    "frames": 64,
+    "removedPixels": 5226,
+    "details": [
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 41,
+        "keptPixels": 9072
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 71,
+        "keptPixels": 9080
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 148,
+        "keptPixels": 8011
+      },
+      {
+        "row": 0,
+        "col": 7,
+        "removedPixels": 193,
+        "keptPixels": 8083
+      },
+      {
+        "row": 2,
+        "col": 7,
+        "removedPixels": 118,
+        "keptPixels": 6778
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 24,
+        "keptPixels": 8117
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "removedPixels": 134,
+        "keptPixels": 6939
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 80,
+        "keptPixels": 7525
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 38,
+        "keptPixels": 6874
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 48,
+        "keptPixels": 6714
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 44,
+        "keptPixels": 6989
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 340,
+        "keptPixels": 5793
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 25,
+        "keptPixels": 6269
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 24,
+        "keptPixels": 6306
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 42,
+        "keptPixels": 6317
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 30,
+        "keptPixels": 6278
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 53,
+        "keptPixels": 6201
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 51,
+        "keptPixels": 6368
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "removedPixels": 34,
+        "keptPixels": 6340
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 791,
+        "keptPixels": 6040
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 85,
+        "keptPixels": 7936
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "removedPixels": 198,
+        "keptPixels": 8233
+      },
+      {
+        "row": 7,
+        "col": 2,
+        "removedPixels": 366,
+        "keptPixels": 8101
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "removedPixels": 500,
+        "keptPixels": 8480
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 483,
+        "keptPixels": 8630
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 501,
+        "keptPixels": 8440
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 492,
+        "keptPixels": 8317
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "removedPixels": 272,
+        "keptPixels": 7159
+      }
+    ],
+    "bytes": 515693
+  },
+  {
+    "atlas": "saracen-horse-archer-v1",
+    "source": "art-src/isometric/saracen-horse-archer-v1.png",
+    "frames": 64,
+    "removedPixels": 789,
+    "details": [
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 118,
+        "keptPixels": 4956
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 112,
+        "keptPixels": 5115
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "removedPixels": 126,
+        "keptPixels": 5069
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 46,
+        "keptPixels": 5253
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "removedPixels": 69,
+        "keptPixels": 7478
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "removedPixels": 79,
+        "keptPixels": 7410
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 79,
+        "keptPixels": 7665
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 76,
+        "keptPixels": 7227
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 84,
+        "keptPixels": 6996
+      }
+    ],
+    "bytes": 421454
+  },
+  {
+    "atlas": "saracen-infantry-v1",
+    "source": "art-src/isometric/saracen-infantry-v1.png",
+    "frames": 60,
+    "removedPixels": 904,
+    "details": [
+      {
+        "row": 0,
+        "col": 9,
+        "removedPixels": 38,
+        "keptPixels": 6441
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "removedPixels": 41,
+        "keptPixels": 8482
+      },
+      {
+        "row": 1,
+        "col": 9,
+        "removedPixels": 39,
+        "keptPixels": 6571
+      },
+      {
+        "row": 2,
+        "col": 5,
+        "removedPixels": 32,
+        "keptPixels": 6408
+      },
+      {
+        "row": 2,
+        "col": 7,
+        "removedPixels": 47,
+        "keptPixels": 6184
+      },
+      {
+        "row": 2,
+        "col": 8,
+        "removedPixels": 70,
+        "keptPixels": 5734
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "removedPixels": 147,
+        "keptPixels": 7389
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 163,
+        "keptPixels": 7075
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "removedPixels": 159,
+        "keptPixels": 7054
+      },
+      {
+        "row": 3,
+        "col": 8,
+        "removedPixels": 168,
+        "keptPixels": 7068
+      }
+    ],
+    "bytes": 424561
+  },
+  {
+    "atlas": "worker-walk-v3",
+    "source": "art-src/isometric/worker-walk-v3.png",
+    "frames": 64,
+    "removedPixels": 246,
+    "details": [
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 24,
+        "keptPixels": 4639
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 34,
+        "keptPixels": 4395
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 63,
+        "keptPixels": 4569
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 32,
+        "keptPixels": 4561
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 63,
+        "keptPixels": 4495
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 30,
+        "keptPixels": 4574
+      }
+    ],
+    "bytes": 340937
+  },
+  {
+    "atlas": "sword-walk-v3",
+    "source": "art-src/isometric/sword-walk-v3.png",
+    "frames": 64,
+    "removedPixels": 1474,
+    "details": [
+      {
+        "row": 1,
+        "col": 4,
+        "removedPixels": 29,
+        "keptPixels": 6206
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "removedPixels": 83,
+        "keptPixels": 6323
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 68,
+        "keptPixels": 5877
+      },
+      {
+        "row": 2,
+        "col": 7,
+        "removedPixels": 115,
+        "keptPixels": 6032
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 67,
+        "keptPixels": 6353
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 52,
+        "keptPixels": 6293
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 49,
+        "keptPixels": 6364
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 42,
+        "keptPixels": 6560
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 91,
+        "keptPixels": 6763
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "removedPixels": 28,
+        "keptPixels": 6280
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 135,
+        "keptPixels": 5811
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 123,
+        "keptPixels": 5858
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 119,
+        "keptPixels": 5952
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 70,
+        "keptPixels": 6080
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 181,
+        "keptPixels": 6328
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 34,
+        "keptPixels": 6003
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 67,
+        "keptPixels": 6089
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 38,
+        "keptPixels": 6014
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "removedPixels": 53,
+        "keptPixels": 5370
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "removedPixels": 30,
+        "keptPixels": 5364
+      }
+    ],
+    "bytes": 483343
+  },
+  {
+    "atlas": "spear-walk-v3",
+    "source": "art-src/isometric/spear-walk-v3.png",
+    "frames": 64,
+    "removedPixels": 9098,
+    "details": [
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 41,
+        "keptPixels": 5703
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 60,
+        "keptPixels": 5372
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 74,
+        "keptPixels": 5570
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "removedPixels": 65,
+        "keptPixels": 5275
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "removedPixels": 65,
+        "keptPixels": 5186
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 118,
+        "keptPixels": 5725
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 190,
+        "keptPixels": 5777
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 196,
+        "keptPixels": 5708
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 231,
+        "keptPixels": 5927
+      },
+      {
+        "row": 2,
+        "col": 6,
+        "removedPixels": 218,
+        "keptPixels": 5599
+      },
+      {
+        "row": 2,
+        "col": 7,
+        "removedPixels": 190,
+        "keptPixels": 5754
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "removedPixels": 136,
+        "keptPixels": 5252
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 35,
+        "keptPixels": 5386
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 80,
+        "keptPixels": 5481
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 64,
+        "keptPixels": 5241
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "removedPixels": 120,
+        "keptPixels": 5295
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 145,
+        "keptPixels": 5351
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "removedPixels": 30,
+        "keptPixels": 5396
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 23,
+        "keptPixels": 6194
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 264,
+        "keptPixels": 6250
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 195,
+        "keptPixels": 6240
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 207,
+        "keptPixels": 6310
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 249,
+        "keptPixels": 6223
+      },
+      {
+        "row": 4,
+        "col": 6,
+        "removedPixels": 235,
+        "keptPixels": 6104
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 179,
+        "keptPixels": 6251
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "removedPixels": 211,
+        "keptPixels": 6340
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 217,
+        "keptPixels": 6279
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 203,
+        "keptPixels": 6140
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 231,
+        "keptPixels": 6075
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 221,
+        "keptPixels": 6258
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 223,
+        "keptPixels": 6240
+      },
+      {
+        "row": 5,
+        "col": 6,
+        "removedPixels": 218,
+        "keptPixels": 5970
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 247,
+        "keptPixels": 6098
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 315,
+        "keptPixels": 5548
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 315,
+        "keptPixels": 5574
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 257,
+        "keptPixels": 5509
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 245,
+        "keptPixels": 5765
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 300,
+        "keptPixels": 5540
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 386,
+        "keptPixels": 5689
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "removedPixels": 314,
+        "keptPixels": 5581
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 252,
+        "keptPixels": 5806
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 246,
+        "keptPixels": 5667
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "removedPixels": 172,
+        "keptPixels": 5550
+      },
+      {
+        "row": 7,
+        "col": 2,
+        "removedPixels": 139,
+        "keptPixels": 5434
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "removedPixels": 189,
+        "keptPixels": 5565
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 226,
+        "keptPixels": 5737
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 233,
+        "keptPixels": 5585
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 179,
+        "keptPixels": 5383
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "removedPixels": 149,
+        "keptPixels": 5254
+      }
+    ],
+    "bytes": 446188
+  },
+  {
+    "atlas": "archer-walk-v3",
+    "source": "art-src/isometric/archer-walk-v3.png",
+    "frames": 64,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 407030
+  },
+  {
+    "atlas": "horse-walk-v3",
+    "source": "art-src/isometric/horse-walk-v3.png",
+    "frames": 64,
+    "removedPixels": 204,
+    "details": [
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 25,
+        "keptPixels": 4546
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 37,
+        "keptPixels": 4633
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "removedPixels": 42,
+        "keptPixels": 4630
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "removedPixels": 23,
+        "keptPixels": 7367
+      },
+      {
+        "row": 7,
+        "col": 2,
+        "removedPixels": 32,
+        "keptPixels": 7161
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 21,
+        "keptPixels": 7248
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 24,
+        "keptPixels": 7086
+      }
+    ],
+    "bytes": 474685
+  },
+  {
+    "atlas": "camel-walk-v3",
+    "source": "art-src/isometric/camel-walk-v3.png",
+    "frames": 64,
+    "removedPixels": 1174,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 33,
+        "keptPixels": 7158
+      },
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 26,
+        "keptPixels": 7157
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 126,
+        "keptPixels": 6995
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 95,
+        "keptPixels": 6209
+      },
+      {
+        "row": 2,
+        "col": 6,
+        "removedPixels": 28,
+        "keptPixels": 4220
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 28,
+        "keptPixels": 7234
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 77,
+        "keptPixels": 7115
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 77,
+        "keptPixels": 6829
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 110,
+        "keptPixels": 7126
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 52,
+        "keptPixels": 7469
+      },
+      {
+        "row": 4,
+        "col": 6,
+        "removedPixels": 200,
+        "keptPixels": 7156
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 262,
+        "keptPixels": 6747
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 28,
+        "keptPixels": 4285
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 32,
+        "keptPixels": 4293
+      }
+    ],
+    "bytes": 548415
+  },
+  {
+    "atlas": "horse-archer-walk-v1",
+    "source": "art-src/isometric/horse-archer-walk-v1.png",
+    "frames": 64,
+    "removedPixels": 1922,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 164,
+        "keptPixels": 8957
+      },
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 401,
+        "keptPixels": 8671
+      },
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 395,
+        "keptPixels": 8777
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 311,
+        "keptPixels": 8783
+      },
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 170,
+        "keptPixels": 8646
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 208,
+        "keptPixels": 8607
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 88,
+        "keptPixels": 8600
+      },
+      {
+        "row": 0,
+        "col": 7,
+        "removedPixels": 70,
+        "keptPixels": 8283
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 23,
+        "keptPixels": 9063
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 49,
+        "keptPixels": 8695
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 43,
+        "keptPixels": 8755
+      }
+    ],
+    "bytes": 434028
+  },
+  {
+    "atlas": "camel-sword-walk-v1",
+    "source": "art-src/isometric/camel-sword-walk-v1.png",
+    "frames": 64,
+    "removedPixels": 4538,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 100,
+        "keptPixels": 9149
+      },
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 153,
+        "keptPixels": 9219
+      },
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 65,
+        "keptPixels": 8713
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 30,
+        "keptPixels": 8177
+      },
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 32,
+        "keptPixels": 9243
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 278,
+        "keptPixels": 8962
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 232,
+        "keptPixels": 7923
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 38,
+        "keptPixels": 7587
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 27,
+        "keptPixels": 7871
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 37,
+        "keptPixels": 8173
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "removedPixels": 35,
+        "keptPixels": 7642
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "removedPixels": 33,
+        "keptPixels": 7367
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "removedPixels": 21,
+        "keptPixels": 7218
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 92,
+        "keptPixels": 5226
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 80,
+        "keptPixels": 5226
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 85,
+        "keptPixels": 5271
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 74,
+        "keptPixels": 5149
+      },
+      {
+        "row": 2,
+        "col": 6,
+        "removedPixels": 84,
+        "keptPixels": 5206
+      },
+      {
+        "row": 2,
+        "col": 7,
+        "removedPixels": 58,
+        "keptPixels": 5265
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 26,
+        "keptPixels": 8118
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "removedPixels": 28,
+        "keptPixels": 8369
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 24,
+        "keptPixels": 8176
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 40,
+        "keptPixels": 8570
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 24,
+        "keptPixels": 7857
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 122,
+        "keptPixels": 9246
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 433,
+        "keptPixels": 8987
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 107,
+        "keptPixels": 8530
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 239,
+        "keptPixels": 8914
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 170,
+        "keptPixels": 9538
+      },
+      {
+        "row": 4,
+        "col": 6,
+        "removedPixels": 500,
+        "keptPixels": 9060
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 558,
+        "keptPixels": 8606
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "removedPixels": 26,
+        "keptPixels": 7500
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 80,
+        "keptPixels": 7487
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 66,
+        "keptPixels": 7820
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 73,
+        "keptPixels": 7562
+      },
+      {
+        "row": 5,
+        "col": 6,
+        "removedPixels": 45,
+        "keptPixels": 7440
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 66,
+        "keptPixels": 7641
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 32,
+        "keptPixels": 5302
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 32,
+        "keptPixels": 5638
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 80,
+        "keptPixels": 5231
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 65,
+        "keptPixels": 5589
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 70,
+        "keptPixels": 5383
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 78,
+        "keptPixels": 5540
+      }
+    ],
+    "bytes": 545563
+  },
+  {
+    "atlas": "war-elephant-walk-v1",
+    "source": "art-src/isometric/war-elephant-walk-v1.png",
+    "frames": 64,
+    "removedPixels": 1497,
+    "details": [
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 26,
+        "keptPixels": 10163
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 41,
+        "keptPixels": 11241
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 28,
+        "keptPixels": 11130
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "removedPixels": 22,
+        "keptPixels": 10600
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 80,
+        "keptPixels": 10652
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "removedPixels": 63,
+        "keptPixels": 9649
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "removedPixels": 58,
+        "keptPixels": 9447
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 68,
+        "keptPixels": 9127
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 59,
+        "keptPixels": 9356
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 68,
+        "keptPixels": 9999
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 82,
+        "keptPixels": 9505
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 60,
+        "keptPixels": 9683
+      },
+      {
+        "row": 5,
+        "col": 6,
+        "removedPixels": 42,
+        "keptPixels": 10062
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 54,
+        "keptPixels": 9316
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 133,
+        "keptPixels": 7017
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 85,
+        "keptPixels": 7275
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "removedPixels": 152,
+        "keptPixels": 7266
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 114,
+        "keptPixels": 7187
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 129,
+        "keptPixels": 9085
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "removedPixels": 133,
+        "keptPixels": 8944
+      }
+    ],
+    "bytes": 508107
+  },
+  {
+    "atlas": "chariot-walk-v1",
+    "source": "art-src/isometric/chariot-walk-v1.png",
+    "frames": 64,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 589231
+  },
+  {
+    "atlas": "spear-attack-v1",
+    "source": "art-src/isometric/spear-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 589,
+    "details": [
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 78,
+        "keptPixels": 12251
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 91,
+        "keptPixels": 12236
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 109,
+        "keptPixels": 12094
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 58,
+        "keptPixels": 12720
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 31,
+        "keptPixels": 12703
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 40,
+        "keptPixels": 12886
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "removedPixels": 55,
+        "keptPixels": 13285
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 59,
+        "keptPixels": 13605
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 68,
+        "keptPixels": 11849
+      }
+    ],
+    "bytes": 411338
+  },
+  {
+    "atlas": "archer-attack-v1",
+    "source": "art-src/isometric/archer-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 42,
+    "details": [
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 42,
+        "keptPixels": 10101
+      }
+    ],
+    "bytes": 357606
+  },
+  {
+    "atlas": "horse-attack-v1",
+    "source": "art-src/isometric/horse-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 410954
+  },
+  {
+    "atlas": "ram-attack-v1",
+    "source": "art-src/isometric/ram-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 164,
+    "details": [
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 164,
+        "keptPixels": 16094
+      }
+    ],
+    "bytes": 450338
+  },
+  {
+    "atlas": "mangonel-attack-v1",
+    "source": "art-src/isometric/mangonel-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 402829
+  },
+  {
+    "atlas": "sword-attack-v1",
+    "source": "art-src/isometric/sword-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 320505
+  },
+  {
+    "atlas": "ballista-attack-v1",
+    "source": "art-src/isometric/ballista-attack-v1.png",
+    "frames": 32,
+    "removedPixels": 297,
+    "details": [
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 33,
+        "keptPixels": 13576
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 65,
+        "keptPixels": 16978
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 199,
+        "keptPixels": 14119
+      }
+    ],
+    "bytes": 444360
+  },
+  {
+    "atlas": "camel-spear-attack-v1",
+    "source": "art-src/isometric/camel-spear-attack-v1.png",
+    "frames": 64,
+    "removedPixels": 9308,
+    "details": [
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 643,
+        "keptPixels": 8623
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 1930,
+        "keptPixels": 8627
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 583,
+        "keptPixels": 8096
+      },
+      {
+        "row": 0,
+        "col": 7,
+        "removedPixels": 50,
+        "keptPixels": 7438
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "removedPixels": 70,
+        "keptPixels": 8204
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 41,
+        "keptPixels": 5621
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 40,
+        "keptPixels": 5634
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 25,
+        "keptPixels": 5700
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "removedPixels": 71,
+        "keptPixels": 8695
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 168,
+        "keptPixels": 8647
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 261,
+        "keptPixels": 8459
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 469,
+        "keptPixels": 8477
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "removedPixels": 533,
+        "keptPixels": 8472
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 412,
+        "keptPixels": 9051
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 102,
+        "keptPixels": 9225
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 626,
+        "keptPixels": 9050
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 280,
+        "keptPixels": 9051
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 541,
+        "keptPixels": 9321
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 507,
+        "keptPixels": 8796
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 984,
+        "keptPixels": 9033
+      },
+      {
+        "row": 4,
+        "col": 6,
+        "removedPixels": 123,
+        "keptPixels": 9215
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 24,
+        "keptPixels": 8868
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 58,
+        "keptPixels": 5950
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 37,
+        "keptPixels": 5828
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 31,
+        "keptPixels": 6035
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 44,
+        "keptPixels": 5906
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 31,
+        "keptPixels": 5949
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 82,
+        "keptPixels": 6211
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "removedPixels": 161,
+        "keptPixels": 8933
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 29,
+        "keptPixels": 8951
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 140,
+        "keptPixels": 8609
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "removedPixels": 184,
+        "keptPixels": 8434
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "removedPixels": 28,
+        "keptPixels": 8918
+      }
+    ],
+    "bytes": 610942
+  },
+  {
+    "atlas": "camel-sword-attack-v1",
+    "source": "art-src/isometric/camel-sword-attack-v1.png",
+    "frames": 64,
+    "removedPixels": 9897,
+    "details": [
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 359,
+        "keptPixels": 8603
+      },
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 27,
+        "keptPixels": 9363
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 233,
+        "keptPixels": 9268
+      },
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 1273,
+        "keptPixels": 9163
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 1001,
+        "keptPixels": 9330
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "removedPixels": 924,
+        "keptPixels": 8465
+      },
+      {
+        "row": 0,
+        "col": 7,
+        "removedPixels": 297,
+        "keptPixels": 7954
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 124,
+        "keptPixels": 8396
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 121,
+        "keptPixels": 8253
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 41,
+        "keptPixels": 6168
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 67,
+        "keptPixels": 6433
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 183,
+        "keptPixels": 6407
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 224,
+        "keptPixels": 6763
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 31,
+        "keptPixels": 6397
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 350,
+        "keptPixels": 8532
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "removedPixels": 49,
+        "keptPixels": 8428
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "removedPixels": 92,
+        "keptPixels": 8884
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "removedPixels": 190,
+        "keptPixels": 9210
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "removedPixels": 498,
+        "keptPixels": 8966
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 494,
+        "keptPixels": 9058
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 240,
+        "keptPixels": 9187
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 26,
+        "keptPixels": 9283
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 190,
+        "keptPixels": 9221
+      },
+      {
+        "row": 4,
+        "col": 6,
+        "removedPixels": 783,
+        "keptPixels": 8968
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "removedPixels": 658,
+        "keptPixels": 8615
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 81,
+        "keptPixels": 7390
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 91,
+        "keptPixels": 7268
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 86,
+        "keptPixels": 7561
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 49,
+        "keptPixels": 7576
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 120,
+        "keptPixels": 6389
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 120,
+        "keptPixels": 6523
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 223,
+        "keptPixels": 6897
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 150,
+        "keptPixels": 6524
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 148,
+        "keptPixels": 6864
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 142,
+        "keptPixels": 6769
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "removedPixels": 103,
+        "keptPixels": 6798
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 109,
+        "keptPixels": 6551
+      }
+    ],
+    "bytes": 640277
+  },
+  {
+    "atlas": "horse-archer-attack-v1",
+    "source": "art-src/isometric/horse-archer-attack-v1.png",
+    "frames": 64,
+    "removedPixels": 1736,
+    "details": [
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 78,
+        "keptPixels": 7670
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 73,
+        "keptPixels": 7732
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 65,
+        "keptPixels": 4976
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 56,
+        "keptPixels": 4924
+      },
+      {
+        "row": 2,
+        "col": 5,
+        "removedPixels": 60,
+        "keptPixels": 5109
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 46,
+        "keptPixels": 8464
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 57,
+        "keptPixels": 8338
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "removedPixels": 91,
+        "keptPixels": 8424
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "removedPixels": 86,
+        "keptPixels": 8445
+      },
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 22,
+        "keptPixels": 8341
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 120,
+        "keptPixels": 8534
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 48,
+        "keptPixels": 8719
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 26,
+        "keptPixels": 7767
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 84,
+        "keptPixels": 7651
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 107,
+        "keptPixels": 7863
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 96,
+        "keptPixels": 7872
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 101,
+        "keptPixels": 8265
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 37,
+        "keptPixels": 5108
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 44,
+        "keptPixels": 5183
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 49,
+        "keptPixels": 5166
+      },
+      {
+        "row": 7,
+        "col": 2,
+        "removedPixels": 70,
+        "keptPixels": 8039
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "removedPixels": 84,
+        "keptPixels": 8198
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 93,
+        "keptPixels": 8148
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 143,
+        "keptPixels": 8147
+      }
+    ],
+    "bytes": 505735
+  },
+  {
+    "atlas": "war-elephant-attack-v1",
+    "source": "art-src/isometric/war-elephant-attack-v1.png",
+    "frames": 64,
+    "removedPixels": 1241,
+    "details": [
+      {
+        "row": 0,
+        "col": 4,
+        "removedPixels": 723,
+        "keptPixels": 7431
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 162,
+        "keptPixels": 7566
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 74,
+        "keptPixels": 7716
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "removedPixels": 161,
+        "keptPixels": 7702
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "removedPixels": 81,
+        "keptPixels": 8478
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "removedPixels": 40,
+        "keptPixels": 8211
+      }
+    ],
+    "bytes": 432678
+  },
+  {
+    "atlas": "chariot-attack-v1",
+    "source": "art-src/isometric/chariot-attack-v1.png",
+    "frames": 64,
+    "removedPixels": 260,
+    "details": [
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 49,
+        "keptPixels": 9853
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 27,
+        "keptPixels": 9817
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 47,
+        "keptPixels": 9973
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 23,
+        "keptPixels": 10522
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 59,
+        "keptPixels": 10499
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "removedPixels": 55,
+        "keptPixels": 11133
+      }
+    ],
+    "bytes": 669540
+  },
+  {
+    "atlas": "french-cavalry-actions-v3",
+    "source": "art-src/isometric/french-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 485831
+  },
+  {
+    "atlas": "english-archer-actions-v3",
+    "source": "art-src/isometric/english-archer-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 68,
+    "details": [
+      {
+        "row": 0,
+        "col": 9,
+        "removedPixels": 42,
+        "keptPixels": 2973
+      },
+      {
+        "row": 2,
+        "col": 9,
+        "removedPixels": 26,
+        "keptPixels": 2815
+      }
+    ],
+    "bytes": 354737
+  },
+  {
+    "atlas": "chinese-archer-actions-v3",
+    "source": "art-src/isometric/chinese-archer-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 407868
+  },
+  {
+    "atlas": "steppe-cavalry-actions-v3",
+    "source": "art-src/isometric/steppe-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 418233
+  },
+  {
+    "atlas": "japanese-infantry-actions-v3",
+    "source": "art-src/isometric/japanese-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 406624
+  },
+  {
+    "atlas": "khmer-cavalry-actions-v3",
+    "source": "art-src/isometric/khmer-cavalry-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 442759
+  },
+  {
+    "atlas": "castilian-cavalry-actions-v3",
+    "source": "art-src/isometric/castilian-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 507077
+  },
+  {
+    "atlas": "ayyubid-infantry-actions-v3",
+    "source": "art-src/isometric/ayyubid-infantry-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 357975
+  },
+  {
+    "atlas": "english-infantry-actions-v3",
+    "source": "art-src/isometric/english-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 418104
+  },
+  {
+    "atlas": "french-infantry-actions-v3",
+    "source": "art-src/isometric/french-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 393640
+  },
+  {
+    "atlas": "chinese-infantry-actions-v3",
+    "source": "art-src/isometric/chinese-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 445101
+  },
+  {
+    "atlas": "chinese-cavalry-actions-v3",
+    "source": "art-src/isometric/chinese-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 479670
+  },
+  {
+    "atlas": "steppe-infantry-actions-v3",
+    "source": "art-src/isometric/steppe-infantry-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 384761
+  },
+  {
+    "atlas": "steppe-archer-actions-v3",
+    "source": "art-src/isometric/steppe-archer-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 413119
+  },
+  {
+    "atlas": "english-cavalry-actions-v3",
+    "source": "art-src/isometric/english-cavalry-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 430822
+  },
+  {
+    "atlas": "french-archer-actions-v3",
+    "source": "art-src/isometric/french-archer-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 424235
+  },
+  {
+    "atlas": "ayyubid-archer-actions-v3",
+    "source": "art-src/isometric/ayyubid-archer-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 400995
+  },
+  {
+    "atlas": "ayyubid-cavalry-actions-v3",
+    "source": "art-src/isometric/ayyubid-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 479880
+  },
+  {
+    "atlas": "castilian-archer-actions-v3",
+    "source": "art-src/isometric/castilian-archer-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 456872
+  },
+  {
+    "atlas": "castilian-infantry-actions-v3",
+    "source": "art-src/isometric/castilian-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 378008
+  },
+  {
+    "atlas": "japanese-archer-actions-v3",
+    "source": "art-src/isometric/japanese-archer-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 395717
+  },
+  {
+    "atlas": "japanese-cavalry-actions-v3",
+    "source": "art-src/isometric/japanese-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 454115
+  },
+  {
+    "atlas": "khmer-archer-actions-v3",
+    "source": "art-src/isometric/khmer-archer-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 400488
+  },
+  {
+    "atlas": "khmer-infantry-actions-v3",
+    "source": "art-src/isometric/khmer-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 447886
+  },
+  {
+    "atlas": "ayyubid-spear-actions-v3",
+    "source": "art-src/isometric/ayyubid-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 398501
+  },
+  {
+    "atlas": "castilian-spear-actions-v3",
+    "source": "art-src/isometric/castilian-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 421345
+  },
+  {
+    "atlas": "chinese-spear-actions-v3",
+    "source": "art-src/isometric/chinese-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 411053
+  },
+  {
+    "atlas": "english-spear-actions-v3",
+    "source": "art-src/isometric/english-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 366992
+  },
+  {
+    "atlas": "french-spear-actions-v3",
+    "source": "art-src/isometric/french-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 375563
+  },
+  {
+    "atlas": "japanese-spear-actions-v3",
+    "source": "art-src/isometric/japanese-spear-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 326809
+  },
+  {
+    "atlas": "khmer-spear-actions-v3",
+    "source": "art-src/isometric/khmer-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 398083
+  },
+  {
+    "atlas": "steppe-spear-actions-v3",
+    "source": "art-src/isometric/steppe-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 378817
+  },
+  {
+    "atlas": "landmarks-palisade-v2",
+    "source": "art-src/isometric/landmarks-palisade-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 452633
+  },
+  {
+    "atlas": "worker-actions-v1",
+    "source": "art-src/isometric/worker-actions-v1.png",
+    "frames": 40,
+    "removedPixels": 232,
+    "details": [
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 49,
+        "keptPixels": 9998
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 72,
+        "keptPixels": 9713
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "removedPixels": 111,
+        "keptPixels": 10447
+      }
+    ],
+    "bytes": 391928
+  },
+  {
+    "atlas": "siege-actions-v1",
+    "source": "art-src/isometric/siege-actions-v1.png",
+    "frames": 16,
+    "removedPixels": 416,
+    "details": [
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 416,
+        "keptPixels": 33232
+      }
+    ],
+    "bytes": 488474
+  },
+  {
+    "atlas": "people-directions-v2",
+    "source": "art-src/isometric/people-directions-v2.png",
+    "frames": 48,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 354091
+  },
+  {
+    "atlas": "mounted-directions-v2",
+    "source": "art-src/isometric/mounted-directions-v2.png",
+    "frames": 56,
+    "removedPixels": 907,
+    "details": [
+      {
+        "row": 4,
+        "col": 2,
+        "removedPixels": 48,
+        "keptPixels": 5576
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "removedPixels": 47,
+        "keptPixels": 8147
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "removedPixels": 111,
+        "keptPixels": 8994
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "removedPixels": 122,
+        "keptPixels": 7915
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "removedPixels": 133,
+        "keptPixels": 8048
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 32,
+        "keptPixels": 4742
+      },
+      {
+        "row": 6,
+        "col": 4,
+        "removedPixels": 138,
+        "keptPixels": 7262
+      },
+      {
+        "row": 6,
+        "col": 5,
+        "removedPixels": 137,
+        "keptPixels": 6776
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "removedPixels": 139,
+        "keptPixels": 6649
+      }
+    ],
+    "bytes": 570314
+  },
+  {
+    "atlas": "world-atlas-v1",
+    "source": "art-src/isometric/world-atlas-v1.png",
+    "frames": 16,
+    "removedPixels": 28,
+    "details": [
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 28,
+        "keptPixels": 32104
+      }
+    ],
+    "bytes": 724744
+  },
+  {
+    "atlas": "units-atlas-v1",
+    "source": "art-src/isometric/units-atlas-v1.png",
+    "frames": 32,
+    "removedPixels": 2408,
+    "details": [
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 24,
+        "keptPixels": 11446
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 259,
+        "keptPixels": 13639
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 25,
+        "keptPixels": 12686
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 83,
+        "keptPixels": 8549
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "removedPixels": 43,
+        "keptPixels": 22361
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "removedPixels": 209,
+        "keptPixels": 20922
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "removedPixels": 476,
+        "keptPixels": 20815
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "removedPixels": 280,
+        "keptPixels": 21005
+      },
+      {
+        "row": 5,
+        "col": 3,
+        "removedPixels": 202,
+        "keptPixels": 20122
+      },
+      {
+        "row": 6,
+        "col": 0,
+        "removedPixels": 143,
+        "keptPixels": 28982
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "removedPixels": 266,
+        "keptPixels": 27365
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "removedPixels": 219,
+        "keptPixels": 28081
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "removedPixels": 179,
+        "keptPixels": 26120
+      }
+    ],
+    "bytes": 499827
+  },
+  {
+    "atlas": "english-settlement-v1",
+    "source": "public/assets/isometric/english-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 531936
+  },
+  {
+    "atlas": "french-settlement-v1",
+    "source": "public/assets/isometric/french-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 94,
+    "details": [
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 94,
+        "keptPixels": 37194
+      }
+    ],
+    "bytes": 547010
+  },
+  {
+    "atlas": "saracen-settlement-v1",
+    "source": "public/assets/isometric/saracen-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 524541
+  },
+  {
+    "atlas": "mongol-settlement-v1",
+    "source": "public/assets/isometric/mongol-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 577933
+  },
+  {
+    "atlas": "chinese-settlement-v1",
+    "source": "art-src/isometric/chinese-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 562948
+  },
+  {
+    "atlas": "japanese-settlement-v1",
+    "source": "art-src/isometric/japanese-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 572951
+  },
+  {
+    "atlas": "khmer-settlement-v1",
+    "source": "art-src/isometric/khmer-settlement-v1.png",
+    "frames": 12,
+    "removedPixels": 288,
+    "details": [
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 24,
+        "keptPixels": 60689
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 218,
+        "keptPixels": 55523
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 46,
+        "keptPixels": 60594
+      }
+    ],
+    "bytes": 610384
+  },
+  {
+    "atlas": "english-fortification-eras-v1",
+    "source": "art-src/isometric/english-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 1710,
+    "details": [
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 44,
+        "keptPixels": 41470
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 562,
+        "keptPixels": 52280
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 563,
+        "keptPixels": 52143
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 541,
+        "keptPixels": 50176
+      }
+    ],
+    "bytes": 564709
+  },
+  {
+    "atlas": "french-fortification-eras-v1",
+    "source": "art-src/isometric/french-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 4611,
+    "details": [
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 112,
+        "keptPixels": 41859
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 93,
+        "keptPixels": 48642
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 90,
+        "keptPixels": 47002
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 84,
+        "keptPixels": 44351
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 904,
+        "keptPixels": 51728
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 1109,
+        "keptPixels": 56722
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 1123,
+        "keptPixels": 55345
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 1096,
+        "keptPixels": 53978
+      }
+    ],
+    "bytes": 549151
+  },
+  {
+    "atlas": "saracen-fortification-eras-v1",
+    "source": "art-src/isometric/saracen-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 1227,
+    "details": [
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 398,
+        "keptPixels": 50969
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 254,
+        "keptPixels": 57277
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 288,
+        "keptPixels": 55355
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 287,
+        "keptPixels": 53168
+      }
+    ],
+    "bytes": 584396
+  },
+  {
+    "atlas": "mongol-fortification-eras-v1",
+    "source": "art-src/isometric/mongol-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 28,
+    "details": [
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 28,
+        "keptPixels": 50703
+      }
+    ],
+    "bytes": 588177
+  },
+  {
+    "atlas": "chinese-fortification-eras-v1",
+    "source": "art-src/isometric/chinese-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 583,
+    "details": [
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 117,
+        "keptPixels": 62007
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 85,
+        "keptPixels": 59704
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 114,
+        "keptPixels": 59300
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 196,
+        "keptPixels": 49941
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "removedPixels": 36,
+        "keptPixels": 70552
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 35,
+        "keptPixels": 68039
+      }
+    ],
+    "bytes": 603591
+  },
+  {
+    "atlas": "japanese-fortification-eras-v1",
+    "source": "art-src/isometric/japanese-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 432,
+    "details": [
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 215,
+        "keptPixels": 50941
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 70,
+        "keptPixels": 52551
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 79,
+        "keptPixels": 52487
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 68,
+        "keptPixels": 49012
+      }
+    ],
+    "bytes": 532052
+  },
+  {
+    "atlas": "khmer-fortification-eras-v1",
+    "source": "art-src/isometric/khmer-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 3671,
+    "details": [
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 1233,
+        "keptPixels": 46333
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 808,
+        "keptPixels": 55319
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 799,
+        "keptPixels": 53527
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 804,
+        "keptPixels": 50733
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 27,
+        "keptPixels": 72318
+      }
+    ],
+    "bytes": 625559
+  },
+  {
+    "atlas": "roman-fortification-eras-v1",
+    "source": "art-src/isometric/roman-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 27,
+    "details": [
+      {
+        "row": 3,
+        "col": 1,
+        "removedPixels": 27,
+        "keptPixels": 70254
+      }
+    ],
+    "bytes": 702504
+  },
+  {
+    "atlas": "persian-fortification-eras-v1",
+    "source": "art-src/isometric/persian-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 3870,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 52,
+        "keptPixels": 44254
+      },
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 146,
+        "keptPixels": 41128
+      },
+      {
+        "row": 0,
+        "col": 2,
+        "removedPixels": 86,
+        "keptPixels": 40729
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 78,
+        "keptPixels": 37640
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 163,
+        "keptPixels": 55698
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 218,
+        "keptPixels": 53005
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 73,
+        "keptPixels": 52860
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 53,
+        "keptPixels": 50148
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 902,
+        "keptPixels": 63653
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 720,
+        "keptPixels": 57839
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 316,
+        "keptPixels": 58294
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 509,
+        "keptPixels": 54674
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "removedPixels": 142,
+        "keptPixels": 75788
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "removedPixels": 134,
+        "keptPixels": 69346
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "removedPixels": 205,
+        "keptPixels": 70295
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "removedPixels": 73,
+        "keptPixels": 66858
+      }
+    ],
+    "bytes": 670749
+  },
+  {
+    "atlas": "castilian-fortification-eras-v1",
+    "source": "art-src/isometric/castilian-fortification-eras-v1.png",
+    "frames": 16,
+    "removedPixels": 4459,
+    "details": [
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 283,
+        "keptPixels": 53070
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 129,
+        "keptPixels": 54573
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 128,
+        "keptPixels": 53176
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 126,
+        "keptPixels": 49582
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 2849,
+        "keptPixels": 58416
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 309,
+        "keptPixels": 62598
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 320,
+        "keptPixels": 62186
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 315,
+        "keptPixels": 58830
+      }
+    ],
+    "bytes": 725077
+  },
+  {
+    "atlas": "gate-motion-v1",
+    "source": "public/assets/isometric/gate-motion-v1.png",
+    "frames": 20,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 577175
+  },
+  {
+    "atlas": "roman-infantry-actions-v3",
+    "source": "art-src/isometric/roman-infantry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 112,
+    "details": [
+      {
+        "row": 2,
+        "col": 10,
+        "removedPixels": 112,
+        "keptPixels": 4322
+      }
+    ],
+    "bytes": 502839
+  },
+  {
+    "atlas": "persian-infantry-actions-v3",
+    "source": "art-src/isometric/persian-infantry-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 443860
+  },
+  {
+    "atlas": "roman-archer-actions-v3",
+    "source": "art-src/isometric/roman-archer-actions-v3.png",
+    "frames": 84,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 336776
+  },
+  {
+    "atlas": "roman-cavalry-actions-v3",
+    "source": "art-src/isometric/roman-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 406644
+  },
+  {
+    "atlas": "persian-archer-actions-v3",
+    "source": "art-src/isometric/persian-archer-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 412211
+  },
+  {
+    "atlas": "persian-cavalry-actions-v3",
+    "source": "art-src/isometric/persian-cavalry-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 446908
+  },
+  {
+    "atlas": "persian-spear-actions-v3",
+    "source": "art-src/isometric/persian-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 75,
+    "details": [
+      {
+        "row": 6,
+        "col": 11,
+        "removedPixels": 75,
+        "keptPixels": 2348
+      }
+    ],
+    "bytes": 320345
+  },
+  {
+    "atlas": "roman-spear-actions-v3",
+    "source": "art-src/isometric/roman-spear-actions-v3.png",
+    "frames": 96,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 370165
+  },
+  {
+    "atlas": "roman-settlement-v2",
+    "source": "art-src/isometric/roman-settlement-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 442860
+  },
+  {
+    "atlas": "persian-settlement-v2",
+    "source": "art-src/isometric/persian-settlement-v2.png",
+    "frames": 12,
+    "removedPixels": 240,
+    "details": [
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 188,
+        "keptPixels": 50338
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 52,
+        "keptPixels": 47949
+      }
+    ],
+    "bytes": 421333
+  },
+  {
+    "atlas": "roman-settlement-east-v2",
+    "source": "art-src/isometric/roman-settlement-east-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 457689
+  },
+  {
+    "atlas": "roman-settlement-north-v2",
+    "source": "art-src/isometric/roman-settlement-north-v2.png",
+    "frames": 12,
+    "removedPixels": 1356,
+    "details": [
+      {
+        "row": 1,
+        "col": 0,
+        "removedPixels": 358,
+        "keptPixels": 45592
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 523,
+        "keptPixels": 52320
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 475,
+        "keptPixels": 53381
+      }
+    ],
+    "bytes": 460773
+  },
+  {
+    "atlas": "roman-settlement-west-v2",
+    "source": "art-src/isometric/roman-settlement-west-v2.png",
+    "frames": 12,
+    "removedPixels": 419,
+    "details": [
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 298,
+        "keptPixels": 55126
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 121,
+        "keptPixels": 55167
+      }
+    ],
+    "bytes": 452498
+  },
+  {
+    "atlas": "persian-settlement-east-v2",
+    "source": "art-src/isometric/persian-settlement-east-v2.png",
+    "frames": 12,
+    "removedPixels": 422,
+    "details": [
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 105,
+        "keptPixels": 59239
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 317,
+        "keptPixels": 52206
+      }
+    ],
+    "bytes": 458780
+  },
+  {
+    "atlas": "persian-settlement-north-v2",
+    "source": "art-src/isometric/persian-settlement-north-v2.png",
+    "frames": 12,
+    "removedPixels": 561,
+    "details": [
+      {
+        "row": 2,
+        "col": 0,
+        "removedPixels": 257,
+        "keptPixels": 65819
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 131,
+        "keptPixels": 51319
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 115,
+        "keptPixels": 50494
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 58,
+        "keptPixels": 43924
+      }
+    ],
+    "bytes": 402098
+  },
+  {
+    "atlas": "persian-settlement-west-v2",
+    "source": "art-src/isometric/persian-settlement-west-v2.png",
+    "frames": 12,
+    "removedPixels": 132,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 41,
+        "keptPixels": 55303
+      },
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 91,
+        "keptPixels": 67657
+      }
+    ],
+    "bytes": 433941
+  },
+  {
+    "atlas": "roman-fortifications-v2",
+    "source": "art-src/isometric/roman-fortifications-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 370985
+  },
+  {
+    "atlas": "roman-utilities-v2",
+    "source": "art-src/isometric/roman-utilities-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 528820
+  },
+  {
+    "atlas": "persian-fortifications-v2",
+    "source": "art-src/isometric/persian-fortifications-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 438317
+  },
+  {
+    "atlas": "persian-utilities-v2",
+    "source": "art-src/isometric/persian-utilities-v2.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 572125
+  },
+  {
+    "atlas": "roman-dark-00",
+    "source": "art-src/isometric/roman-dark-00.png",
+    "frames": 1,
+    "removedPixels": 47,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 47,
+        "keptPixels": 58051
+      }
+    ],
+    "bytes": 46552
+  },
+  {
+    "atlas": "roman-dark-01",
+    "source": "art-src/isometric/roman-dark-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50035
+  },
+  {
+    "atlas": "roman-dark-02",
+    "source": "art-src/isometric/roman-dark-02.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39596
+  },
+  {
+    "atlas": "roman-dark-03",
+    "source": "art-src/isometric/roman-dark-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45492
+  },
+  {
+    "atlas": "roman-dark-04",
+    "source": "art-src/isometric/roman-dark-04.png",
+    "frames": 1,
+    "removedPixels": 529,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 529,
+        "keptPixels": 53911
+      }
+    ],
+    "bytes": 45593
+  },
+  {
+    "atlas": "roman-dark-05",
+    "source": "art-src/isometric/roman-dark-05.png",
+    "frames": 1,
+    "removedPixels": 433,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 433,
+        "keptPixels": 57701
+      }
+    ],
+    "bytes": 45339
+  },
+  {
+    "atlas": "roman-dark-06",
+    "source": "art-src/isometric/roman-dark-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47299
+  },
+  {
+    "atlas": "roman-dark-07",
+    "source": "art-src/isometric/roman-dark-07.png",
+    "frames": 1,
+    "removedPixels": 1170,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1170,
+        "keptPixels": 56112
+      }
+    ],
+    "bytes": 45172
+  },
+  {
+    "atlas": "roman-dark-08",
+    "source": "art-src/isometric/roman-dark-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48658
+  },
+  {
+    "atlas": "roman-dark-09",
+    "source": "art-src/isometric/roman-dark-09.png",
+    "frames": 1,
+    "removedPixels": 95,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 95,
+        "keptPixels": 53180
+      }
+    ],
+    "bytes": 42368
+  },
+  {
+    "atlas": "roman-dark-10",
+    "source": "art-src/isometric/roman-dark-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42058
+  },
+  {
+    "atlas": "roman-dark-11",
+    "source": "art-src/isometric/roman-dark-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49939
+  },
+  {
+    "atlas": "roman-dark-east-00",
+    "source": "art-src/isometric/roman-dark-east-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44542
+  },
+  {
+    "atlas": "roman-dark-east-01",
+    "source": "art-src/isometric/roman-dark-east-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42020
+  },
+  {
+    "atlas": "roman-dark-east-02",
+    "source": "art-src/isometric/roman-dark-east-02.png",
+    "frames": 1,
+    "removedPixels": 325,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 325,
+        "keptPixels": 45873
+      }
+    ],
+    "bytes": 35060
+  },
+  {
+    "atlas": "roman-dark-east-03",
+    "source": "art-src/isometric/roman-dark-east-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43133
+  },
+  {
+    "atlas": "roman-dark-east-04",
+    "source": "art-src/isometric/roman-dark-east-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43898
+  },
+  {
+    "atlas": "roman-dark-east-05",
+    "source": "art-src/isometric/roman-dark-east-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39024
+  },
+  {
+    "atlas": "roman-dark-east-06",
+    "source": "art-src/isometric/roman-dark-east-06.png",
+    "frames": 1,
+    "removedPixels": 7623,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 7623,
+        "keptPixels": 47305
+      }
+    ],
+    "bytes": 35250
+  },
+  {
+    "atlas": "roman-dark-east-07",
+    "source": "art-src/isometric/roman-dark-east-07.png",
+    "frames": 1,
+    "removedPixels": 1678,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1678,
+        "keptPixels": 48391
+      }
+    ],
+    "bytes": 35461
+  },
+  {
+    "atlas": "roman-dark-east-08",
+    "source": "art-src/isometric/roman-dark-east-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 40228
+  },
+  {
+    "atlas": "roman-dark-east-09",
+    "source": "art-src/isometric/roman-dark-east-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36214
+  },
+  {
+    "atlas": "roman-dark-east-10",
+    "source": "art-src/isometric/roman-dark-east-10.png",
+    "frames": 1,
+    "removedPixels": 859,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 859,
+        "keptPixels": 53499
+      }
+    ],
+    "bytes": 39239
+  },
+  {
+    "atlas": "roman-dark-east-11",
+    "source": "art-src/isometric/roman-dark-east-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49927
+  },
+  {
+    "atlas": "roman-dark-north-00",
+    "source": "art-src/isometric/roman-dark-north-00.png",
+    "frames": 1,
+    "removedPixels": 56,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 56,
+        "keptPixels": 51537
+      }
+    ],
+    "bytes": 42404
+  },
+  {
+    "atlas": "roman-dark-north-01",
+    "source": "art-src/isometric/roman-dark-north-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49095
+  },
+  {
+    "atlas": "roman-dark-north-02",
+    "source": "art-src/isometric/roman-dark-north-02.png",
+    "frames": 1,
+    "removedPixels": 61,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 61,
+        "keptPixels": 38654
+      }
+    ],
+    "bytes": 34300
+  },
+  {
+    "atlas": "roman-dark-north-03",
+    "source": "art-src/isometric/roman-dark-north-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43249
+  },
+  {
+    "atlas": "roman-dark-north-04",
+    "source": "art-src/isometric/roman-dark-north-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44764
+  },
+  {
+    "atlas": "roman-dark-north-05",
+    "source": "art-src/isometric/roman-dark-north-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39319
+  },
+  {
+    "atlas": "roman-dark-north-06",
+    "source": "art-src/isometric/roman-dark-north-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 41130
+  },
+  {
+    "atlas": "roman-dark-north-07",
+    "source": "art-src/isometric/roman-dark-north-07.png",
+    "frames": 1,
+    "removedPixels": 1954,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1954,
+        "keptPixels": 46245
+      }
+    ],
+    "bytes": 37716
+  },
+  {
+    "atlas": "roman-dark-north-08",
+    "source": "art-src/isometric/roman-dark-north-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47280
+  },
+  {
+    "atlas": "roman-dark-north-09",
+    "source": "art-src/isometric/roman-dark-north-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39079
+  },
+  {
+    "atlas": "roman-dark-north-10",
+    "source": "art-src/isometric/roman-dark-north-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 35375
+  },
+  {
+    "atlas": "roman-dark-north-11",
+    "source": "art-src/isometric/roman-dark-north-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38986
+  },
+  {
+    "atlas": "roman-dark-west-00",
+    "source": "art-src/isometric/roman-dark-west-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 41102
+  },
+  {
+    "atlas": "roman-dark-west-01",
+    "source": "art-src/isometric/roman-dark-west-01.png",
+    "frames": 1,
+    "removedPixels": 64,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 64,
+        "keptPixels": 56256
+      }
+    ],
+    "bytes": 45757
+  },
+  {
+    "atlas": "roman-dark-west-02",
+    "source": "art-src/isometric/roman-dark-west-02.png",
+    "frames": 1,
+    "removedPixels": 317,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 317,
+        "keptPixels": 38939
+      }
+    ],
+    "bytes": 30905
+  },
+  {
+    "atlas": "roman-dark-west-03",
+    "source": "art-src/isometric/roman-dark-west-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42463
+  },
+  {
+    "atlas": "roman-dark-west-04",
+    "source": "art-src/isometric/roman-dark-west-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45132
+  },
+  {
+    "atlas": "roman-dark-west-05",
+    "source": "art-src/isometric/roman-dark-west-05.png",
+    "frames": 1,
+    "removedPixels": 141,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 141,
+        "keptPixels": 47847
+      }
+    ],
+    "bytes": 39225
+  },
+  {
+    "atlas": "roman-dark-west-06",
+    "source": "art-src/isometric/roman-dark-west-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 40098
+  },
+  {
+    "atlas": "roman-dark-west-07",
+    "source": "art-src/isometric/roman-dark-west-07.png",
+    "frames": 1,
+    "removedPixels": 85,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 85,
+        "keptPixels": 50176
+      }
+    ],
+    "bytes": 40745
+  },
+  {
+    "atlas": "roman-dark-west-08",
+    "source": "art-src/isometric/roman-dark-west-08.png",
+    "frames": 1,
+    "removedPixels": 257,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 257,
+        "keptPixels": 52187
+      }
+    ],
+    "bytes": 42542
+  },
+  {
+    "atlas": "roman-dark-west-09",
+    "source": "art-src/isometric/roman-dark-west-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36765
+  },
+  {
+    "atlas": "roman-dark-west-10",
+    "source": "art-src/isometric/roman-dark-west-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37133
+  },
+  {
+    "atlas": "roman-dark-west-11",
+    "source": "art-src/isometric/roman-dark-west-11.png",
+    "frames": 1,
+    "removedPixels": 37,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 37,
+        "keptPixels": 55425
+      }
+    ],
+    "bytes": 42360
+  },
+  {
+    "atlas": "roman-feudal-00",
+    "source": "art-src/isometric/roman-feudal-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 51929
+  },
+  {
+    "atlas": "roman-feudal-01",
+    "source": "art-src/isometric/roman-feudal-01.png",
+    "frames": 1,
+    "removedPixels": 1140,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1140,
+        "keptPixels": 71521
+      }
+    ],
+    "bytes": 55647
+  },
+  {
+    "atlas": "roman-feudal-02",
+    "source": "art-src/isometric/roman-feudal-02.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 33250
+  },
+  {
+    "atlas": "roman-feudal-03",
+    "source": "art-src/isometric/roman-feudal-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48422
+  },
+  {
+    "atlas": "roman-feudal-04",
+    "source": "art-src/isometric/roman-feudal-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44813
+  },
+  {
+    "atlas": "roman-feudal-05",
+    "source": "art-src/isometric/roman-feudal-05.png",
+    "frames": 1,
+    "removedPixels": 1112,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1112,
+        "keptPixels": 57662
+      }
+    ],
+    "bytes": 48461
+  },
+  {
+    "atlas": "roman-feudal-06",
+    "source": "art-src/isometric/roman-feudal-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44501
+  },
+  {
+    "atlas": "roman-feudal-07",
+    "source": "art-src/isometric/roman-feudal-07.png",
+    "frames": 1,
+    "removedPixels": 5903,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 5903,
+        "keptPixels": 47223
+      }
+    ],
+    "bytes": 38500
+  },
+  {
+    "atlas": "roman-feudal-08",
+    "source": "art-src/isometric/roman-feudal-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44950
+  },
+  {
+    "atlas": "roman-feudal-09",
+    "source": "art-src/isometric/roman-feudal-09.png",
+    "frames": 1,
+    "removedPixels": 6179,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 6179,
+        "keptPixels": 57354
+      }
+    ],
+    "bytes": 47200
+  },
+  {
+    "atlas": "roman-feudal-10",
+    "source": "art-src/isometric/roman-feudal-10.png",
+    "frames": 1,
+    "removedPixels": 12714,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 12714,
+        "keptPixels": 19776
+      }
+    ],
+    "bytes": 17050
+  },
+  {
+    "atlas": "roman-feudal-11",
+    "source": "art-src/isometric/roman-feudal-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50451
+  },
+  {
+    "atlas": "roman-feudal-east-00",
+    "source": "art-src/isometric/roman-feudal-east-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45861
+  },
+  {
+    "atlas": "roman-feudal-east-01",
+    "source": "art-src/isometric/roman-feudal-east-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 55409
+  },
+  {
+    "atlas": "roman-feudal-east-02",
+    "source": "art-src/isometric/roman-feudal-east-02.png",
+    "frames": 1,
+    "removedPixels": 2381,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 2381,
+        "keptPixels": 42515
+      }
+    ],
+    "bytes": 36420
+  },
+  {
+    "atlas": "roman-feudal-east-03",
+    "source": "art-src/isometric/roman-feudal-east-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48727
+  },
+  {
+    "atlas": "roman-feudal-east-04",
+    "source": "art-src/isometric/roman-feudal-east-04.png",
+    "frames": 1,
+    "removedPixels": 938,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 938,
+        "keptPixels": 51348
+      }
+    ],
+    "bytes": 43395
+  },
+  {
+    "atlas": "roman-feudal-east-05",
+    "source": "art-src/isometric/roman-feudal-east-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 46420
+  },
+  {
+    "atlas": "roman-feudal-east-06",
+    "source": "art-src/isometric/roman-feudal-east-06.png",
+    "frames": 1,
+    "removedPixels": 465,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 465,
+        "keptPixels": 60746
+      }
+    ],
+    "bytes": 50309
+  },
+  {
+    "atlas": "roman-feudal-east-07",
+    "source": "art-src/isometric/roman-feudal-east-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45036
+  },
+  {
+    "atlas": "roman-feudal-east-08",
+    "source": "art-src/isometric/roman-feudal-east-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49338
+  },
+  {
+    "atlas": "roman-feudal-east-09",
+    "source": "art-src/isometric/roman-feudal-east-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43643
+  },
+  {
+    "atlas": "roman-feudal-east-10",
+    "source": "art-src/isometric/roman-feudal-east-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45560
+  },
+  {
+    "atlas": "roman-feudal-east-11",
+    "source": "art-src/isometric/roman-feudal-east-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43740
+  },
+  {
+    "atlas": "roman-feudal-north-00",
+    "source": "art-src/isometric/roman-feudal-north-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49544
+  },
+  {
+    "atlas": "roman-feudal-north-01",
+    "source": "art-src/isometric/roman-feudal-north-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50565
+  },
+  {
+    "atlas": "roman-feudal-north-02",
+    "source": "art-src/isometric/roman-feudal-north-02.png",
+    "frames": 1,
+    "removedPixels": 280,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 280,
+        "keptPixels": 45176
+      }
+    ],
+    "bytes": 37703
+  },
+  {
+    "atlas": "roman-feudal-north-03",
+    "source": "art-src/isometric/roman-feudal-north-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44271
+  },
+  {
+    "atlas": "roman-feudal-north-04",
+    "source": "art-src/isometric/roman-feudal-north-04.png",
+    "frames": 1,
+    "removedPixels": 968,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 968,
+        "keptPixels": 50544
+      }
+    ],
+    "bytes": 43377
+  },
+  {
+    "atlas": "roman-feudal-north-05",
+    "source": "art-src/isometric/roman-feudal-north-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45212
+  },
+  {
+    "atlas": "roman-feudal-north-06",
+    "source": "art-src/isometric/roman-feudal-north-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47300
+  },
+  {
+    "atlas": "roman-feudal-north-07",
+    "source": "art-src/isometric/roman-feudal-north-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45325
+  },
+  {
+    "atlas": "roman-feudal-north-08",
+    "source": "art-src/isometric/roman-feudal-north-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47946
+  },
+  {
+    "atlas": "roman-feudal-north-09",
+    "source": "art-src/isometric/roman-feudal-north-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43538
+  },
+  {
+    "atlas": "roman-feudal-north-10",
+    "source": "art-src/isometric/roman-feudal-north-10.png",
+    "frames": 1,
+    "removedPixels": 813,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 813,
+        "keptPixels": 52068
+      }
+    ],
+    "bytes": 42345
+  },
+  {
+    "atlas": "roman-feudal-north-11",
+    "source": "art-src/isometric/roman-feudal-north-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49851
+  },
+  {
+    "atlas": "roman-feudal-west-00",
+    "source": "art-src/isometric/roman-feudal-west-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44533
+  },
+  {
+    "atlas": "roman-feudal-west-01",
+    "source": "art-src/isometric/roman-feudal-west-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49284
+  },
+  {
+    "atlas": "roman-feudal-west-02",
+    "source": "art-src/isometric/roman-feudal-west-02.png",
+    "frames": 1,
+    "removedPixels": 549,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 549,
+        "keptPixels": 43109
+      }
+    ],
+    "bytes": 35951
+  },
+  {
+    "atlas": "roman-feudal-west-03",
+    "source": "art-src/isometric/roman-feudal-west-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45558
+  },
+  {
+    "atlas": "roman-feudal-west-04",
+    "source": "art-src/isometric/roman-feudal-west-04.png",
+    "frames": 1,
+    "removedPixels": 129,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 129,
+        "keptPixels": 51366
+      }
+    ],
+    "bytes": 42849
+  },
+  {
+    "atlas": "roman-feudal-west-05",
+    "source": "art-src/isometric/roman-feudal-west-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42980
+  },
+  {
+    "atlas": "roman-feudal-west-06",
+    "source": "art-src/isometric/roman-feudal-west-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43561
+  },
+  {
+    "atlas": "roman-feudal-west-07",
+    "source": "art-src/isometric/roman-feudal-west-07.png",
+    "frames": 1,
+    "removedPixels": 430,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 430,
+        "keptPixels": 53858
+      }
+    ],
+    "bytes": 43526
+  },
+  {
+    "atlas": "roman-feudal-west-08",
+    "source": "art-src/isometric/roman-feudal-west-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 51301
+  },
+  {
+    "atlas": "roman-feudal-west-09",
+    "source": "art-src/isometric/roman-feudal-west-09.png",
+    "frames": 1,
+    "removedPixels": 2302,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 2302,
+        "keptPixels": 51776
+      }
+    ],
+    "bytes": 40119
+  },
+  {
+    "atlas": "roman-feudal-west-10",
+    "source": "art-src/isometric/roman-feudal-west-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42506
+  },
+  {
+    "atlas": "roman-feudal-west-11",
+    "source": "art-src/isometric/roman-feudal-west-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42425
+  },
+  {
+    "atlas": "roman-imperial-00",
+    "source": "art-src/isometric/roman-imperial-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50328
+  },
+  {
+    "atlas": "roman-imperial-01",
+    "source": "art-src/isometric/roman-imperial-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 60160
+  },
+  {
+    "atlas": "roman-imperial-02",
+    "source": "art-src/isometric/roman-imperial-02.png",
+    "frames": 1,
+    "removedPixels": 2185,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 2185,
+        "keptPixels": 45344
+      }
+    ],
+    "bytes": 38948
+  },
+  {
+    "atlas": "roman-imperial-03",
+    "source": "art-src/isometric/roman-imperial-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49550
+  },
+  {
+    "atlas": "roman-imperial-04",
+    "source": "art-src/isometric/roman-imperial-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47275
+  },
+  {
+    "atlas": "roman-imperial-05",
+    "source": "art-src/isometric/roman-imperial-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 55388
+  },
+  {
+    "atlas": "roman-imperial-06",
+    "source": "art-src/isometric/roman-imperial-06.png",
+    "frames": 1,
+    "removedPixels": 152,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 152,
+        "keptPixels": 66201
+      }
+    ],
+    "bytes": 53958
+  },
+  {
+    "atlas": "roman-imperial-07",
+    "source": "art-src/isometric/roman-imperial-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 51137
+  },
+  {
+    "atlas": "roman-imperial-08",
+    "source": "art-src/isometric/roman-imperial-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 52088
+  },
+  {
+    "atlas": "roman-imperial-09",
+    "source": "art-src/isometric/roman-imperial-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49666
+  },
+  {
+    "atlas": "roman-imperial-10",
+    "source": "art-src/isometric/roman-imperial-10.png",
+    "frames": 1,
+    "removedPixels": 383,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 383,
+        "keptPixels": 62947
+      }
+    ],
+    "bytes": 48195
+  },
+  {
+    "atlas": "roman-imperial-11",
+    "source": "art-src/isometric/roman-imperial-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50531
+  },
+  {
+    "atlas": "roman-imperial-east-00",
+    "source": "art-src/isometric/roman-imperial-east-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49010
+  },
+  {
+    "atlas": "roman-imperial-east-01",
+    "source": "art-src/isometric/roman-imperial-east-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 61037
+  },
+  {
+    "atlas": "roman-imperial-east-02",
+    "source": "art-src/isometric/roman-imperial-east-02.png",
+    "frames": 1,
+    "removedPixels": 3907,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 3907,
+        "keptPixels": 50838
+      }
+    ],
+    "bytes": 41778
+  },
+  {
+    "atlas": "roman-imperial-east-03",
+    "source": "art-src/isometric/roman-imperial-east-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 52579
+  },
+  {
+    "atlas": "roman-imperial-east-04",
+    "source": "art-src/isometric/roman-imperial-east-04.png",
+    "frames": 1,
+    "removedPixels": 250,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 250,
+        "keptPixels": 56850
+      }
+    ],
+    "bytes": 47139
+  },
+  {
+    "atlas": "roman-imperial-east-05",
+    "source": "art-src/isometric/roman-imperial-east-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 55600
+  },
+  {
+    "atlas": "roman-imperial-east-06",
+    "source": "art-src/isometric/roman-imperial-east-06.png",
+    "frames": 1,
+    "removedPixels": 33,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 33,
+        "keptPixels": 67411
+      }
+    ],
+    "bytes": 54364
+  },
+  {
+    "atlas": "roman-imperial-east-07",
+    "source": "art-src/isometric/roman-imperial-east-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49062
+  },
+  {
+    "atlas": "roman-imperial-east-08",
+    "source": "art-src/isometric/roman-imperial-east-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 55332
+  },
+  {
+    "atlas": "roman-imperial-east-09",
+    "source": "art-src/isometric/roman-imperial-east-09.png",
+    "frames": 1,
+    "removedPixels": 881,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 881,
+        "keptPixels": 63511
+      }
+    ],
+    "bytes": 48710
+  },
+  {
+    "atlas": "roman-imperial-east-10",
+    "source": "art-src/isometric/roman-imperial-east-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49274
+  },
+  {
+    "atlas": "roman-imperial-east-11",
+    "source": "art-src/isometric/roman-imperial-east-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47261
+  },
+  {
+    "atlas": "roman-imperial-north-00",
+    "source": "art-src/isometric/roman-imperial-north-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 53910
+  },
+  {
+    "atlas": "roman-imperial-north-01",
+    "source": "art-src/isometric/roman-imperial-north-01.png",
+    "frames": 1,
+    "removedPixels": 930,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 930,
+        "keptPixels": 76471
+      }
+    ],
+    "bytes": 61192
+  },
+  {
+    "atlas": "roman-imperial-north-02",
+    "source": "art-src/isometric/roman-imperial-north-02.png",
+    "frames": 1,
+    "removedPixels": 5282,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 5282,
+        "keptPixels": 51146
+      }
+    ],
+    "bytes": 42404
+  },
+  {
+    "atlas": "roman-imperial-north-03",
+    "source": "art-src/isometric/roman-imperial-north-03.png",
+    "frames": 1,
+    "removedPixels": 1354,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1354,
+        "keptPixels": 56705
+      }
+    ],
+    "bytes": 47212
+  },
+  {
+    "atlas": "roman-imperial-north-04",
+    "source": "art-src/isometric/roman-imperial-north-04.png",
+    "frames": 1,
+    "removedPixels": 24,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 24,
+        "keptPixels": 55609
+      }
+    ],
+    "bytes": 48499
+  },
+  {
+    "atlas": "roman-imperial-north-05",
+    "source": "art-src/isometric/roman-imperial-north-05.png",
+    "frames": 1,
+    "removedPixels": 260,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 260,
+        "keptPixels": 66894
+      }
+    ],
+    "bytes": 52554
+  },
+  {
+    "atlas": "roman-imperial-north-06",
+    "source": "art-src/isometric/roman-imperial-north-06.png",
+    "frames": 1,
+    "removedPixels": 99,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 99,
+        "keptPixels": 65622
+      }
+    ],
+    "bytes": 52205
+  },
+  {
+    "atlas": "roman-imperial-north-07",
+    "source": "art-src/isometric/roman-imperial-north-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47874
+  },
+  {
+    "atlas": "roman-imperial-north-08",
+    "source": "art-src/isometric/roman-imperial-north-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 56341
+  },
+  {
+    "atlas": "roman-imperial-north-09",
+    "source": "art-src/isometric/roman-imperial-north-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47927
+  },
+  {
+    "atlas": "roman-imperial-north-10",
+    "source": "art-src/isometric/roman-imperial-north-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 46947
+  },
+  {
+    "atlas": "roman-imperial-north-11",
+    "source": "art-src/isometric/roman-imperial-north-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 54534
+  },
+  {
+    "atlas": "roman-imperial-west-00",
+    "source": "art-src/isometric/roman-imperial-west-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 58989
+  },
+  {
+    "atlas": "roman-imperial-west-01",
+    "source": "art-src/isometric/roman-imperial-west-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 63318
+  },
+  {
+    "atlas": "roman-imperial-west-02",
+    "source": "art-src/isometric/roman-imperial-west-02.png",
+    "frames": 1,
+    "removedPixels": 129,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 129,
+        "keptPixels": 55218
+      }
+    ],
+    "bytes": 48122
+  },
+  {
+    "atlas": "roman-imperial-west-03",
+    "source": "art-src/isometric/roman-imperial-west-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 57296
+  },
+  {
+    "atlas": "roman-imperial-west-04",
+    "source": "art-src/isometric/roman-imperial-west-04.png",
+    "frames": 1,
+    "removedPixels": 1344,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1344,
+        "keptPixels": 58678
+      }
+    ],
+    "bytes": 52865
+  },
+  {
+    "atlas": "roman-imperial-west-05",
+    "source": "art-src/isometric/roman-imperial-west-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 53999
+  },
+  {
+    "atlas": "roman-imperial-west-06",
+    "source": "art-src/isometric/roman-imperial-west-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 56075
+  },
+  {
+    "atlas": "roman-imperial-west-07",
+    "source": "art-src/isometric/roman-imperial-west-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 53864
+  },
+  {
+    "atlas": "roman-imperial-west-08",
+    "source": "art-src/isometric/roman-imperial-west-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 56552
+  },
+  {
+    "atlas": "roman-imperial-west-09",
+    "source": "art-src/isometric/roman-imperial-west-09.png",
+    "frames": 1,
+    "removedPixels": 44,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 44,
+        "keptPixels": 67701
+      }
+    ],
+    "bytes": 53765
+  },
+  {
+    "atlas": "roman-imperial-west-10",
+    "source": "art-src/isometric/roman-imperial-west-10.png",
+    "frames": 1,
+    "removedPixels": 80,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 80,
+        "keptPixels": 60714
+      }
+    ],
+    "bytes": 48473
+  },
+  {
+    "atlas": "roman-imperial-west-11",
+    "source": "art-src/isometric/roman-imperial-west-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49309
+  },
+  {
+    "atlas": "persian-dark-00",
+    "source": "art-src/isometric/persian-dark-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42768
+  },
+  {
+    "atlas": "persian-dark-01",
+    "source": "art-src/isometric/persian-dark-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 46769
+  },
+  {
+    "atlas": "persian-dark-02",
+    "source": "art-src/isometric/persian-dark-02.png",
+    "frames": 1,
+    "removedPixels": 2105,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 2105,
+        "keptPixels": 35087
+      }
+    ],
+    "bytes": 29659
+  },
+  {
+    "atlas": "persian-dark-03",
+    "source": "art-src/isometric/persian-dark-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 40160
+  },
+  {
+    "atlas": "persian-dark-04",
+    "source": "art-src/isometric/persian-dark-04.png",
+    "frames": 1,
+    "removedPixels": 1353,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1353,
+        "keptPixels": 49163
+      }
+    ],
+    "bytes": 41956
+  },
+  {
+    "atlas": "persian-dark-05",
+    "source": "art-src/isometric/persian-dark-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37274
+  },
+  {
+    "atlas": "persian-dark-06",
+    "source": "art-src/isometric/persian-dark-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 41910
+  },
+  {
+    "atlas": "persian-dark-07",
+    "source": "art-src/isometric/persian-dark-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36778
+  },
+  {
+    "atlas": "persian-dark-08",
+    "source": "art-src/isometric/persian-dark-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 51907
+  },
+  {
+    "atlas": "persian-dark-09",
+    "source": "art-src/isometric/persian-dark-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39375
+  },
+  {
+    "atlas": "persian-dark-10",
+    "source": "art-src/isometric/persian-dark-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37879
+  },
+  {
+    "atlas": "persian-dark-11",
+    "source": "art-src/isometric/persian-dark-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37901
+  },
+  {
+    "atlas": "persian-dark-east-00",
+    "source": "art-src/isometric/persian-dark-east-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48921
+  },
+  {
+    "atlas": "persian-dark-east-01",
+    "source": "art-src/isometric/persian-dark-east-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48046
+  },
+  {
+    "atlas": "persian-dark-east-02",
+    "source": "art-src/isometric/persian-dark-east-02.png",
+    "frames": 1,
+    "removedPixels": 1145,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1145,
+        "keptPixels": 31873
+      }
+    ],
+    "bytes": 27442
+  },
+  {
+    "atlas": "persian-dark-east-03",
+    "source": "art-src/isometric/persian-dark-east-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 46212
+  },
+  {
+    "atlas": "persian-dark-east-04",
+    "source": "art-src/isometric/persian-dark-east-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43455
+  },
+  {
+    "atlas": "persian-dark-east-05",
+    "source": "art-src/isometric/persian-dark-east-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36948
+  },
+  {
+    "atlas": "persian-dark-east-06",
+    "source": "art-src/isometric/persian-dark-east-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38876
+  },
+  {
+    "atlas": "persian-dark-east-07",
+    "source": "art-src/isometric/persian-dark-east-07.png",
+    "frames": 1,
+    "removedPixels": 154,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 154,
+        "keptPixels": 47057
+      }
+    ],
+    "bytes": 39232
+  },
+  {
+    "atlas": "persian-dark-east-08",
+    "source": "art-src/isometric/persian-dark-east-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47884
+  },
+  {
+    "atlas": "persian-dark-east-09",
+    "source": "art-src/isometric/persian-dark-east-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 41687
+  },
+  {
+    "atlas": "persian-dark-east-10",
+    "source": "art-src/isometric/persian-dark-east-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36371
+  },
+  {
+    "atlas": "persian-dark-east-11",
+    "source": "art-src/isometric/persian-dark-east-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39294
+  },
+  {
+    "atlas": "persian-dark-north-00",
+    "source": "art-src/isometric/persian-dark-north-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42871
+  },
+  {
+    "atlas": "persian-dark-north-01",
+    "source": "art-src/isometric/persian-dark-north-01.png",
+    "frames": 1,
+    "removedPixels": 1170,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1170,
+        "keptPixels": 47220
+      }
+    ],
+    "bytes": 36058
+  },
+  {
+    "atlas": "persian-dark-north-02",
+    "source": "art-src/isometric/persian-dark-north-02.png",
+    "frames": 1,
+    "removedPixels": 1321,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1321,
+        "keptPixels": 32488
+      }
+    ],
+    "bytes": 27493
+  },
+  {
+    "atlas": "persian-dark-north-03",
+    "source": "art-src/isometric/persian-dark-north-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38107
+  },
+  {
+    "atlas": "persian-dark-north-04",
+    "source": "art-src/isometric/persian-dark-north-04.png",
+    "frames": 1,
+    "removedPixels": 2133,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 2133,
+        "keptPixels": 47387
+      }
+    ],
+    "bytes": 36256
+  },
+  {
+    "atlas": "persian-dark-north-05",
+    "source": "art-src/isometric/persian-dark-north-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 34228
+  },
+  {
+    "atlas": "persian-dark-north-06",
+    "source": "art-src/isometric/persian-dark-north-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36363
+  },
+  {
+    "atlas": "persian-dark-north-07",
+    "source": "art-src/isometric/persian-dark-north-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 34143
+  },
+  {
+    "atlas": "persian-dark-north-08",
+    "source": "art-src/isometric/persian-dark-north-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42765
+  },
+  {
+    "atlas": "persian-dark-north-09",
+    "source": "art-src/isometric/persian-dark-north-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36136
+  },
+  {
+    "atlas": "persian-dark-north-10",
+    "source": "art-src/isometric/persian-dark-north-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37079
+  },
+  {
+    "atlas": "persian-dark-north-11",
+    "source": "art-src/isometric/persian-dark-north-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 33404
+  },
+  {
+    "atlas": "persian-dark-west-00",
+    "source": "art-src/isometric/persian-dark-west-00.png",
+    "frames": 1,
+    "removedPixels": 71,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 71,
+        "keptPixels": 53005
+      }
+    ],
+    "bytes": 46934
+  },
+  {
+    "atlas": "persian-dark-west-01",
+    "source": "art-src/isometric/persian-dark-west-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 55605
+  },
+  {
+    "atlas": "persian-dark-west-02",
+    "source": "art-src/isometric/persian-dark-west-02.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 31398
+  },
+  {
+    "atlas": "persian-dark-west-03",
+    "source": "art-src/isometric/persian-dark-west-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45340
+  },
+  {
+    "atlas": "persian-dark-west-04",
+    "source": "art-src/isometric/persian-dark-west-04.png",
+    "frames": 1,
+    "removedPixels": 89,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 89,
+        "keptPixels": 47517
+      }
+    ],
+    "bytes": 42201
+  },
+  {
+    "atlas": "persian-dark-west-05",
+    "source": "art-src/isometric/persian-dark-west-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 46614
+  },
+  {
+    "atlas": "persian-dark-west-06",
+    "source": "art-src/isometric/persian-dark-west-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36930
+  },
+  {
+    "atlas": "persian-dark-west-07",
+    "source": "art-src/isometric/persian-dark-west-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37900
+  },
+  {
+    "atlas": "persian-dark-west-08",
+    "source": "art-src/isometric/persian-dark-west-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 53039
+  },
+  {
+    "atlas": "persian-dark-west-09",
+    "source": "art-src/isometric/persian-dark-west-09.png",
+    "frames": 1,
+    "removedPixels": 100,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 100,
+        "keptPixels": 56672
+      }
+    ],
+    "bytes": 46408
+  },
+  {
+    "atlas": "persian-dark-west-10",
+    "source": "art-src/isometric/persian-dark-west-10.png",
+    "frames": 1,
+    "removedPixels": 11948,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 11948,
+        "keptPixels": 14914
+      }
+    ],
+    "bytes": 14103
+  },
+  {
+    "atlas": "persian-dark-west-11",
+    "source": "art-src/isometric/persian-dark-west-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42924
+  },
+  {
+    "atlas": "persian-feudal-00",
+    "source": "art-src/isometric/persian-feudal-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50934
+  },
+  {
+    "atlas": "persian-feudal-01",
+    "source": "art-src/isometric/persian-feudal-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 54487
+  },
+  {
+    "atlas": "persian-feudal-02",
+    "source": "art-src/isometric/persian-feudal-02.png",
+    "frames": 1,
+    "removedPixels": 559,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 559,
+        "keptPixels": 35340
+      }
+    ],
+    "bytes": 30460
+  },
+  {
+    "atlas": "persian-feudal-03",
+    "source": "art-src/isometric/persian-feudal-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44867
+  },
+  {
+    "atlas": "persian-feudal-04",
+    "source": "art-src/isometric/persian-feudal-04.png",
+    "frames": 1,
+    "removedPixels": 39,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 39,
+        "keptPixels": 56309
+      }
+    ],
+    "bytes": 50597
+  },
+  {
+    "atlas": "persian-feudal-05",
+    "source": "art-src/isometric/persian-feudal-05.png",
+    "frames": 1,
+    "removedPixels": 1237,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1237,
+        "keptPixels": 50885
+      }
+    ],
+    "bytes": 43881
+  },
+  {
+    "atlas": "persian-feudal-06",
+    "source": "art-src/isometric/persian-feudal-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36846
+  },
+  {
+    "atlas": "persian-feudal-07",
+    "source": "art-src/isometric/persian-feudal-07.png",
+    "frames": 1,
+    "removedPixels": 607,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 607,
+        "keptPixels": 48017
+      }
+    ],
+    "bytes": 40494
+  },
+  {
+    "atlas": "persian-feudal-08",
+    "source": "art-src/isometric/persian-feudal-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 56877
+  },
+  {
+    "atlas": "persian-feudal-09",
+    "source": "art-src/isometric/persian-feudal-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47366
+  },
+  {
+    "atlas": "persian-feudal-10",
+    "source": "art-src/isometric/persian-feudal-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39312
+  },
+  {
+    "atlas": "persian-feudal-11",
+    "source": "art-src/isometric/persian-feudal-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 40069
+  },
+  {
+    "atlas": "persian-feudal-east-00",
+    "source": "art-src/isometric/persian-feudal-east-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 45824
+  },
+  {
+    "atlas": "persian-feudal-east-01",
+    "source": "art-src/isometric/persian-feudal-east-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50710
+  },
+  {
+    "atlas": "persian-feudal-east-02",
+    "source": "art-src/isometric/persian-feudal-east-02.png",
+    "frames": 1,
+    "removedPixels": 113,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 113,
+        "keptPixels": 37429
+      }
+    ],
+    "bytes": 31054
+  },
+  {
+    "atlas": "persian-feudal-east-03",
+    "source": "art-src/isometric/persian-feudal-east-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43247
+  },
+  {
+    "atlas": "persian-feudal-east-04",
+    "source": "art-src/isometric/persian-feudal-east-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38207
+  },
+  {
+    "atlas": "persian-feudal-east-05",
+    "source": "art-src/isometric/persian-feudal-east-05.png",
+    "frames": 1,
+    "removedPixels": 54,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 54,
+        "keptPixels": 48266
+      }
+    ],
+    "bytes": 38852
+  },
+  {
+    "atlas": "persian-feudal-east-06",
+    "source": "art-src/isometric/persian-feudal-east-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36791
+  },
+  {
+    "atlas": "persian-feudal-east-07",
+    "source": "art-src/isometric/persian-feudal-east-07.png",
+    "frames": 1,
+    "removedPixels": 831,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 831,
+        "keptPixels": 44424
+      }
+    ],
+    "bytes": 35214
+  },
+  {
+    "atlas": "persian-feudal-east-08",
+    "source": "art-src/isometric/persian-feudal-east-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47753
+  },
+  {
+    "atlas": "persian-feudal-east-09",
+    "source": "art-src/isometric/persian-feudal-east-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 40657
+  },
+  {
+    "atlas": "persian-feudal-east-10",
+    "source": "art-src/isometric/persian-feudal-east-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 34860
+  },
+  {
+    "atlas": "persian-feudal-east-11",
+    "source": "art-src/isometric/persian-feudal-east-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 32586
+  },
+  {
+    "atlas": "persian-feudal-north-00",
+    "source": "art-src/isometric/persian-feudal-north-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44303
+  },
+  {
+    "atlas": "persian-feudal-north-01",
+    "source": "art-src/isometric/persian-feudal-north-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44211
+  },
+  {
+    "atlas": "persian-feudal-north-02",
+    "source": "art-src/isometric/persian-feudal-north-02.png",
+    "frames": 1,
+    "removedPixels": 109,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 109,
+        "keptPixels": 36978
+      }
+    ],
+    "bytes": 30445
+  },
+  {
+    "atlas": "persian-feudal-north-03",
+    "source": "art-src/isometric/persian-feudal-north-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 39073
+  },
+  {
+    "atlas": "persian-feudal-north-04",
+    "source": "art-src/isometric/persian-feudal-north-04.png",
+    "frames": 1,
+    "removedPixels": 116,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 116,
+        "keptPixels": 55242
+      }
+    ],
+    "bytes": 42908
+  },
+  {
+    "atlas": "persian-feudal-north-05",
+    "source": "art-src/isometric/persian-feudal-north-05.png",
+    "frames": 1,
+    "removedPixels": 1977,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1977,
+        "keptPixels": 46607
+      }
+    ],
+    "bytes": 35444
+  },
+  {
+    "atlas": "persian-feudal-north-06",
+    "source": "art-src/isometric/persian-feudal-north-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38096
+  },
+  {
+    "atlas": "persian-feudal-north-07",
+    "source": "art-src/isometric/persian-feudal-north-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 32755
+  },
+  {
+    "atlas": "persian-feudal-north-08",
+    "source": "art-src/isometric/persian-feudal-north-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49073
+  },
+  {
+    "atlas": "persian-feudal-north-09",
+    "source": "art-src/isometric/persian-feudal-north-09.png",
+    "frames": 1,
+    "removedPixels": 56,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 56,
+        "keptPixels": 51925
+      }
+    ],
+    "bytes": 38427
+  },
+  {
+    "atlas": "persian-feudal-north-10",
+    "source": "art-src/isometric/persian-feudal-north-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 37735
+  },
+  {
+    "atlas": "persian-feudal-north-11",
+    "source": "art-src/isometric/persian-feudal-north-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 35579
+  },
+  {
+    "atlas": "persian-feudal-west-00",
+    "source": "art-src/isometric/persian-feudal-west-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48345
+  },
+  {
+    "atlas": "persian-feudal-west-01",
+    "source": "art-src/isometric/persian-feudal-west-01.png",
+    "frames": 1,
+    "removedPixels": 34,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 34,
+        "keptPixels": 65793
+      }
+    ],
+    "bytes": 49614
+  },
+  {
+    "atlas": "persian-feudal-west-02",
+    "source": "art-src/isometric/persian-feudal-west-02.png",
+    "frames": 1,
+    "removedPixels": 1198,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 1198,
+        "keptPixels": 38401
+      }
+    ],
+    "bytes": 31801
+  },
+  {
+    "atlas": "persian-feudal-west-03",
+    "source": "art-src/isometric/persian-feudal-west-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43067
+  },
+  {
+    "atlas": "persian-feudal-west-04",
+    "source": "art-src/isometric/persian-feudal-west-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43916
+  },
+  {
+    "atlas": "persian-feudal-west-05",
+    "source": "art-src/isometric/persian-feudal-west-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36802
+  },
+  {
+    "atlas": "persian-feudal-west-06",
+    "source": "art-src/isometric/persian-feudal-west-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 35407
+  },
+  {
+    "atlas": "persian-feudal-west-07",
+    "source": "art-src/isometric/persian-feudal-west-07.png",
+    "frames": 1,
+    "removedPixels": 139,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 139,
+        "keptPixels": 48278
+      }
+    ],
+    "bytes": 35810
+  },
+  {
+    "atlas": "persian-feudal-west-08",
+    "source": "art-src/isometric/persian-feudal-west-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48893
+  },
+  {
+    "atlas": "persian-feudal-west-09",
+    "source": "art-src/isometric/persian-feudal-west-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44207
+  },
+  {
+    "atlas": "persian-feudal-west-10",
+    "source": "art-src/isometric/persian-feudal-west-10.png",
+    "frames": 1,
+    "removedPixels": 747,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 747,
+        "keptPixels": 47327
+      }
+    ],
+    "bytes": 37548
+  },
+  {
+    "atlas": "persian-feudal-west-11",
+    "source": "art-src/isometric/persian-feudal-west-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 36143
+  },
+  {
+    "atlas": "persian-imperial-v3-00",
+    "source": "art-src/isometric/persian-imperial-v3-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 55905
+  },
+  {
+    "atlas": "persian-imperial-v3-01",
+    "source": "art-src/isometric/persian-imperial-v3-01.png",
+    "frames": 1,
+    "removedPixels": 130,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 130,
+        "keptPixels": 88956
+      }
+    ],
+    "bytes": 60019
+  },
+  {
+    "atlas": "persian-imperial-v3-02",
+    "source": "art-src/isometric/persian-imperial-v3-02.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 35601
+  },
+  {
+    "atlas": "persian-imperial-v3-03",
+    "source": "art-src/isometric/persian-imperial-v3-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47944
+  },
+  {
+    "atlas": "persian-imperial-v3-04",
+    "source": "art-src/isometric/persian-imperial-v3-04.png",
+    "frames": 1,
+    "removedPixels": 3832,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 3832,
+        "keptPixels": 65808
+      }
+    ],
+    "bytes": 52215
+  },
+  {
+    "atlas": "persian-imperial-v3-05",
+    "source": "art-src/isometric/persian-imperial-v3-05.png",
+    "frames": 1,
+    "removedPixels": 5743,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 5743,
+        "keptPixels": 63335
+      }
+    ],
+    "bytes": 44491
+  },
+  {
+    "atlas": "persian-imperial-v3-06",
+    "source": "art-src/isometric/persian-imperial-v3-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42873
+  },
+  {
+    "atlas": "persian-imperial-v3-07",
+    "source": "art-src/isometric/persian-imperial-v3-07.png",
+    "frames": 1,
+    "removedPixels": 31,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 31,
+        "keptPixels": 58065
+      }
+    ],
+    "bytes": 44026
+  },
+  {
+    "atlas": "persian-imperial-v3-08",
+    "source": "art-src/isometric/persian-imperial-v3-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 57420
+  },
+  {
+    "atlas": "persian-imperial-v3-09",
+    "source": "art-src/isometric/persian-imperial-v3-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 49319
+  },
+  {
+    "atlas": "persian-imperial-v3-10",
+    "source": "art-src/isometric/persian-imperial-v3-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43012
+  },
+  {
+    "atlas": "persian-imperial-v3-11",
+    "source": "art-src/isometric/persian-imperial-v3-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 40929
+  },
+  {
+    "atlas": "persian-imperial-east-v3-00",
+    "source": "art-src/isometric/persian-imperial-east-v3-00.png",
+    "frames": 1,
+    "removedPixels": 106,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 106,
+        "keptPixels": 65287
+      }
+    ],
+    "bytes": 55014
+  },
+  {
+    "atlas": "persian-imperial-east-v3-01",
+    "source": "art-src/isometric/persian-imperial-east-v3-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 63031
+  },
+  {
+    "atlas": "persian-imperial-east-v3-02",
+    "source": "art-src/isometric/persian-imperial-east-v3-02.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 41241
+  },
+  {
+    "atlas": "persian-imperial-east-v3-03",
+    "source": "art-src/isometric/persian-imperial-east-v3-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 52738
+  },
+  {
+    "atlas": "persian-imperial-east-v3-04",
+    "source": "art-src/isometric/persian-imperial-east-v3-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 56251
+  },
+  {
+    "atlas": "persian-imperial-east-v3-05",
+    "source": "art-src/isometric/persian-imperial-east-v3-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50218
+  },
+  {
+    "atlas": "persian-imperial-east-v3-06",
+    "source": "art-src/isometric/persian-imperial-east-v3-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44976
+  },
+  {
+    "atlas": "persian-imperial-east-v3-07",
+    "source": "art-src/isometric/persian-imperial-east-v3-07.png",
+    "frames": 1,
+    "removedPixels": 22,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 22,
+        "keptPixels": 55742
+      }
+    ],
+    "bytes": 47880
+  },
+  {
+    "atlas": "persian-imperial-east-v3-08",
+    "source": "art-src/isometric/persian-imperial-east-v3-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 60579
+  },
+  {
+    "atlas": "persian-imperial-east-v3-09",
+    "source": "art-src/isometric/persian-imperial-east-v3-09.png",
+    "frames": 1,
+    "removedPixels": 22,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 22,
+        "keptPixels": 58948
+      }
+    ],
+    "bytes": 50219
+  },
+  {
+    "atlas": "persian-imperial-east-v3-10",
+    "source": "art-src/isometric/persian-imperial-east-v3-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44748
+  },
+  {
+    "atlas": "persian-imperial-east-v3-11",
+    "source": "art-src/isometric/persian-imperial-east-v3-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 44503
+  },
+  {
+    "atlas": "persian-imperial-north-v3-00",
+    "source": "art-src/isometric/persian-imperial-north-v3-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 54401
+  },
+  {
+    "atlas": "persian-imperial-north-v3-01",
+    "source": "art-src/isometric/persian-imperial-north-v3-01.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 60597
+  },
+  {
+    "atlas": "persian-imperial-north-v3-02",
+    "source": "art-src/isometric/persian-imperial-north-v3-02.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38115
+  },
+  {
+    "atlas": "persian-imperial-north-v3-03",
+    "source": "art-src/isometric/persian-imperial-north-v3-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 51546
+  },
+  {
+    "atlas": "persian-imperial-north-v3-04",
+    "source": "art-src/isometric/persian-imperial-north-v3-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 58790
+  },
+  {
+    "atlas": "persian-imperial-north-v3-05",
+    "source": "art-src/isometric/persian-imperial-north-v3-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50562
+  },
+  {
+    "atlas": "persian-imperial-north-v3-06",
+    "source": "art-src/isometric/persian-imperial-north-v3-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 42902
+  },
+  {
+    "atlas": "persian-imperial-north-v3-07",
+    "source": "art-src/isometric/persian-imperial-north-v3-07.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 41198
+  },
+  {
+    "atlas": "persian-imperial-north-v3-08",
+    "source": "art-src/isometric/persian-imperial-north-v3-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 61830
+  },
+  {
+    "atlas": "persian-imperial-north-v3-09",
+    "source": "art-src/isometric/persian-imperial-north-v3-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 54223
+  },
+  {
+    "atlas": "persian-imperial-north-v3-10",
+    "source": "art-src/isometric/persian-imperial-north-v3-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50243
+  },
+  {
+    "atlas": "persian-imperial-north-v3-11",
+    "source": "art-src/isometric/persian-imperial-north-v3-11.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 47444
+  },
+  {
+    "atlas": "persian-imperial-west-v3-00",
+    "source": "art-src/isometric/persian-imperial-west-v3-00.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 53533
+  },
+  {
+    "atlas": "persian-imperial-west-v3-01",
+    "source": "art-src/isometric/persian-imperial-west-v3-01.png",
+    "frames": 1,
+    "removedPixels": 24,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 24,
+        "keptPixels": 82116
+      }
+    ],
+    "bytes": 62118
+  },
+  {
+    "atlas": "persian-imperial-west-v3-02",
+    "source": "art-src/isometric/persian-imperial-west-v3-02.png",
+    "frames": 1,
+    "removedPixels": 185,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 185,
+        "keptPixels": 45030
+      }
+    ],
+    "bytes": 36822
+  },
+  {
+    "atlas": "persian-imperial-west-v3-03",
+    "source": "art-src/isometric/persian-imperial-west-v3-03.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48214
+  },
+  {
+    "atlas": "persian-imperial-west-v3-04",
+    "source": "art-src/isometric/persian-imperial-west-v3-04.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 46477
+  },
+  {
+    "atlas": "persian-imperial-west-v3-05",
+    "source": "art-src/isometric/persian-imperial-west-v3-05.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 48629
+  },
+  {
+    "atlas": "persian-imperial-west-v3-06",
+    "source": "art-src/isometric/persian-imperial-west-v3-06.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 38807
+  },
+  {
+    "atlas": "persian-imperial-west-v3-07",
+    "source": "art-src/isometric/persian-imperial-west-v3-07.png",
+    "frames": 1,
+    "removedPixels": 126,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 126,
+        "keptPixels": 48087
+      }
+    ],
+    "bytes": 38827
+  },
+  {
+    "atlas": "persian-imperial-west-v3-08",
+    "source": "art-src/isometric/persian-imperial-west-v3-08.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 53196
+  },
+  {
+    "atlas": "persian-imperial-west-v3-09",
+    "source": "art-src/isometric/persian-imperial-west-v3-09.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 50678
+  },
+  {
+    "atlas": "persian-imperial-west-v3-10",
+    "source": "art-src/isometric/persian-imperial-west-v3-10.png",
+    "frames": 1,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 43243
+  },
+  {
+    "atlas": "persian-imperial-west-v3-11",
+    "source": "art-src/isometric/persian-imperial-west-v3-11.png",
+    "frames": 1,
+    "removedPixels": 110,
+    "details": [
+      {
+        "row": 0,
+        "col": 0,
+        "removedPixels": 110,
+        "keptPixels": 44629
+      }
+    ],
+    "bytes": 37045
+  },
+  {
+    "atlas": "production-atlas-v1",
+    "source": "art-src/isometric/production-atlas-v1.png",
+    "frames": 12,
+    "removedPixels": 0,
+    "details": [],
+    "bytes": 732820
+  },
+  {
+    "atlas": "institutions-v1",
+    "source": "art-src/isometric/institutions-v1.png",
+    "frames": 8,
+    "removedPixels": 672,
+    "details": [
+      {
+        "row": 0,
+        "col": 1,
+        "removedPixels": 59,
+        "keptPixels": 134011
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "removedPixels": 276,
+        "keptPixels": 120998
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 42,
+        "keptPixels": 140781
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 295,
+        "keptPixels": 128047
+      }
+    ],
+    "bytes": 699851
+  },
+  {
+    "atlas": "persian-directions-v2",
+    "source": "art-src/isometric/persian-directions-v2.png",
+    "frames": 56,
+    "removedPixels": 1052,
+    "details": [
+      {
+        "row": 0,
+        "col": 5,
+        "removedPixels": 68,
+        "keptPixels": 6410
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "removedPixels": 29,
+        "keptPixels": 6438
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "removedPixels": 34,
+        "keptPixels": 6873
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "removedPixels": 50,
+        "keptPixels": 6104
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "removedPixels": 226,
+        "keptPixels": 6880
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "removedPixels": 22,
+        "keptPixels": 6745
+      },
+      {
+        "row": 1,
+        "col": 7,
+        "removedPixels": 29,
+        "keptPixels": 5684
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "removedPixels": 101,
+        "keptPixels": 6895
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "removedPixels": 82,
+        "keptPixels": 7032
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "removedPixels": 128,
+        "keptPixels": 6737
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "removedPixels": 31,
+        "keptPixels": 6848
+      },
+      {
+        "row": 2,
+        "col": 5,
+        "removedPixels": 157,
+        "keptPixels": 7060
+      },
+      {
+        "row": 2,
+        "col": 6,
+        "removedPixels": 95,
+        "keptPixels": 7403
+      }
+    ],
+    "bytes": 462700
+  }
+]

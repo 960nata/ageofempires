@@ -1,3 +1,62 @@
+## 0.24.5 — 2026-10-09 — Civilization art routing and orchard harvest motion
+- Routed original civilization signature troop atlases ahead of generic unit art. Added Khmer elephant to the mounted faction animation family; the current art is an elephant rider, not horse cavalry.
+- Orchard fields now show full-size apple trees, preserve a harvested visual state, sway while gathered and drop fruit on the worker's harvesting beat. Wild berry bushes keep their existing sprite.
+- Compressed Roman Testudo group spacing while retaining its existing research gate, missile protection and movement penalty.
+- Added three on-demand worker action in-between atlases and a seventh unique-unit preview card. See ANIMATION-REVIEW-0.24.5.md and ASSET-USAGE-0.24.5.md. The original hijab source atlas still contains some source fragments; visual masking damaged character pixels and was discarded.
+- `npm run typecheck`, `npm run build` and `git diff --check` pass. The local dev server is running on port 5173. Live page inspection was blocked by the browser's local-address policy.
+
+## 0.24.4 — 2026-10-09 — Continuous character pose transitions
+- Added shared ground-aligned pose sampling to male/female/hijab worker locomotion and work, dedicated walk/combat atlases, core faction troops, regional signature troops and decorative production workers. Fractional distance-based gait phases are retained until rendering instead of rounded to integer frames at the call site.
+- Replaced the faction-only unbounded-in-bytes blend cache with a shared LRU capped at 384 entries and 12 MiB estimated RGBA-plus-alpha storage. Zoom does not change cached image resolution; caches clear on a new world. Blended sprites participate in alpha picking.
+- Core troops now have timed anticipation, release and recovery instead of an abrupt attack-to-idle change. Dedicated combat interpolation reaches the release pose at the simulation's existing 0.5-second strike time. Damage/projectile timing itself is unchanged.
+- Mounted visual gait switches to run above 3.6 and back to walk below 2.9, avoiding oscillation near 3.2. Stable training uses the tangent direction of its displayed path; archery practice matches the existing decorative projectile release.
+- Work and walk clocks use fractional samples, ground anchors and brief silhouette holds. Eight interpolation levels per transition do not create new authored poses. Crossfades may still show doubled limbs when source poses disagree; core faction locomotion still has three authored key poses, female work has four per view, and work direction coverage remains limited. New anatomically consistent artwork is still required for production-level gait quality.
+- Generated 6,384 optically warped intermediate images across 22 mounted and worker atlases from the project’s original art. Main cavalry, generic horse/camel/elephant/chariot walking and Saracen horse variants use these source-aligned intermediary images for movement. The images are AVIF with WebP fallbacks; animation metadata loads separately from the main game bundle.
+- Intermediates use 75% source resolution, preserve ground registration and are only loaded on demand. Decoded image cache is bounded to about 96 MiB. Coarse-pointer devices keep the lighter pose-blending path. Optical interpolation improves limb continuity but does not make new anatomically authored movement.
+- Audited the hijab worker atlas and retained the original color pixels after a mask preview cut holes into the character; tightened Roman Testudo formation spacing; orchard picking now uses a full-size fruit tree with a harvested state, sway, and falling fruit. Added an in-browser animation review page for ten civilizations, workers and motion states. Compilation/visual inspection results are recorded in ANIMATION-REVIEW-0.24.4.md. No gameplay balance or pathfinding changes.
+
+## 0.24.3 — 2026-10-09 — Isolated character and building frames
+- Repacked 406 legacy atlases / 6,708 frame entries into padded AVIF and WebP pairs. Exact rectangles and source-space ground pivots are shared by the runtime; no automatic fixed-grid recropping of the new sheets.
+- Removed disconnected neighbouring fragments from regional settlements, era art, fortifications, generic gates, workers, faction actions, walking/combat and legacy production assets. Full-sheet connected-body recovery restores parts crossing an old unit crop boundary where the source contains them.
+- Renderer integration includes primary and fallback sprite paths, selection alpha masks, production workers, faction transition canvases and construction (which uses the selected facade). Source dimensions retain original character scale after repacking.
+- Three visually confirmed incomplete individual era images are blocked. Their renderer selects an intact view of the same building/era. This may change that legacy view; it does not create a missing directional illustration.
+- Composite woodland, quarry, orchard, rubble, disaster and tree-fall sheets retain their original handling: detached pieces in those assets can be intentional.
+- Existing originals and the previous 800 facade/lifecycle cells remain available. No newly authored animation poses. Source illustration quality and every possible frame/direction have not been visually certified.
+- Compilation and visual review results: see ATLAS-ISOLATION-0.24.3.md. No gameplay simulation suite was run for this art update.
+
+## 0.24.2 — 2026-10-09 — Reconnaissance and economy before raids
+- AI sends its existing explorer to reachable frontiers of its own explored area. One/two active scouts are maintained as the economy grows; injured scouts retreat and can be replaced within a bounded total.
+- Hostile building intelligence contains only observed IDs, types, positions and observation times. Fogged reports are copied positions, never live entity references. Reports are corrected when the location is visible again and persist through save/load.
+- Removed the fallback that aimed at an unseen enemy Town Center or player starting coordinates. Counter-unit choices now inspect visible hostile troops only. AI-mounted scouts are excluded from offensive armies and have scout vision.
+- Economy readiness requires workers (14 on Normal), completed mill/lumber/mine infrastructure and food/wood gathering. Military recruitment retains food/wood reserves and is capped at three guards before scouting/economy readiness. Offensive waves require an observed settlement, economic readiness, the existing difficulty grace period, a full wave and a 90-second dispatch interval. Local defense remains reactive.
+- Hidden enemy bases are no longer pinged by attack warnings. Old saves without reconnaissance data discard legacy AI attack/attack-move orders when restored.
+- No new animation assets or visual map changes. Runtime balance and long match behavior require playtesting; this entry does not claim those tests passed.
+
+## 0.24.1 — 2026-10-09 — Era progression, autonomous economy and cleaned settlement art
+- Fixed affordability for playable realm 3. Neutral realm 2 remains unable to spend.
+- Town Center actions show named next era, costs, prerequisites and research progress. Era renovations recruit a limited crew from working villagers and resume gathering afterward.
+- AI gathers locally, reserves age-up resources, builds reachable farms/dropoffs/age prerequisites, recovers unfinished sites and researches through Imperial. Manual control of player villagers no longer disables AI builders.
+- Repacked 800 existing facade/Town Center states for ten factions into transparent padded AVIF atlases with WebP fallbacks. Common anchors and isolated cells replace the broken era-atlas lookup. Town construction uses its authored foundation/walls/roof stages.
+- Cached pose blending softens core faction troop gait. Active-faction animation atlases preload before entering battle. No extra authored anatomical poses were created.
+- Seasonal woodland canvases now report loaded state, preventing autumn/arid/winter trees from being skipped by the sprite renderer.
+- Wheat renders as growing individual stalk clumps on shared tilled soil, with farmers depth-sorted between plots. Added cached silhouette ground shadows and increased desktop terrain sampling; coarse-pointer devices retain lower sampling.
+- Verified: TypeScript, production build, existing simulation checks and 40 simulated minutes of independent AI economy; both AI realms reached Imperial by 30 minutes. Browser spot check: Mongol settlement, live farms, next-age requirements, no recorded console errors.
+- Remaining: true eight-direction building facades, distinct equipment/upgrade art for every troop, authored extra gait poses and broad mobile/performance acceptance. Existing fortification/landmark atlases outside the new 800-cell pack still need individual visual review.
+
+## 0.22.1 — Construction follows the chosen facade
+- Construction uses the actual building source image and anchors, with sixteen progress samples and bounded source-aware caching.
+- Renovation draws scaffolding over the existing building and follows its mirrored view.
+- Added counterclockwise rotation: Shift+R and Rotate left.
+- Eight authentic directional facades remain incomplete; the current four world-facing slots are preserved.
+
+## 0.22.0 — Automatic gates and regional defenses
+- Automatic allied passage, two-second traffic grace, obstruction-safe closure, permanent-open and locked modes. Allied path planning includes automatic gates while physical collision waits for opening.
+- Action buttons are not rebuilt during a pointer press.
+- Larger walls; ten region-specific wall/gate sheets with Dark, Feudal, Castle and Imperial stages. Gates support reinforcement and renovation artwork.
+- Chinese, Japanese and Khmer choices; 36 new core-building images, repeating-crossbow and samurai definitions, Khmer war-elephant appearance. Core regional building art now stays regional across eras, but distinct core-building era sets are pending.
+- Initial developed settlements choose English/French/Saracen/Mongol signature troops. Third-kingdom recruitment accepts side 3.
+- Full troop upgrade appearances, rear-facing regional art and all-age core building variations remain incomplete.
+
 ## 0.21.0 — Animated gates and four regional art sets
 - Gate opening/closing now follows simulation progress and waits for units before closure.
 - Added 48 Castle Age core building sprites and four signature troop atlases for English, French, Saracen and Mongol factions.
@@ -207,3 +266,17 @@ Catatan perubahan yang terlihat pemain. Setiap pembaruan gameplay/konten wajib m
 
 ## 0.1.0 — 2026-10-02 — 3D browser prototype
 - Scene WebGL, kamera, HUD resource, seleksi unit, gerakan, dan interaksi ekonomi awal.
+
+## 0.23.0
+- Saracen Faris shield cavalry and dagger fighter; horse archers available in Saracen stables. Existing sword, spear and foot archer types now use equipment-specific Saracen frames.
+- Female Saracen/Persian villagers use hijab locomotion and work sheets.
+- Column/wedge and walk/automatic pace controls; mixed group speed cap throughout travel.
+- Taller wall artwork, wall planning in unexplored playable terrain, irregular ravine stones and softer building soil contacts.
+- Art limitation: other factions still reuse some generic troops; generated sheets have imperfect silhouettes/pose consistency. No claim of complete realistic animation or historical accuracy.
+
+## 0.23.1 — shared animation behavior
+- All factions: non-worker gait advances only during intentional movement; crowd separation no longer drives the walk cycle or facing. Idle uses a fixed rest sample instead of a random frozen mid-stride sample.
+- Facing follows the simulation heading with directional hysteresis; attack facing tracks its target.
+- Saracen attacks now switch to the strike sample at the same shared windup as damage/projectile release.
+- Removed incorrect faction-wide spear animation assignment for Persian melee units.
+- This is an animation-controller correction, not a complete replacement of character art. Generic rest samples are still walk-frame zero where authored idle art is unavailable. Unique eight-direction walk/run/hit/death atlases for every unit and civilization remain incomplete.

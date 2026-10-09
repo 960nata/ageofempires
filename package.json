@@ -1,6 +1,6 @@
 {
   "name": "iron-crown-rts",
-  "version": "0.21.0",
+  "version": "0.24.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,8 +11,9 @@
     "assets:generate": "node scripts/generate-models.mjs",
     "check:villager-work": "node scripts/check-villager-work.mjs",
     "check:simulation": "node scripts/check-simulation.mjs",
-    "check": "npm run typecheck && npm run check:simulation && npm run check:villager-work",
-    "format": "prettier --write src scripts"
+    "check": "npm run typecheck && npm run check:simulation && npm run check:villager-work && npm run check:progression",
+    "format": "prettier --write src scripts",
+    "check:progression": "node scripts/check-progression.mjs"
   },
   "dependencies": {
     "three": "^0.180.0"

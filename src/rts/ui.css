@@ -27,3 +27,4 @@
 
 /* Threat notices stand out from routine messages. */
 #notice.warning{border-color:#d0654c;background:#2a1511f2;color:#f7d9c8;font-weight:600}
+.build-tabs{grid-column:1/-1;display:flex;gap:4px}.build-tabs button{flex:1;padding:5px 6px;font-size:10px;letter-spacing:.06em}.build-tabs .active{border-color:var(--gold);color:var(--gold);background:#41472e}

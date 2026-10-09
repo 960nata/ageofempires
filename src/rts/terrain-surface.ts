@@ -1,7 +1,7 @@
 import {MAP_HALF,MAP_SIZE,elevation,elevationFast,worldCell,gridIndex} from './map';
 import type {World,Point} from './world';
-// Terrain raster density shrinks as the map grows so the cached bitmap keeps the same size (3072 px wide).
-const RES=Math.round(6*256/MAP_SIZE),PAD=100,FOG_STEP=MAP_SIZE>256?6:4; // fog quads stay ~4k as the map grows
+// Cache a sharper desktop surface once; coarse-pointer devices keep the smaller memory budget.
+const RES=Math.round((matchMedia('(pointer: coarse)').matches?6:9)*256/MAP_SIZE),PAD=100,FOG_STEP=MAP_SIZE>256?6:4; // fog quads stay ~4k as the map grows
 export class TerrainSurface {
  private depths=new Float32Array(0);private raise=new Float32Array(0);private raiseW=0;private raiseOf?:Float32Array;
  private image=document.createElement('canvas');private fog=document.createElement('canvas');private softFog=document.createElement('canvas');

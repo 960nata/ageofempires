@@ -52,11 +52,14 @@ function generate(s:MapSpec):Terrain{
  if(s.type==='coastal'){t.coast={base:span(70,92),a1:span(5,14),f1:span(.03,.06),p1:r()*6,a2:span(2,6),f2:span(.07,.11),p2:r()*6};hills(4);if(r()<.6)lakes(1,8,13);}
  if(s.type==='lakes'){lakes(5,11,22);hills(2);}
  if(s.type==='river'){
-  // A meandering river from one edge to the other, crossed at three shallow fords.
-  const vertical=r()<.5,points:{x:number;z:number}[]=[];let drift=span(-30,30)*K;
-  for(let i=0;i<=10;i++){const u=-MAP_HALF-10+i*(MAP_SIZE+20)/10;drift+=span(-18,18)*K;drift=Math.max(-70*K,Math.min(70*K,drift));points.push(vertical?{x:drift,z:u}:{x:u,z:drift});}
+  // Broad, seeded S-bend with softly changing banks instead of a jagged random walk.
+  // The same curve drives ground, water, collision and ford placement.
+  const vertical=r()<.5,points:{x:number;z:number}[]=[],phase=r()*Math.PI*2,amp=span(34,49)*K,offset=span(-10,10)*K;
+  for(let i=0;i<=16;i++){const u=-MAP_HALF-12+i*(MAP_SIZE+24)/16,q=(u+MAP_HALF)/MAP_SIZE;
+   const drift=offset+amp*Math.sin(q*Math.PI*2+phase)*.64+amp*.24*Math.sin(q*Math.PI*4-phase*.7)+amp*.10*Math.sin(q*Math.PI*6+phase*.4);
+   points.push(vertical?{x:drift,z:u}:{x:u,z:drift});}
   t.river={points,width:span(8,11),phase:r()*6};
-  for(const at of [.25,.5,.75]){const i=Math.floor(at*10),a=points[i],b=points[i+1],f=span(.2,.8);t.fords.push({x:a.x+(b.x-a.x)*f,z:a.z+(b.z-a.z)*f,r:6});}
+  for(const at of [.25,.5,.75]){const i=Math.round(at*16),p=points[i];t.fords.push({x:p.x,z:p.z,r:6.5});}
   hills(3);
  }
  if(s.type==='highlands'){

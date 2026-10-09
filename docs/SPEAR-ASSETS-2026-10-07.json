@@ -1,0 +1,142 @@
+{
+  "english": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-a0044e93-0e97-4c7c-b956-ce35e3a364ae.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of English medieval foot spearman, quilted tan gambeson, iron kettle helmet, long wooden spear, NO shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "english-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "french": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-12c34d54-9503-4932-800a-314f2dfe7c15.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of French medieval shield spearman, blue surcoat over mail, iron helmet, long spear right hand and blue heater shield left. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "french-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "roman": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-6c557154-d8de-44f2-b438-df89139b4eae.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Roman triarius, red tunic and mail shirt, iron helmet, long hasta spear right hand and rectangular red scutum left. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "roman-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "persian": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-76674406-e29f-4ca8-8168-383123835350.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Persian levy spearman, indigo tunic and simple bronze cap, long spear, NO shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "persian-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "steppe": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-d5530907-106f-41d3-8123-44c3cf4dbad7.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Mongol foot spearman, brown lamellar vest, fur edged conical helmet, long spear, NO shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "steppe-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "chinese": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-3f169c55-ce92-4e07-bae9-88130b40c33c.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Chinese foot spearman, red lamellar armor, conical helmet, long spear, NO shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "chinese-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "japanese": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-26fa10d6-8933-45e9-9a7c-5130869c06d0.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Japanese ashigaru spearman, indigo cuirass, jingasa hat, long yari spear, NO shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "japanese-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "khmer": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-87ce031b-cc46-43c3-b7a0-d253a5691374.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Khmer spear guard, bronze cuirass, red wrapped cloth, conical helmet, spear and round shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "khmer-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "castilian": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-f4f359b8-9691-476e-8743-1bfbc197b7bb.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Castilian shield spearman, mail and burgundy surcoat, steel helmet, spear and heater shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "castilian-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  "ayyubid": {
+    "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-76cbcec4-d99b-43ee-8f85-20f3796ab273.png",
+    "prompt": "Use case historical-scene. Original realistic prerendered isometric RTS transparent sprite atlas of Saracen foot spearman, green tunic and mail vest, cloth wrapped helmet, spear and round shield. EXACT 12 equal columns by 8 equal rows. Rows facing SCREEN right, down-right, down, down-left, left, up-left, up, up-right. Last three rows show back. Columns 0 idle, 1 walk left contact, 2 walking passing, 3 walk right contact, 4 running push, 5 running passing, 6 running suspension, 7 spear thrust preparation, 8 spear thrust release, 9 hit recoil, 10 falling, 11 lying dead without blood. Same character costume and weapon every cell. Realistic anatomy, fine cloth and metal detail, no cartoon proportions or low poly. Orthographic elevated 35 degree camera. Feet ground pivot centered at 88 percent cell height, entire spear stays inside its cell with transparent margin. True transparent alpha. No scenery, floor, grid, labels, colored glow or background.",
+    "file": "ayyubid-spear-actions-v1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  }
+}

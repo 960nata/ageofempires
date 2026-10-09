@@ -1,0 +1,24 @@
+{
+  "assets": [
+    {
+      "name": "fish-leap-whale-chase",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric RTS artwork, orthographic camera 35 degrees downward. A strictly 4 columns by 2 rows sequential source animation atlas. Top row same silver tuna in four consecutive leap phases: breaking surface, airborne curved arc, nose entering water, only collapsing splash. Bottom row same humpback whale chasing small silver anchovy school through water in four consecutive stages: approaches from left below surface, opens mouth toward school, school scatters and whale turns, whale dives leaving foam. Whale swimming horizontally, not standing upright. Transparent pale turquoise translucent surface ripples and refracted caustic highlights make animals read below water without an opaque rectangle. One coherent action per row, locked camera and object scale, wide empty gutters. No full ocean scene. Natural accurate anatomy and textures, no low-poly geometry, no logos, no modern elements. Entire subjects within image.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-b66fc2a9-052c-4892-b1aa-f58dcd449e06.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/ocean-weather-2026-10-08/fish-leap-whale-chase-v1.png"
+    },
+    {
+      "name": "rain-drought-reference",
+      "prompt": "Use case: historical-scene. Original realistic 2.5D isometric RTS artwork, orthographic camera 35 degrees downward. Two side by side realistic isometric environment reference illustrations, same exact camera and terrain composition. LEFT rain: riverbank with reeds, rocks, tall tropical tree, moist dark soil, sparse rain streaks, expanding puddle rings, overcast soft light, flowing river. RIGHT dry season: same exact tree rocks and riverbank positions, lower river water revealing muddy bank, yellowed grass, dry surface cracks, warm sun and light dust, tree still alive. Detailed historical strategy game visual reference. No text. This is a lighting and seasonal concept reference, not sprite atlas. Natural accurate anatomy and textures, no low-poly geometry, no logos, no modern elements. Entire subjects within image.",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-e0bf2d7d-f2e3-4d16-a76e-fa73c6a6f476.png",
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/art-source/ocean-weather-2026-10-08/rain-drought-reference-v1.png"
+    }
+  ],
+  "tool": "built-in imagegen",
+  "status": "visual-source-reference",
+  "limitations": [
+    "Fish sequence contains four poses, not a completed smooth registered animation.",
+    "Whale frames include baked water patches and must be separated before game use.",
+    "Rain and drought image is a reference illustration, not animated weather or tiles.",
+    "Colored edge fringes remain."
+  ]
+}

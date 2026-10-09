@@ -1,0 +1,679 @@
+{
+  "date": "2026-10-07",
+  "scope": "Image assets and design handoff only; no game integration",
+  "eras": [
+    "Dark Age",
+    "Feudal Age",
+    "Castle Age",
+    "Imperial Age"
+  ],
+  "assets": [
+    {
+      "faction": "roman",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-197fa71c-d25e-4fa5-bb36-ed57c2842481.png",
+      "file": "roman-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Roman: timber palisade; rubble stone with red insignia; dressed stone curtain with square towers; reinforced Roman masonry with crenellated square towers. Exact grid 8 columns by 4 rows. Rows are Dark Age wooden palisade, Feudal stone wall tier 1, Castle stone wall tier 2, Imperial stone wall tier 3. Columns depict SAME wall segment at stages: 0 foundations only; 1 quarter-built with posts/scaffolding; 2 half-built; 3 three-quarter-built; 4 complete intact; 5 damaged with cracks and missing stones; 6 heavily damaged burning with flames inside silhouette; 7 collapsed rubble flat on ground. Every row has a distinct era silhouette and culture-specific architecture. All segments same ground footprint, orthographic elevated 35 degree isometric camera looking southeast, feet/ground baseline fixed within each cell, natural realistic materials, subtle dirt contact without a rectangular floor plate. Genuine transparent alpha background. No text, no labels, no grid, no scenery. Each object fully contained in equal cell, no neighboring overlap. Original art, not copying a game's assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/roman-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "roman",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-c6dda96e-b9f8-4c8c-83d8-e413e2716ea9.png",
+      "file": "roman-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Roman red tile roofs, timber vernacular huts evolving into masonry courtyards, arches and restrained columns. EXACT grid 8 columns by 4 rows. Rows show distinct architecture progressing Dark Age simple timber/adobe village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand but plausible civic complex. Columns same building stages: bare footprint foundation, quarter built with scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale; no floating tiles or big rectangular ground background. Natural material detail, realistic structures, top-left sunlight, isometric orthographic35 degree camera. Transparent alpha background. No text labels grid or scenery; every cell fully contained. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/roman-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "roman",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-00f3e974-674b-49fd-b7eb-371b750cbe3f.png",
+      "file": "roman-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Roman red tile roofs, timber vernacular huts evolving into masonry courtyards, arches and restrained columns. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/roman-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "persian",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-efaceb83-30a1-4b88-8a09-b2445f369321.png",
+      "file": "persian-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Persian: timber palisade; adobe brick defensive wall; tall sandstone wall with buttresses; monumental sandstone fortification with blue tile accents. Exact grid 8 columns by 4 rows. Rows are Dark Age wooden palisade, Feudal stone wall tier 1, Castle stone wall tier 2, Imperial stone wall tier 3. Columns depict SAME wall segment at stages: 0 foundations only; 1 quarter-built with posts/scaffolding; 2 half-built; 3 three-quarter-built; 4 complete intact; 5 damaged with cracks and missing stones; 6 heavily damaged burning with flames inside silhouette; 7 collapsed rubble flat on ground. Every row has a distinct era silhouette and culture-specific architecture. All segments same ground footprint, orthographic elevated 35 degree isometric camera looking southeast, feet/ground baseline fixed within each cell, natural realistic materials, subtle dirt contact without a rectangular floor plate. Genuine transparent alpha background. No text, no labels, no grid, no scenery. Each object fully contained in equal cell, no neighboring overlap. Original art, not copying a game's assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/persian-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "persian",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-e81d237a-8a26-4d57-881c-f6ca9f2f22b1.png",
+      "file": "persian-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Persian adobe houses evolving into sandstone courtyards, vaulted iwans and blue tile accents. EXACT grid 8 columns by 4 rows. Rows show distinct architecture progressing Dark Age simple timber/adobe village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand but plausible civic complex. Columns same building stages: bare footprint foundation, quarter built with scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale; no floating tiles or big rectangular ground background. Natural material detail, realistic structures, top-left sunlight, isometric orthographic35 degree camera. Transparent alpha background. No text labels grid or scenery; every cell fully contained. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/persian-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "persian",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-df22a289-87da-4563-8c50-b82cb1f9a11e.png",
+      "file": "persian-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Persian adobe houses evolving into sandstone courtyards, vaulted iwans and blue tile accents. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/persian-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "english",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-c18aaccc-1a06-4f3b-955b-15a99731b009.png",
+      "file": "english-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for English: oak palisade; rough limestone wall; limestone curtain with square crenellations; strong limestone wall with round flanking towers. Exact grid 8 columns by 4 rows. Rows are Dark Age wooden palisade, Feudal stone wall tier 1, Castle stone wall tier 2, Imperial stone wall tier 3. Columns depict SAME wall segment at stages: 0 foundations only; 1 quarter-built with posts/scaffolding; 2 half-built; 3 three-quarter-built; 4 complete intact; 5 damaged with cracks and missing stones; 6 heavily damaged burning with flames inside silhouette; 7 collapsed rubble flat on ground. Every row has a distinct era silhouette and culture-specific architecture. All segments same ground footprint, orthographic elevated 35 degree isometric camera looking southeast, feet/ground baseline fixed within each cell, natural realistic materials, subtle dirt contact without a rectangular floor plate. Genuine transparent alpha background. No text, no labels, no grid, no scenery. Each object fully contained in equal cell, no neighboring overlap. Original art, not copying a game's assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/english-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "english",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-cf2421ed-4ff5-48a0-b992-3e939bfa7af5.png",
+      "file": "english-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture English timber and thatch evolving into half timber and limestone civic halls. EXACT grid 8 columns by 4 rows. Rows show distinct architecture progressing Dark Age simple timber/adobe village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand but plausible civic complex. Columns same building stages: bare footprint foundation, quarter built with scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale; no floating tiles or big rectangular ground background. Natural material detail, realistic structures, top-left sunlight, isometric orthographic35 degree camera. Transparent alpha background. No text labels grid or scenery; every cell fully contained. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/english-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "english",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-da6fcd5c-4467-4c4d-a4ad-1234d3c8d56d.png",
+      "file": "english-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for English timber and thatch evolving into half timber and limestone civic halls. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/english-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "french",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-31df054c-187d-46d5-9b27-94f99450f9da.png",
+      "file": "french-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for French: oak palisade; fieldstone wall; dressed pale stone crenellated wall; high pale stone wall with round fortified towers. Exact grid 8 columns by 4 rows. Rows are Dark Age wooden palisade, Feudal stone wall tier 1, Castle stone wall tier 2, Imperial stone wall tier 3. Columns depict SAME wall segment at stages: 0 foundations only; 1 quarter-built with posts/scaffolding; 2 half-built; 3 three-quarter-built; 4 complete intact; 5 damaged with cracks and missing stones; 6 heavily damaged burning with flames inside silhouette; 7 collapsed rubble flat on ground. Every row has a distinct era silhouette and culture-specific architecture. All segments same ground footprint, orthographic elevated 35 degree isometric camera looking southeast, feet/ground baseline fixed within each cell, natural realistic materials, subtle dirt contact without a rectangular floor plate. Genuine transparent alpha background. No text, no labels, no grid, no scenery. Each object fully contained in equal cell, no neighboring overlap. Original art, not copying a game's assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/french-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "french",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-f8954e5f-fdbe-44c3-a161-30741b870946.png",
+      "file": "french-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture French timber and thatch evolving into pale stone slate roof civic halls. EXACT grid 8 columns by 4 rows. Rows show distinct architecture progressing Dark Age simple timber/adobe village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand but plausible civic complex. Columns same building stages: bare footprint foundation, quarter built with scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale; no floating tiles or big rectangular ground background. Natural material detail, realistic structures, top-left sunlight, isometric orthographic35 degree camera. Transparent alpha background. No text labels grid or scenery; every cell fully contained. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/french-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "french",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-d4d700ff-8c7b-4388-b8c7-29c963500af7.png",
+      "file": "french-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for French timber and thatch evolving into pale stone slate roof civic halls. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/french-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "ayyubid",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-c52f6ced-44a4-48a4-9987-0e9bf02ecac6.png",
+      "file": "ayyubid-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Saracen: palm timber palisade; adobe wall; sandstone crenellated wall; reinforced sandstone wall with square towers and green banners. Exact grid 8 columns by 4 rows. Rows are Dark Age wooden palisade, Feudal stone wall tier 1, Castle stone wall tier 2, Imperial stone wall tier 3. Columns depict SAME wall segment at stages: 0 foundations only; 1 quarter-built with posts/scaffolding; 2 half-built; 3 three-quarter-built; 4 complete intact; 5 damaged with cracks and missing stones; 6 heavily damaged burning with flames inside silhouette; 7 collapsed rubble flat on ground. Every row has a distinct era silhouette and culture-specific architecture. All segments same ground footprint, orthographic elevated 35 degree isometric camera looking southeast, feet/ground baseline fixed within each cell, natural realistic materials, subtle dirt contact without a rectangular floor plate. Genuine transparent alpha background. No text, no labels, no grid, no scenery. Each object fully contained in equal cell, no neighboring overlap. Original art, not copying a game's assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/ayyubid-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "ayyubid",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-469710d6-6ef3-4f40-933a-7d290c9674e8.png",
+      "file": "ayyubid-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Saracen adobe courtyards evolving into sandstone arches, vaulted halls and restrained green banners. EXACT grid 8 columns by 4 rows. Rows show distinct architecture progressing Dark Age simple timber/adobe village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand but plausible civic complex. Columns same building stages: bare footprint foundation, quarter built with scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale; no floating tiles or big rectangular ground background. Natural material detail, realistic structures, top-left sunlight, isometric orthographic35 degree camera. Transparent alpha background. No text labels grid or scenery; every cell fully contained. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/ayyubid-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "ayyubid",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-4b9ff65a-3822-4386-acb6-d5f008bad948.png",
+      "file": "ayyubid-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Saracen adobe courtyards evolving into sandstone arches, vaulted halls and restrained green banners. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/ayyubid-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "chinese",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-117fea21-8e8f-4d6d-a7dd-db29f1c85217.png",
+      "file": "chinese-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Chinese: timber palisade; rammed earth wall with brick facing; gray brick crenellated wall; high gray brick wall with red timber roofed towers. Exact grid 8 columns by 4 rows. Rows Dark Age wood, Feudal tier1, Castle tier2, Imperial tier3. Columns SAME segment: foundations; quarter-built scaffolding; half-built; three-quarter-built; complete intact; damaged cracked; heavily damaged burning; collapsed flat rubble. Distinct era silhouette and cultural architecture, SAME ground footprint and camera in every cell. Orthographic elevated35 degree isometric camera. Realistic materials, subtle dirt contact, no rectangular floor plate. True transparent PNG alpha. No text, grid, scenery, colored fringes or glow. Every object fully within equal cell. Original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/chinese-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "chinese",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-9e877368-85ef-440f-a3ad-16eafe27692a.png",
+      "file": "chinese-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Chinese timber and rammed earth evolving into gray brick courtyards, red timber columns and restrained tiled roofs. EXACT grid 8 columns by 4 rows. Rows distinct architecture progressing Dark Age simple village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand plausible civic complex. Columns same building stages: bare footprint foundation, quarter built scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale. No floating tiles or big rectangular ground background. Natural realistic materials and structure, top-left sunlight, isometric orthographic35 degree camera. True transparent alpha background. No text labels grid scenery colored outline. Entire building contained in each cell. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/chinese-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "chinese",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-e569dee6-7164-45a8-9fa8-c531c360fc07.png",
+      "file": "chinese-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Chinese gray brick, red timber and tiled courtyards. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/chinese-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "japanese",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-5ce84b96-f0e4-439a-bfa9-6a5c44d62135.png",
+      "file": "japanese-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Japanese: timber palisade; earthen wall on rough stone footing; white plaster defensive wall over stone; tall white plaster and dark timber wall on sloped stone base. Exact grid 8 columns by 4 rows. Rows Dark Age wood, Feudal tier1, Castle tier2, Imperial tier3. Columns SAME segment: foundations; quarter-built scaffolding; half-built; three-quarter-built; complete intact; damaged cracked; heavily damaged burning; collapsed flat rubble. Distinct era silhouette and cultural architecture, SAME ground footprint and camera in every cell. Orthographic elevated35 degree isometric camera. Realistic materials, subtle dirt contact, no rectangular floor plate. True transparent PNG alpha. No text, grid, scenery, colored fringes or glow. Every object fully within equal cell. Original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/japanese-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "japanese",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-371d847a-1582-476c-9059-d9ccf0a47769.png",
+      "file": "japanese-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Japanese timber and thatch evolving into white plaster, dark timber and curved tiled roofs on stone bases. EXACT grid 8 columns by 4 rows. Rows distinct architecture progressing Dark Age simple village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand plausible civic complex. Columns same building stages: bare footprint foundation, quarter built scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale. No floating tiles or big rectangular ground background. Natural realistic materials and structure, top-left sunlight, isometric orthographic35 degree camera. True transparent alpha background. No text labels grid scenery colored outline. Entire building contained in each cell. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/japanese-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "japanese",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-9d03d20d-aa47-4a10-a582-57f1f0cd5003.png",
+      "file": "japanese-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Japanese white plaster, dark timber and tiled roofs. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/japanese-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "khmer",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-8c334218-0c5a-466e-8825-8679cdd7b2a8.png",
+      "file": "khmer-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Khmer: timber palisade; laterite block wall; sandstone wall with stepped parapet; reinforced sandstone wall with restrained Khmer gate tower reliefs. Exact grid 8 columns by 4 rows. Rows Dark Age wood, Feudal tier1, Castle tier2, Imperial tier3. Columns SAME segment: foundations; quarter-built scaffolding; half-built; three-quarter-built; complete intact; damaged cracked; heavily damaged burning; collapsed flat rubble. Distinct era silhouette and cultural architecture, SAME ground footprint and camera in every cell. Orthographic elevated35 degree isometric camera. Realistic materials, subtle dirt contact, no rectangular floor plate. True transparent PNG alpha. No text, grid, scenery, colored fringes or glow. Every object fully within equal cell. Original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/khmer-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "khmer",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-44447bd7-c915-48e1-923e-4dc012402e70.png",
+      "file": "khmer-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Khmer timber and palm thatch evolving into laterite and sandstone civic halls with stepped Khmer roof forms. EXACT grid 8 columns by 4 rows. Rows distinct architecture progressing Dark Age simple village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand plausible civic complex. Columns same building stages: bare footprint foundation, quarter built scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale. No floating tiles or big rectangular ground background. Natural realistic materials and structure, top-left sunlight, isometric orthographic35 degree camera. True transparent alpha background. No text labels grid scenery colored outline. Entire building contained in each cell. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/khmer-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "khmer",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-b366994b-35b8-416c-bbad-2453d0c816fe.png",
+      "file": "khmer-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Khmer laterite, sandstone and timber stepped roofs. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/khmer-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "castilian",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-b4b8743f-7539-4619-9fe7-dc4fcaa7d5f9.png",
+      "file": "castilian-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Castilian: timber palisade; rough limestone wall; crenellated limestone curtain; tall golden limestone wall with square bastion towers. Exact grid 8 columns by 4 rows. Rows Dark Age wood, Feudal tier1, Castle tier2, Imperial tier3. Columns SAME segment: foundations; quarter-built scaffolding; half-built; three-quarter-built; complete intact; damaged cracked; heavily damaged burning; collapsed flat rubble. Distinct era silhouette and cultural architecture, SAME ground footprint and camera in every cell. Orthographic elevated35 degree isometric camera. Realistic materials, subtle dirt contact, no rectangular floor plate. True transparent PNG alpha. No text, grid, scenery, colored fringes or glow. Every object fully within equal cell. Original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/castilian-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "castilian",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-25a9f9dc-13a7-465c-8ace-63d2ea5e3773.png",
+      "file": "castilian-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Castilian timber and thatch evolving into golden limestone courtyards and red tile roofs. EXACT grid 8 columns by 4 rows. Rows distinct architecture progressing Dark Age simple village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand plausible civic complex. Columns same building stages: bare footprint foundation, quarter built scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale. No floating tiles or big rectangular ground background. Natural realistic materials and structure, top-left sunlight, isometric orthographic35 degree camera. True transparent alpha background. No text labels grid scenery colored outline. Entire building contained in each cell. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/castilian-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "castilian",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-decaf30d-302d-421a-89d6-717ad4a23899.png",
+      "file": "castilian-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Castilian golden limestone, timber and red tiled courtyards. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/castilian-settlement-era-facades-v1.png"
+    },
+    {
+      "faction": "steppe",
+      "kind": "wall",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-fffbb0db-1e87-4681-815a-fa89f9688c97.png",
+      "file": "steppe-wall-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic isometric 2.5D RTS building sprite atlas for Mongol: timber palisade; earth and timber defensive wall; stone wall of a settled Mongol frontier fortress; reinforced frontier stone fortification with timber lookout towers. Exact grid 8 columns by 4 rows. Rows Dark Age wood, Feudal tier1, Castle tier2, Imperial tier3. Columns SAME segment: foundations; quarter-built scaffolding; half-built; three-quarter-built; complete intact; damaged cracked; heavily damaged burning; collapsed flat rubble. Distinct era silhouette and cultural architecture, SAME ground footprint and camera in every cell. Orthographic elevated35 degree isometric camera. Realistic materials, subtle dirt contact, no rectangular floor plate. True transparent PNG alpha. No text, grid, scenery, colored fringes or glow. Every object fully within equal cell. Original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/steppe-wall-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "steppe",
+      "kind": "town",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-2ebcfd64-87ad-4586-8089-4f4a38d58931.png",
+      "file": "steppe-town-era-lifecycle-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 8
+      },
+      "prompt": "Original realistic prerendered isometric RTS town center construction atlas. Culture Mongol felt and timber settlement hall evolving into frontier timber courtyard and mixed stone administrative halls, no European cathedral. EXACT grid 8 columns by 4 rows. Rows distinct architecture progressing Dark Age simple village hall, Feudal modest civic hall, Castle fortified civic complex, Imperial grand plausible civic complex. Columns same building stages: bare footprint foundation, quarter built scaffold, half built walls, three quarter built roof structure, complete intact, damaged cracked missing roof, heavily damaged burning, collapsed flat rubble. Same footprint within each era row, stable camera and scale. No floating tiles or big rectangular ground background. Natural realistic materials and structure, top-left sunlight, isometric orthographic35 degree camera. True transparent alpha background. No text labels grid scenery colored outline. Entire building contained in each cell. Original game assets.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/steppe-town-era-lifecycle-v1.png"
+    },
+    {
+      "faction": "steppe",
+      "kind": "settlement",
+      "source": "/Users/indragandi/.codex/generated_images/01a0fb20-d4ec-7020-a069-d03421e48e8f/exec-8f74a53e-b7bf-49e6-94ed-421994d9c02a.png",
+      "file": "steppe-settlement-era-facades-v1.png",
+      "intendedGrid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "prompt": "Original realistic prerendered isometric RTS settlement building atlas for Mongol felt, timber and settled frontier stone architecture. EXACT 12 equal columns by 4 equal rows. Each row is one era: Dark Age vernacular simple materials; Feudal modest developed construction; Castle masonry and organized settlement; Imperial elaborate mature architecture. The buildings in column order: house; granary/mill; lumber camp; mining camp; barracks; archery training yard; horse stable; blacksmith; market; religious building; university/scholarly hall; civic council hall. Same building identity develops recognizably down its column, era design changes must be structural not merely color. For early scholarly/civic/religious structures show modest precursor architecture. Clearly distinguish each building's function using props appropriate to that culture. Cohesive same orthographic isometric35-degree camera, top-left sunlight, believable scale, natural materials, no cartoon or low poly. Every building sits directly at a ground pivot, no rectangular floating floor plate. Genuine transparent alpha, no text, no labels, no grid or scenery. Contain each asset in its equal cell with margin, no touching adjacent assets. These are intact finished facades; original game art.",
+      "status": "generated-source-needs-frame-alignment-and-edge-review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "destination": "/Users/indragandi/Documents/Dev/Age of Empires/public/assets/isometric/steppe-settlement-era-facades-v1.png"
+    }
+  ],
+  "qualityNotes": [
+    "Generated source sheets; verify actual cell bounds before slicing.",
+    "Some edges show colored fringes and need cleanup.",
+    "Construction and destruction samples cover walls and town centers only.",
+    "Settlement sheets contain completed facades, not full lifecycle animations.",
+    "Balance numbers are provisional and untested."
+  ]
+}
