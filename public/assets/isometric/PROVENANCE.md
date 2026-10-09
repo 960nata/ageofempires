@@ -147,3 +147,30 @@ Original built-in image generation with transparent background; no third-party g
 
 ## 0.21.0 regional and gate atlases
 Built-in image generation, 2026-10-06. Files: gate-motion-v1.png; english/french/saracen/mongol-settlement-v1.png; english/french/saracen/mongol-signature-v1.png. Original generated artwork copied into this project; no third-party paid asset pack acquired. Prompt set and limitations: docs/REGIONAL-ASSET-PROMPTS.json and docs/GATES-AND-FACTIONS-0.21.md.
+
+## 0.22.0 · 2026-10-07
+Sixteen original transparent image-generation atlases: ten *-fortification-eras-v1.png files and Chinese/Japanese/Khmer *-settlement-v1.png and *-signature-v1.png. Built-in image generation; source outputs preserved. Prompts and scope: docs/FORTIFICATION-PROMPTS-0.22.json and docs/REGIONAL-DEFENSES-0.22.md. Generated visual interpretations, not historically certified reconstructions.
+
+## 0.23.0 — original generated character atlases
+Created using the built-in image generation tool for this project; no paid third-party pack purchased. Source identifiers:
+- `villager-hijab-locomotion-v1.png`: `exec-91b50ca2-3d47-4922-8eb8-d09fa9ce9f78.png`
+- `villager-hijab-actions-v1.png`: `exec-b7043685-9f78-4adf-909d-cb699086cf29.png`
+- `saracen-horse-sword-v1.png`: `exec-a93eb6cb-3521-46aa-a305-01038a8b3dff.png`
+- `saracen-horse-shield-v1.png`: `exec-1db1d47e-1cb0-47a2-903b-d8c739fc1db7.png`
+- `saracen-horse-archer-v1.png`: `exec-d286b12a-f4fd-4593-a940-a300fd767535.png`
+- `saracen-infantry-v1.png`: `exec-71e35cda-967a-4488-822c-f4bd4217408d.png`
+These are generated interpretations, not verified historical reconstructions. Foot infantry uses two authored views with mirroring; horse sheets request eight directions. Frame consistency and colored alpha fringes still need art cleanup.
+
+## Repacked settlement art — 2026-10-09
+`*-settlement-era-facades-packed-v2` and `*-town-era-lifecycle-packed-v2` derive from the corresponding existing `*-v1.png` files in this directory. Ten factions, four gameplay eras, twelve facade slots plus eight Town Center lifecycle slots: 800 isolated/padded cells. Generated originals are preserved. `scripts/pack-building-atlases.py` performs connected-component isolation and fixed-pivot packing; runtime metadata is in `src/rts/building-atlases.json`. Each sheet has AVIF and WebP encodings. This is image processing of existing project assets, not newly illustrated frames or a new third-party license. Wheat stalks and silhouette shadows are original Canvas drawing code. Locomotion blending does not increase the number of authored key poses.
+
+## Isolated legacy frames — 2026-10-09
+`isolated-v1/` derives exclusively from existing project sprite sources (per-file paths in `docs/ATLAS-ISOLATION-0.24.3.json`). Original files remain untouched. `scripts/isolate-sprite-atlases.py` performs offline component isolation, recovery across old crop boundaries, transparent padding and paired AVIF/WebP encoding; `src/rts/isolated-sprites.json` contains matching frame coordinates. This is processing of existing artwork, not new illustration, extra animation poses or an additional third-party license. Composite nature/effect sheets are excluded. Some generated original poses and directional views remain imperfect; see the audit notes.
+
+## Motion interpolation — 2026-10-09
+`motion-v1/` contains processed in-between poses derived only from the existing original mounted character atlases in this project. `scripts/build-motion-frames.py` uses bidirectional optical flow on isolated frame pairs; `src/rts/motion-frames.json` records exact rectangles and anchors. The generated intermediates inherit the source art's project provenance and add no third-party game art or independent license. They are automated visual guesses between authored images, not hand-animated anatomy.
+
+
+## 0.24.4 — orchard and crop cleanup
+
+`orchard-fruit-tree-full-v1` and `orchard-fruit-tree-picked-v1` are original generated transparent orchard sprites. The harvested state shares the same tree silhouette with fewer apples. `isolated-v1/villager-hijab-*` retains the standard source-cell crop and original colors; the source PNGs remain preserved. A color filter was rejected after visual inspection showed holes in the character.
