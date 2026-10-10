@@ -1,0 +1,167 @@
+{
+  "roman-fishing": {
+    "frames": 32,
+    "bytes": 160257,
+    "decodedBytes": 4325376
+  },
+  "roman-war": {
+    "frames": 32,
+    "bytes": 194976,
+    "decodedBytes": 4325376
+  },
+  "roman-harbor": {
+    "frames": 16,
+    "bytes": 249793,
+    "decodedBytes": 4718592
+  },
+  "persian-fishing": {
+    "frames": 32,
+    "bytes": 163028,
+    "decodedBytes": 4325376
+  },
+  "persian-war": {
+    "frames": 32,
+    "bytes": 182879,
+    "decodedBytes": 4325376
+  },
+  "persian-harbor": {
+    "frames": 16,
+    "bytes": 249947,
+    "decodedBytes": 4718592
+  },
+  "english-fishing": {
+    "frames": 32,
+    "bytes": 192983,
+    "decodedBytes": 4325376
+  },
+  "english-war": {
+    "frames": 32,
+    "bytes": 147427,
+    "decodedBytes": 4325376
+  },
+  "english-harbor": {
+    "frames": 16,
+    "bytes": 224259,
+    "decodedBytes": 4718592
+  },
+  "french-fishing": {
+    "frames": 32,
+    "bytes": 158478,
+    "decodedBytes": 4325376
+  },
+  "french-war": {
+    "frames": 32,
+    "bytes": 179227,
+    "decodedBytes": 4325376
+  },
+  "french-harbor": {
+    "frames": 16,
+    "bytes": 226985,
+    "decodedBytes": 4718592
+  },
+  "castilian-fishing": {
+    "frames": 32,
+    "bytes": 161264,
+    "decodedBytes": 4325376
+  },
+  "castilian-war": {
+    "frames": 32,
+    "bytes": 212722,
+    "decodedBytes": 4325376
+  },
+  "castilian-harbor": {
+    "frames": 16,
+    "bytes": 220153,
+    "decodedBytes": 4718592
+  },
+  "ayyubid-fishing": {
+    "frames": 32,
+    "bytes": 143909,
+    "decodedBytes": 4325376
+  },
+  "ayyubid-war": {
+    "frames": 32,
+    "bytes": 159250,
+    "decodedBytes": 4325376
+  },
+  "ayyubid-harbor": {
+    "frames": 16,
+    "bytes": 198636,
+    "decodedBytes": 4718592
+  },
+  "steppe-fishing": {
+    "frames": 32,
+    "bytes": 127198,
+    "decodedBytes": 4325376
+  },
+  "steppe-war": {
+    "frames": 32,
+    "bytes": 176074,
+    "decodedBytes": 4325376
+  },
+  "steppe-harbor": {
+    "frames": 16,
+    "bytes": 268204,
+    "decodedBytes": 4718592
+  },
+  "chinese-fishing": {
+    "frames": 32,
+    "bytes": 163477,
+    "decodedBytes": 4325376
+  },
+  "chinese-war": {
+    "frames": 32,
+    "bytes": 154240,
+    "decodedBytes": 4325376
+  },
+  "chinese-harbor": {
+    "frames": 16,
+    "bytes": 235229,
+    "decodedBytes": 4718592
+  },
+  "japanese-fishing": {
+    "frames": 32,
+    "bytes": 131403,
+    "decodedBytes": 4325376
+  },
+  "japanese-war": {
+    "frames": 32,
+    "bytes": 176430,
+    "decodedBytes": 4325376
+  },
+  "japanese-harbor": {
+    "frames": 16,
+    "bytes": 242743,
+    "decodedBytes": 4718592
+  },
+  "khmer-fishing": {
+    "frames": 32,
+    "bytes": 119027,
+    "decodedBytes": 4325376
+  },
+  "khmer-war": {
+    "frames": 32,
+    "bytes": 127506,
+    "decodedBytes": 4325376
+  },
+  "khmer-harbor": {
+    "frames": 16,
+    "bytes": 226740,
+    "decodedBytes": 4718592
+  },
+  "crew-row": {
+    "frames": 96,
+    "bytes": 167044,
+    "decodedBytes": 6291456
+  },
+  "crew-fish": {
+    "frames": 192,
+    "bytes": 462930,
+    "decodedBytes": 12582912
+  },
+  "transport-v1": {
+    "frames": 32,
+    "bytes": 161805,
+    "decodedBytes": 4325376
+  }
+}
