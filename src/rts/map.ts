@@ -10,17 +10,18 @@ export const gridIndex=(x:number,z:number)=>z*GRID_SIZE+x;
 export const worldCell=(p:{x:number;z:number})=>({x:Math.floor((p.x+MAP_HALF)/CELL_SIZE),z:Math.floor((p.z+MAP_HALF)/CELL_SIZE)});
 export const cellCentre=(x:number)=>x*CELL_SIZE-MAP_HALF+CELL_SIZE/2;
 
-export type MapType='borderlands'|'coastal'|'lakes'|'river'|'highlands'|'wetlands';
+export type MapType='borderlands'|'coastal'|'archipelago'|'lakes'|'river'|'highlands'|'wetlands';
 export type Biome='temperate'|'arid'|'autumn'|'winter';
 export interface MapSpec {type:MapType;biome:Biome;seed:number;}
-export const MAP_TYPES:Record<MapType,string>={borderlands:'Borderlands (classic)',coastal:'Coastal',lakes:'Lakes',river:'River Valley',highlands:'Highlands',wetlands:'Wetlands'};
+export const MAP_TYPES:Record<MapType,string>={borderlands:'Borderlands (classic)',coastal:'Coastal',archipelago:'Archipelago · island chain',lakes:'Lakes',river:'River Valley',highlands:'Highlands',wetlands:'Wetlands'};
 export const BIOMES:Record<Biome,string>={temperate:'Temperate',arid:'Arid',autumn:'Autumn',winter:'Winter'};
 
 type Hill={x:number;z:number;r:number;h:number;ramp?:boolean};
 type Pool={x:number;z:number;r:number;p:number};
+type Island={x:number;z:number;rx:number;rz:number;phase:number;};
 interface Terrain {
  coast?:{base:number;a1:number;f1:number;p1:number;a2:number;f2:number;p2:number};
- ravine:boolean;hills:Hill[];lakes:Pool[];marshes:Pool[];
+ islands?:Island[];ravine:boolean;hills:Hill[];lakes:Pool[];marshes:Pool[];
  river?:{points:{x:number;z:number}[];width:number;phase:number};fords:{x:number;z:number;r:number}[];
 }
 
@@ -37,7 +38,7 @@ let T:Terrain=BORDERLANDS;
 /** Live binding for renderers that decorate hill rims. */
 export let HIGHLANDS:Hill[]=T.hills;
 export const mapSpec=()=>spec;
-export const hasSea=()=>!!T.coast;
+export const hasSea=()=>!!T.coast||!!T.islands;
 export const hasRavine=()=>T.ravine;
 export const mapLakes=()=>T.lakes;
 
@@ -50,6 +51,24 @@ function generate(s:MapSpec):Terrain{
  const hills=(n:number)=>scatter(n,(x,z)=>t.hills.push({x,z,r:span(10,22)*K,h:Math.round(span(5,9))}),30*K);
  const lakes=(n:number,min:number,max:number)=>scatter(n,(x,z)=>t.lakes.push({x,z,r:span(min,max)*K,p:r()*6}),26*K,edge-40);
  if(s.type==='coastal'){t.coast={base:span(70,92),a1:span(5,14),f1:span(.03,.06),p1:r()*6,a2:span(2,6),f2:span(.07,.11),p2:r()*6};hills(4);if(r()<.6)lakes(1,8,13);}
+ if(s.type==='archipelago'){
+  // Four roomy, irregular home islands keep settlements buildable while narrow channels
+  // and smaller outer islets make scouting and transport ships useful.
+  t.islands=[
+   {x:-82*K,z:-70*K,rx:70*K,rz:60*K,phase:r()*6},
+   {x:82*K,z:-70*K,rx:70*K,rz:60*K,phase:r()*6},
+   {x:-82*K,z:70*K,rx:70*K,rz:60*K,phase:r()*6},
+   {x:82*K,z:70*K,rx:70*K,rz:60*K,phase:r()*6},
+   {x:0,z:0,rx:25*K,rz:21*K,phase:r()*6},
+   {x:-18*K,z:139*K,rx:25*K,rz:18*K,phase:r()*6},
+   {x:18*K,z:-139*K,rx:25*K,rz:18*K,phase:r()*6},
+   {x:145*K,z:5*K,rx:22*K,rz:30*K,phase:r()*6},
+   {x:-145*K,z:-5*K,rx:22*K,rz:30*K,phase:r()*6},
+  ];
+  // Keep each main island's town footprint and approach clear of steep hill cuts.
+  const homeIslands=[{x:-82*K,z:-70*K},{x:82*K,z:70*K},{x:82*K,z:-70*K},{x:-82*K,z:70*K}];
+  for(let i=0,tries=0;i<12&&tries<480;tries++){const x=span(-edge+20,edge-20),z=span(-edge+20,edge-20);if(homeIslands.some(h=>Math.hypot(h.x-x,h.z-z)<46*K)||!clear(x,z,30*K))continue;t.hills.push({x,z,r:span(10,22)*K,h:Math.round(span(5,9))});i++;}
+ }
  if(s.type==='lakes'){lakes(5,11,22);hills(2);}
  if(s.type==='river'){
   // Broad, seeded S-bend with softly changing banks instead of a jagged random walk.
@@ -81,11 +100,15 @@ export function configureMap(next:MapSpec){
 export const coastX=(z:number)=>{const c=T.coast;return c?K*(c.base+Math.sin(z/K*c.f1+c.p1)*c.a1+Math.cos(z/K*c.f2+c.p2)*c.a2):Infinity;};
 export const ravineX=(z:number)=>-107*K+Math.sin(z/K*.055)*3;
 const inPool=(p:Pool,x:number,z:number,grow=0)=>{const dx=x-p.x,dz=z-p.z,a=Math.atan2(dz,dx);return Math.hypot(dx,dz)<p.r*(1+.16*Math.sin(a*3+p.p)+.08*Math.cos(a*5+p.p*2))+grow;};
+function islandRadius(i:Island,x:number,z:number){const dx=(x-i.x)/i.rx,dz=(z-i.z)/i.rz,a=Math.atan2(dz,dx),rough=1+.045*Math.sin(a*3+i.phase)+.025*Math.cos(a*7-i.phase*.7)+.012*Math.sin(a*11+i.phase*1.3);return Math.hypot(dx,dz)/rough;}
+const onIsland=(x:number,z:number)=>!!T.islands?.some(i=>islandRadius(i,x,z)<1);
+/** Dry shoreline edge, shared by vegetation, beach rocks and surf decoration. */
+export const isShore=(x:number,z:number)=>!isWater(x,z)&&([[-2.8,0],[2.8,0],[0,-2.8],[0,2.8]] as const).some(([dx,dz])=>isWater(x+dx,z+dz));
 function riverDistance(x:number,z:number){const rv=T.river;if(!rv)return Infinity;let best=Infinity;const pts=rv.points;
  for(let i=0;i<pts.length-1;i++){const a=pts[i],b=pts[i+1],vx=b.x-a.x,vz=b.z-a.z,u=Math.max(0,Math.min(1,((x-a.x)*vx+(z-a.z)*vz)/(vx*vx+vz*vz)));best=Math.min(best,Math.hypot(x-a.x-vx*u,z-a.z-vz*u));}return best;}
 export const isFord=(x:number,z:number)=>T.fords.some(f=>Math.hypot(f.x-x,f.z-z)<f.r);
 export const isRiver=(x:number,z:number)=>{const rv=T.river;return!!rv&&riverDistance(x,z)<rv.width/2*(1+.22*Math.sin((x+z)*.07+rv.phase));};
-export const isWater=(x:number,z:number)=>x>coastX(z)||T.lakes.some(l=>inPool(l,x,z))||isRiver(x,z)&&!isFord(x,z);
+export const isWater=(x:number,z:number)=>T.islands?(!onIsland(x,z)||T.lakes.some(l=>inPool(l,x,z))||isRiver(x,z)&&!isFord(x,z)):x>coastX(z)||T.lakes.some(l=>inPool(l,x,z))||isRiver(x,z)&&!isFord(x,z);
 /** Marsh is walkable but slow. */
 export const isMarsh=(x:number,z:number)=>T.marshes.some(m=>inPool(m,x,z))&&!isWater(x,z);
 
@@ -93,6 +116,7 @@ export const isMarsh=(x:number,z:number)=>T.marshes.some(m=>inPool(m,x,z))&&!isW
 export function elevation(x:number,z:number){
  let h=0;for(const hill of T.hills){const dx=x-hill.x,dz=z-hill.z,d=Math.hypot(dx,dz);if(d>hill.r*1.2+20)continue;const a=Math.atan2(dz,dx);const ramp=hill.ramp===false?0:smooth((.7-Math.abs(a))/.4),rim=hill.r*(1+.10*Math.sin(a*3+hill.x*.1)+.055*Math.cos(a*7+hill.z*.2));h=Math.max(h,hill.h*smooth((rim-d)/(3.6+ramp*16)));}
  let ravine=0;if(T.ravine){const ravineEnds=smooth((z/K+100)/14)*smooth((26-z/K)/14);ravine=5.5*ravineEnds*smooth((7-Math.abs(x-ravineX(z)))/3.8);}
+ if(T.islands){const radial=Math.min(...T.islands.map(i=>islandRadius(i,x,z)));const shelf=1.15*smooth((.99-radial)/.22);return(h+shelf-ravine)*smooth((1.045-radial)/.12);}
  return (h-ravine)*smooth((coastX(z)-x)/8);
 }
 // Render-side elevation: exact samples on a 0.5-unit lattice, filled on demand, bilinear in between.

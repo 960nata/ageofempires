@@ -16,7 +16,7 @@ export const FACTIONS: Record<Faction, {name:string; accent:string; description:
  ayyubid:{name:'Saracen Sultanate',accent:'#5a7847',description:'Horse swordsmen, Faris guards, horse archers and camel troops. Caravan income +10%.',landmark:'Citadel Court'},
  steppe:{name:'Mongol Empire',accent:'#97653b',description:'Horse archers. Mounted movement +8%.',landmark:'Great Assembly'},
 };
-export interface UnitDef {id:string; name:string; era:number; building:string; cost:Cost; seconds:number; pop:number; hp:number; speed:number; attack:number; range:number; cooldown:number; armor:number; role:string; model:string; factions?:Faction[]; shield?:boolean; mounted?:boolean; siege?:boolean; sight:number;stride?:number;turnRate?:number;footprint?:number;}
+export interface UnitDef {id:string; name:string; era:number; building:string; cost:Cost; seconds:number; pop:number; hp:number; speed:number; attack:number; range:number; cooldown:number; armor:number; role:string; model:string; factions?:Faction[]; shield?:boolean; mounted?:boolean; siege?:boolean; naval?:boolean; sight:number;stride?:number;turnRate?:number;footprint?:number;}
 const raw: Array<[string,string,number,string,Cost,number,number,number,number,number,number,number,number,string,string]> = [
  ['worker','Villager',0,'town',{food:45},20,1,45,2.5,3,1.5,1.5,0,'worker','worker'],
  ['explorer','Foot Explorer',0,'town',{food:35},18,1,55,3.4,4,1.5,1.4,0,'scout','explorer'],
@@ -43,8 +43,18 @@ const raw: Array<[string,string,number,string,Cost,number,number,number,number,n
  ['trebuchet','Trebuchet',3,'siege',{wood:280,gold:170},70,3,220,0.9,90,29,7,2,'siege','trebuchet'],
  ['bombard','Bombard',3,'siege',{wood:200,gold:230},75,3,210,1.0,100,22,6,3,'siege','bombard'],
  ['trader','Trade Caravan',1,'market',{wood:80,gold:40},35,1,100,2.8,0,0,1,0,'trader','trader'],
+ ['fishing-boat','Fishing Boat',0,'harbor',{wood:95},38,1,90,3.2,0,0,1,0,'fisher','fishing-boat'],
+ ['whaling-boat','Whaling Crew',2,'harbor',{wood:190,gold:55},62,3,230,2.8,0,0,1,1,'fisher','whaling-boat'],
+ ['war-ship','Warship',0,'harbor',{wood:185,gold:65},52,3,180,3.4,8,8,2.8,0,'naval','war-ship'],
+ ['scout-ship','Scout Vessel',0,'harbor',{wood:75},28,1,75,4.4,0,0,1,0,'naval-scout','scout-ship'],
+ ['transport-ship','Troop Transport',0,'harbor',{wood:150},45,2,200,2.9,0,0,1,1,'transport','transport-ship'],
 ];
 export const UNITS: Record<string,UnitDef> = Object.fromEntries(raw.map(([id,name,era,building,cost,seconds,pop,hp,speed,attack,range,cooldown,armor,role,model])=>[id,{id,name,era,building,cost,seconds,pop,hp,speed,attack,range,cooldown,armor,role,model,sight:role==='scout'||id==='scout'?24:16,mounted:['cavalry','heavy-cavalry','mounted-ranged','camel'].includes(role),siege:['ram','siege'].includes(role),shield:['swordsman','heavy','shield-spear','javelin','knight'].includes(id)}]));
+Object.assign(UNITS['fishing-boat'],{naval:true,footprint:.8,stride:3.5,turnRate:2.8,sight:22});
+Object.assign(UNITS['whaling-boat'],{naval:true,footprint:1.3,stride:4.2,turnRate:2.3,sight:25});
+Object.assign(UNITS['war-ship'],{naval:true,footprint:1.5,stride:4.5,turnRate:1.9,sight:27});
+Object.assign(UNITS['scout-ship'],{naval:true,footprint:.75,stride:3.2,turnRate:3.2,sight:36});
+Object.assign(UNITS['transport-ship'],{naval:true,footprint:1.4,stride:4.3,turnRate:2.1,sight:22});
 for(const [id,name,base,faction,cost,hp,attack] of [
  ['legionary','Legionary','heavy','roman',{food:65,gold:40},155,19],
  ['centurion','Centurion','heavy','roman',{food:100,gold:100},210,25],
@@ -87,6 +97,7 @@ export const BUILDINGS:Record<string,BuildingDef> = {
  camel:{id:'camel',name:'Camel Stable',era:2,cost:{wood:160},seconds:55,hp:700,radius:3,model:'camel',factions:['ayyubid']},
  smithy:{id:'smithy',name:'Blacksmith & Tool Repair',era:1,cost:{wood:130},seconds:45,hp:650,radius:2.5,model:'smithy'},
  market:{id:'market',name:'Market',era:1,cost:{wood:150},seconds:50,hp:700,radius:3,model:'market'},
+ harbor:{id:'harbor',name:'Harbor',era:0,cost:{wood:160},seconds:65,hp:850,radius:3.4,model:'harbor',deposit:['food']},
  palisade:{id:'palisade',name:'Palisade',era:0,cost:{wood:20},seconds:15,hp:300,radius:1.1,model:'palisade'},
  tower:{id:'tower',name:'Watchtower',era:0,cost:{wood:100,stone:60},seconds:50,hp:650,radius:1.8,model:'tower',attack:6,range:13,garrison:3,sight:28},
  'archer-tower':{id:'archer-tower',name:'Archer Tower',era:1,cost:{wood:140,stone:140},seconds:70,hp:1000,radius:1.8,model:'tower',attack:24,range:18,garrison:5,sight:24,cooldown:1.8},
@@ -106,6 +117,9 @@ export const costText=(cost:Cost)=>Object.entries(cost).map(([k,v])=>`${v} ${k}`
 export const emptyStock=():Stock=>({food:0,wood:0,gold:0,stone:0});
 
 export const TECHNOLOGIES:Record<string,{name:string;building:string;era:number;cost:Cost;seconds:number;description:string;factions?:Faction[];requires?:string}>= {
+ shipwright:{name:'Shipwrights',building:'harbor',era:1,cost:{wood:150,gold:80},seconds:55,description:'Ship hull health +12%. Damage ratios are preserved.'},
+ navalholds:{name:'Deep Holds',building:'harbor',era:2,cost:{wood:180,gold:100},seconds:65,description:'Fishing and hunting ships carry 25% more food.',requires:'shipwright'},
+ navalordnance:{name:'Naval Ordnance',building:'harbor',era:3,cost:{wood:200,gold:180},seconds:75,description:'Warship attack +10%. Each civilization retains its own weapon style.',requires:'shipwright'},
  civicservice:{name:'Civic Administration',building:'government',era:2,cost:{food:170,gold:140},seconds:60,description:'Unit training time −10%.'},
  architecture:{name:'Architecture',building:'academy',era:2,cost:{wood:150,gold:120},seconds:55,description:'Worker construction speed +15%.'},
  ballistics:{name:'Ballistics',building:'academy',era:2,cost:{wood:180,gold:140},seconds:60,description:'Ranged projectiles travel 25% faster.'},

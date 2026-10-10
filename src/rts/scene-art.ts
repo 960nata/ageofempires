@@ -2,12 +2,12 @@ import {RegionalArt} from './regional-art';
 import {assetUrl,setSpriteSource} from './assets';
 import {isolatedAtlas} from './isolated-sprites';
 import frames from './scene-frames.json';
-import {coastX,mapSpec} from './map';
+import {coastX,isShore,mapSpec} from './map';
 import eraFrames from './era-frames.json';
 import buildingAtlases from './building-atlases.json';
 const allFrames:Record<string,{x:number;y:number;w:number;h:number}[]>={...frames,...eraFrames};
 export interface SceneSprite {image:HTMLImageElement;sx:number;sy:number;sw:number;sh:number;width:number;height:number;anchor:number;anchorX?:number;flip?:boolean;}
-export const BUILDING_VIEWS:Record<string,number>={town:0,keep:1,house:2,barracks:3,range:4,stable:5,market:6,smithy:7,academy:8,government:9,healing:10,siege:11,camel:5,wall:12,gate:13,tower:14,'archer-tower':14,'cannon-tower':14,lumber:15,mine:16,mill:17,palisade:18,landmark:19,specialist:20,farm:-1,orchard:-2};
+export const BUILDING_VIEWS:Record<string,number>={town:0,keep:1,house:2,barracks:3,range:4,stable:5,market:6,smithy:7,academy:8,government:9,healing:10,siege:11,camel:5,wall:12,gate:13,tower:14,'archer-tower':14,'cannon-tower':14,lumber:15,mine:16,mill:17,palisade:18,landmark:19,specialist:20,farm:-1,orchard:-2,harbor:-3};
 export const FACING_NAMES=['South','East','North','West'];
 export class SceneArt {
  readonly regional=new RegionalArt();
@@ -52,7 +52,7 @@ export class SceneArt {
   const s=this.sprite(name,cell,width);if(s){if(runs)s.height*=1.35;s.anchor=1-s.width*(runs?.08:.22)/s.height;}return s;
  }
 
- vegetationSpecies(id:number,x:number,z:number){const {biome,type}=mapSpec();if(x>coastX(z)-19)return[8,9][id%2];if(biome==='winter')return[4,5][id%2];if(biome==='arid')return id%3?[8,9][id%2]:[0,7][id%2];return type==='borderlands'&&z<-45?[4,5][id%2]:[0,1,2,3,4,7][id%6];}
+ vegetationSpecies(id:number,x:number,z:number){const {biome,type}=mapSpec();if(type==='archipelago'&&isShore(x,z)||x>coastX(z)-19)return[8,9][id%2];if(biome==='winter')return[4,5][id%2];if(biome==='arid')return id%3?[8,9][id%2]:[0,7][id%2];return type==='borderlands'&&z<-45?[4,5][id%2]:[0,1,2,3,4,7][id%6];}
  vegetationFamily(id:number,x:number,z:number){const species=this.vegetationSpecies(id,x,z);return species>=8&&species<=9?2:species===5||species===6?1:0;}
  // Biome recolour of the woodland atlas, done once per biome on the CPU (ctx.filter is missing on Safari).
  private tinted='temperate';private baseWoodland?:HTMLImageElement;

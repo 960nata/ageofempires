@@ -1,0 +1,405 @@
+{
+  "roman-fishing": {
+    "file": "roman-fishing.avif",
+    "fallback": "roman-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "roman-war": {
+    "file": "roman-war.avif",
+    "fallback": "roman-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "roman-harbor": {
+    "file": "roman-harbor.avif",
+    "fallback": "roman-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "persian-fishing": {
+    "file": "persian-fishing.avif",
+    "fallback": "persian-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "persian-war": {
+    "file": "persian-war.avif",
+    "fallback": "persian-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "persian-harbor": {
+    "file": "persian-harbor.avif",
+    "fallback": "persian-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "english-fishing": {
+    "file": "english-fishing.avif",
+    "fallback": "english-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "english-war": {
+    "file": "english-war.avif",
+    "fallback": "english-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "english-harbor": {
+    "file": "english-harbor.avif",
+    "fallback": "english-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "french-fishing": {
+    "file": "french-fishing.avif",
+    "fallback": "french-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "french-war": {
+    "file": "french-war.avif",
+    "fallback": "french-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "french-harbor": {
+    "file": "french-harbor.avif",
+    "fallback": "french-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "castilian-fishing": {
+    "file": "castilian-fishing.avif",
+    "fallback": "castilian-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "castilian-war": {
+    "file": "castilian-war.avif",
+    "fallback": "castilian-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "castilian-harbor": {
+    "file": "castilian-harbor.avif",
+    "fallback": "castilian-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "ayyubid-fishing": {
+    "file": "ayyubid-fishing.avif",
+    "fallback": "ayyubid-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "ayyubid-war": {
+    "file": "ayyubid-war.avif",
+    "fallback": "ayyubid-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "ayyubid-harbor": {
+    "file": "ayyubid-harbor.avif",
+    "fallback": "ayyubid-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "steppe-fishing": {
+    "file": "steppe-fishing.avif",
+    "fallback": "steppe-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "steppe-war": {
+    "file": "steppe-war.avif",
+    "fallback": "steppe-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "steppe-harbor": {
+    "file": "steppe-harbor.avif",
+    "fallback": "steppe-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "chinese-fishing": {
+    "file": "chinese-fishing.avif",
+    "fallback": "chinese-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "chinese-war": {
+    "file": "chinese-war.avif",
+    "fallback": "chinese-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "chinese-harbor": {
+    "file": "chinese-harbor.avif",
+    "fallback": "chinese-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "japanese-fishing": {
+    "file": "japanese-fishing.avif",
+    "fallback": "japanese-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "japanese-war": {
+    "file": "japanese-war.avif",
+    "fallback": "japanese-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "japanese-harbor": {
+    "file": "japanese-harbor.avif",
+    "fallback": "japanese-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "khmer-fishing": {
+    "file": "khmer-fishing.avif",
+    "fallback": "khmer-fishing.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "khmer-war": {
+    "file": "khmer-war.avif",
+    "fallback": "khmer-war.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9
+  },
+  "khmer-harbor": {
+    "file": "khmer-harbor.avif",
+    "fallback": "khmer-harbor.webp",
+    "cell": [
+      288,
+      256
+    ],
+    "columns": 4,
+    "frames": 16,
+    "anchor": 0.84
+  },
+  "crew-row": {
+    "file": "crew-row.avif",
+    "fallback": "crew-row.webp",
+    "cell": [
+      128,
+      128
+    ],
+    "columns": 8,
+    "frames": 96,
+    "poses": 12,
+    "anchor": 0.9,
+    "fps": 10
+  },
+  "crew-fish": {
+    "file": "crew-fish.avif",
+    "fallback": "crew-fish.webp",
+    "cell": [
+      128,
+      128
+    ],
+    "columns": 8,
+    "frames": 192,
+    "poses": 24,
+    "anchor": 0.9,
+    "fps": 6.666666666666666
+  },
+  "transport-v1": {
+    "file": "transport-v1.avif",
+    "fallback": "transport-v1.webp",
+    "cell": [
+      192,
+      176
+    ],
+    "columns": 4,
+    "frames": 32,
+    "anchor": 0.9,
+    "sharedAcrossFactions": true
+  },
+  "prey": {
+    "file": "marine-prey-v1.webp",
+    "fallback": "marine-prey-v1.webp",
+    "cell": [
+      128,
+      96
+    ],
+    "columns": 4,
+    "frames": 12,
+    "anchor": 0.72
+  },
+  "whaling-v1": {
+    "file": "whaling-boat-frames-v1.webp",
+    "fallback": "whaling-boat-frames-v1.webp",
+    "cell": [
+      256,
+      192
+    ],
+    "columns": 4,
+    "frames": 48,
+    "poses": 6,
+    "anchor": 0.9
+  },
+  "fishing-v1": {
+    "file": "fishing-boat-frames-v1.webp",
+    "fallback": "fishing-boat-frames-v1.webp",
+    "cell": [
+      192,
+      192
+    ],
+    "columns": 4,
+    "frames": 48,
+    "poses": 6,
+    "anchor": 0.9
+  }
+}

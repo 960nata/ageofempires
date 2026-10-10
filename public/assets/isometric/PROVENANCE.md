@@ -174,3 +174,13 @@ These are generated interpretations, not verified historical reconstructions. Fo
 ## 0.24.4 — orchard and crop cleanup
 
 `orchard-fruit-tree-full-v1` and `orchard-fruit-tree-picked-v1` are original generated transparent orchard sprites. The harvested state shares the same tree silhouette with fewer apples. `isolated-v1/villager-hijab-*` retains the standard source-cell crop and original colors; the source PNGs remain preserved. A color filter was rejected after visual inspection showed holes in the character.
+
+## Maritime sprites — 2026-10-09
+
+`harbor-directions-v1.webp`, `fishing-boat-frames-v1.webp`, and `whaling-boat-frames-v1.webp` are packed from newly generated original PNG sheets in `art-src/isometric/`. The harbor has four facings. The small boat has six action states in eight headings (idle, two rowing key poses, cast, set, haul); the crewed boat has six states in eight headings (idle, two rowing key poses, aim, throw, haul). `scripts/pack-marine-atlases.py` separates the boats and harbors by connected silhouette, pads their cells, and compresses the runtime WebP files. These are distinct illustrated poses; the runtime selects frames according to heading and activity. `marine-prey-v1.webp` repacks school fish, tuna, and whale frames from the project's existing nature atlas. No Age of Empires image is included in these files. The generated poses are a visual interpretation and are not a verified historical reconstruction.
+
+## 0.25 naval fleet expansion — 2026-10-10
+
+`naval-v2/` contains per-civilization fishing ships, warships and harbors, each with four gameplay-age silhouettes and eight headings, plus shared rowing and fishing crew motion atlases. `troop-transport-v1.png` is an original built-in ImageGen atlas (source output `exec-b2dbc990-4f80-4aed-b235-47ada534ad78.png`; prompt saved beside it). It supplies distinct troop-carrier hulls across four gameplay ages and eight headings; faction-specific passenger figures and fleet naming are applied by the game. `scripts/pack-naval-v2.py` creates paired AVIF/WebP runtime atlases and `src/rts/naval-atlases.json` frame metadata. Images are original generated interpretations, not extracted game art or historically certified reconstructions; no paid third-party license was purchased.
+
+The whaling role now uses the existing `whaling-boat-frames-v1.webp` atlas: six authored action poses across eight headings (idle, rowing, harpoon, throw and haul). The prey atlas manifest points to the existing fish, tuna and whale sheet so the matching water creatures render in the scene.
