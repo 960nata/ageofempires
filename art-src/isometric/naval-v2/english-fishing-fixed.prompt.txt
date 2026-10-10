@@ -1,0 +1,1 @@
+Repair source atlas to four columns and eight rows with transparent gaps, eight directions per era, no people.
