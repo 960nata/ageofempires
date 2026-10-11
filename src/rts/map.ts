@@ -108,6 +108,20 @@ function riverDistance(x:number,z:number){const rv=T.river;if(!rv)return Infinit
  for(let i=0;i<pts.length-1;i++){const a=pts[i],b=pts[i+1],vx=b.x-a.x,vz=b.z-a.z,u=Math.max(0,Math.min(1,((x-a.x)*vx+(z-a.z)*vz)/(vx*vx+vz*vz)));best=Math.min(best,Math.hypot(x-a.x-vx*u,z-a.z-vz*u));}return best;}
 export const isFord=(x:number,z:number)=>T.fords.some(f=>Math.hypot(f.x-x,f.z-z)<f.r);
 export const isRiver=(x:number,z:number)=>{const rv=T.river;return!!rv&&riverDistance(x,z)<rv.width/2*(1+.22*Math.sin((x+z)*.07+rv.phase));};
+/** Tangent of the generated river; decorative currents use the same watercourse. */
+export function waterFlow(x:number,z:number){
+ const rv=T.river;if(!rv||!isRiver(x,z))return {x:.16,z:.07};
+ let distance=Infinity,segment=0,along=0;
+ const points=rv.points;
+ for(let i=0;i<points.length-1;i++){
+  const a=points[i],b=points[i+1],vx=b.x-a.x,vz=b.z-a.z;
+  const u=Math.max(0,Math.min(1,((x-a.x)*vx+(z-a.z)*vz)/(vx*vx+vz*vz))),d=Math.hypot(x-a.x-vx*u,z-a.z-vz*u);
+  if(d<distance){distance=d;segment=i;along=u;}
+ }
+ const tangent=(i:number)=>{const a=points[Math.max(0,i-1)],b=points[Math.min(points.length-1,i+1)],length=Math.hypot(b.x-a.x,b.z-a.z);return {x:(b.x-a.x)/length,z:(b.z-a.z)/length};};
+ const a=tangent(segment),b=tangent(segment+1);
+ return {x:(a.x+(b.x-a.x)*along)*.48,z:(a.z+(b.z-a.z)*along)*.48};
+}
 export const isWater=(x:number,z:number)=>T.islands?(!onIsland(x,z)||T.lakes.some(l=>inPool(l,x,z))||isRiver(x,z)&&!isFord(x,z)):x>coastX(z)||T.lakes.some(l=>inPool(l,x,z))||isRiver(x,z)&&!isFord(x,z);
 /** Marsh is walkable but slow. */
 export const isMarsh=(x:number,z:number)=>T.marshes.some(m=>inPool(m,x,z))&&!isWater(x,z);

@@ -8,18 +8,21 @@ import type {SceneSprite} from './scene-art';
 // Explicit equipment matches: a shielded swordsman atlas must not replace a spear or unshielded unit.
 const SPEAR={spearman:'spear','shield-spear':'spear',pike:'spear'};
 export const FACTION_ANIMATION_UNITS:Record<string,Record<string,string>>={
- roman:{legionary:'infantry',centurion:'infantry',swordsman:'infantry',heavy:'infantry',archer:'archer',equites:'cavalry','light-horse':'cavalry',...SPEAR},
+ roman:{legionary:'infantry',centurion:'infantry',swordsman:'infantry',heavy:'infantry',archer:'archer',equites:'cavalry','light-horse':'cavalry',scout:'cavalry',...SPEAR},
  persian:{immortal:'infantry','shield-spear':'infantry',archer:'archer','royal-archer':'archer',cataphract:'cavalry',spearman:'spear',pike:'spear'},
  english:{swordsman:'infantry',heavy:'infantry',archer:'archer',longbow:'archer',knight:'cavalry',...SPEAR},
  french:{swordsman:'infantry',heavy:'infantry',archer:'archer',knight:'cavalry',...SPEAR},
- chinese:{swordsman:'infantry',heavy:'infantry','repeating-crossbow':'archer','light-horse':'cavalry',...SPEAR},
+ chinese:{swordsman:'infantry',heavy:'infantry','repeating-crossbow':'archer','light-horse':'cavalry',scout:'cavalry',...SPEAR},
  steppe:{militia:'infantry',swordsman:'infantry',heavy:'infantry',archer:'archer',crossbow:'archer',javelin:'archer',scout:'cavalry','light-horse':'cavalry',lancer:'cavalry',knight:'cavalry','horse-archer':'cavalry',...SPEAR},
  ayyubid:{swordsman:'infantry',heavy:'infantry',archer:'archer','light-horse':'cavalry',...SPEAR},
  japanese:{samurai:'infantry',archer:'archer','light-horse':'cavalry',...SPEAR},
  khmer:{swordsman:'infantry',heavy:'infantry',archer:'archer','war-elephant':'cavalry',...SPEAR},
- castilian:{swordsman:'infantry',heavy:'infantry',archer:'archer',knight:'cavalry',...SPEAR},
+ castilian:{swordsman:'infantry',heavy:'infantry',archer:'archer',knight:'cavalry',scout:'cavalry','light-horse':'cavalry',...SPEAR},
 };
 type Atlas=typeof frames[keyof typeof frames];
+// Some sheets reuse the strike cell as the hit cell; flinching into a sword swing reads as an attack, so those skip the hit pose.
+const sameCell=(a:unknown,b:unknown)=>JSON.stringify(a)===JSON.stringify(b);
+const HAS_HIT=new Set(Object.entries(frames).filter(([,data])=>!data.frames.every(row=>sameCell(row[9],row[8]))).map(([key])=>key));
 export class FactionAnimations {
  private images=new Map<string,HTMLImageElement>();
  private alpha=new Map<HTMLImageElement,Uint8Array>();
@@ -35,7 +38,7 @@ export class FactionAnimations {
   let sample={from:0,to:0,mix:0};
   if(deathAge>=0)sample=timedPose(deathAge,[[0,10],[.48,11]]);
   else if(attackAge>=0&&attackAge<1.05)sample=timedPose(attackAge,[[0,0],[.34,7],[ATTACK_WINDUP-.06,7],[ATTACK_WINDUP,8],[.66,8],[1.05,0]]);
-  else if(hitAge>=0&&hitAge<.22&&!moving)sample=timedPose(hitAge,[[0,9],[.07,9],[.22,0]]);
+  else if(hitAge>=0&&hitAge<.22&&!moving&&HAS_HIT.has(key))sample=timedPose(hitAge,[[0,9],[.07,9],[.22,0]]);
   else if(moving)sample=cyclePose(phase*4,run?[4,5,6,5]:[1,2,3,2]);
   const row=data.directions[(direction+8)%8],packed=isolatedAtlas(data.file),rect=(column:number)=>poseRect(packed?.frames[row*packed.cols+column]??data.frames[row][column]);
   return poses.sample(image,rect(sample.from),rect(sample.to),sample.mix,data.size*scale/data.nominal);

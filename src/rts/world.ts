@@ -32,7 +32,8 @@ const index=gridIndex;
 const resourceRate:Stock={food:.65,wood:.60,gold:.50,stone:.45};
 export class World {
  aiIntel:Record<number,AiIntel>={};effects:Array<Point&{at:number;fire:boolean;kind?:string;water?:boolean}>=[];time=0;nextId=1;rng=42;entities:Entity[]=[];shots:Shot[]=[];players:Player[]=[];winner:number|null=null;mode='skirmish';deposited=emptyStock();aiTimer=0;private buildingCache:Entity[]=[];map:MapSpec={type:'borderlands',biome:'temperate',seed:42};private homeSites?:Point[];diplomacy:Record<string,Stance>={};attackWarnAt:Record<number,number>={};alerts:{x:number;z:number;at:number}[]=[];private lastAlert=-99;aiLevel:AiLevel='normal';villagerAI:VillagerAI='assist';autoTimer=0;navVersion=0;roadCells=new Set<number>();blocked=new Set<number>();private waterBlocked=new Set<number>();visible=[new Set<number>(),new Set<number>(),new Set<number>(),new Set<number>()];explored=[new Set<number>(),new Set<number>(),new Set<number>(),new Set<number>()];events:{text:string;kind:string}[]=[];private fogTimer=0;private byId=new Map<number,Entity>();private unitBuckets=new Map<string,Entity[]>();
- constructor(faction:Faction='roman',enemy:Faction='persian',seed=42,mode='skirmish',setup=true,third?:Faction,map?:Partial<MapSpec>){this.rng=seed;this.mode=mode;this.map={type:map?.type&&map.type in MAP_TYPES?map.type:'borderlands',biome:map?.biome&&map.biome in BIOMES?map.biome:'temperate',seed:map?.seed??seed};configureMap(this.map);for(let z=0;z<GRID_SIZE;z++)for(let x=0;x<GRID_SIZE;x++)if(!isWater(cellCentre(x),cellCentre(z)))this.waterBlocked.add(index(x,z));this.players=[faction,enemy,...(third?[enemy,third]:[])].map(f=>({faction:f,stock:{food:260,wood:220,gold:100,stone:80},era:0,armor:0,tools:0,cart:false,defeat:0,tech:[]}));if(this.map.type!=='borderlands')this.homeSites=this.findHomes(this.realms.length);if(setup)this.setup();}
+ private sailWatch=new Map<number,{x:number;z:number;at:number}>();
+ constructor(faction:Faction='roman',enemy:Faction='persian',seed=42,mode='skirmish',setup=true,third?:Faction,map?:Partial<MapSpec>){this.rng=seed;this.mode=mode;this.map={type:map?.type&&map.type in MAP_TYPES?map.type:'borderlands',biome:map?.biome&&map.biome in BIOMES?map.biome:'temperate',seed:map?.seed??seed};configureMap(this.map);for(let z=0;z<GRID_SIZE;z++)for(let x=0;x<GRID_SIZE;x++)if(!this.waterFits({x:cellCentre(x),z:cellCentre(z)},.85))this.waterBlocked.add(index(x,z));this.players=[faction,enemy,...(third?[enemy,third]:[])].map(f=>({faction:f,stock:{food:260,wood:220,gold:100,stone:80},era:0,armor:0,tools:0,cart:false,defeat:0,tech:[]}));if(this.map.type!=='borderlands')this.homeSites=this.findHomes(this.realms.length);if(setup)this.setup();}
  random(){this.rng=(Math.imul(1664525,this.rng)+1013904223)>>>0;return this.rng/4294967296;}
  emit(text:string,kind='info'){this.events.push({text,kind});if(this.events.length>30)this.events.shift();}
  add(type:Entity['type'],def:string,owner:Side,x:number,z:number,complete=true){const d=type==='unit'?UNITS[def]:type==='building'?BUILDINGS[def]:null;const hp=type==='unit'&&isNaval(def)&&owner!==2?navalStats(def,this.players[owner].faction,this.players[owner].era,this.players[owner].tech).hp:d?.hp??100;const e:Entity={id:this.nextId++,type,def,owner,x,z,hp:complete?hp:Math.max(1,hp*.05),maxHp:hp,angle:0,state:'idle',orders:[],cargo:emptyStock(),path:[],pathVersion:-1,timer:0,cooldown:0,progress:complete?1:0,tier:1,queue:[],garrison:[],amount:0,closed:true,lastHit:-99,turn:0};if(owner!==2){const p=this.players[owner],u=type==='unit'?UNITS[def]:null;if(type==='building'||type==='unit'&&isNaval(def))e.visualEra=p.era;const factor=type==='building'?(p.tech.includes('masonry')?1.15:1):u?.naval?1:u?(1+p.armor*.12)*(u.mounted&&p.tech.includes('cavalry')||!u.mounted&&!u.siege&&u.role!=='worker'&&p.tech.includes('drill')?1.1:1):1;e.maxHp=hp*factor;e.hp=e.maxHp*(complete?1:.05);}if(type==='unit'&&def==='worker')e.appearance=e.id%2===0?'female':'male';this.entities.push(e);this.byId.set(e.id,e);return e;}
@@ -231,25 +232,68 @@ export class World {
   }}this.gateRoutes.set(side,{version:this.navVersion,diplomacy,blocked});return blocked;
  }
  path(start:Point,goal:Point,radius=0):Point[]{const e=start as Entity;return findPath(start,goal,e.type==='unit'?this.routingBlocked(e.owner):this.blocked,radius);}
- private waterExit(p:Point,from=3.5,to=12):Point|undefined{for(let ring=from;ring<=to;ring+=1.5)for(let i=0;i<24;i++){const a=i*Math.PI/12,q={x:p.x+Math.sin(a)*ring,z:p.z+Math.cos(a)*ring};if(Math.abs(q.x)>MAP_HALF-3||Math.abs(q.z)>MAP_HALF-3)continue;if([0,1.1,-1.1].every(dx=>[0,1.1,-1.1].every(dz=>isWater(q.x+dx,q.z+dz))))return q;}return undefined;}
- private waterTarget(e:Entity){const preference=(n:Entity)=>dist(e,n)-(e.def==='whaling-boat'?(n.def==='whale'?65:n.def==='tuna'?42:0):0),sites=this.entities.filter(n=>n.type==='resource'&&n.amount>0&&(n.def==='fish'||e.def==='whaling-boat'&&(n.def==='tuna'||n.def==='whale'))&&this.canSee(e.owner,n)).sort((a,b)=>preference(a)-preference(b));return sites.find(n=>{const path=findPath(e,n,this.waterBlocked,Math.min(1,this.footprint(e)*.6));return path.length>0&&dist(path[path.length-1],n)<3;});}
- private sailTo(e:Entity,target:Point,reach:number,dt:number){const distance=dist(e,target);if(distance<=reach){e.path=[];e.pathGoal=undefined;e.moveSpeed=0;e.timer=0;return true;}if(!e.pathGoal||dist(e.pathGoal,target)>2||!e.path.length&&e.timer>=1){e.path=findPath(e,target,this.waterBlocked,Math.min(1,this.footprint(e)*.6));e.pathGoal={...target};e.timer=0;}while(e.path.length>1&&dist(e,e.path[0])<.4)e.path.shift();const point=e.path[0];if(!point){e.state='blocked';e.moveSpeed=0;e.timer+=dt;return false;}if(e.path.length===1&&dist(e,point)<.3){if(distance<=reach+1){e.path=[];e.pathGoal=undefined;e.moveSpeed=0;return true;}e.path=[];e.state='blocked';e.moveSpeed=0;return false;}const heading=Math.atan2(point.x-e.x,point.z-e.z),turn=Math.atan2(Math.sin(heading-e.angle),Math.cos(heading-e.angle));e.angle+=clamp(turn,-dt*(UNITS[e.def].turnRate??2.8),dt*(UNITS[e.def].turnRate??2.8));const speed=this.shipStats(e).speed*(Math.abs(turn)>1?.55:1),desired=Math.min(speed,Math.sqrt(Math.max(0,distance-reach)*8));e.moveSpeed=clamp(desired,Math.max(0,(e.moveSpeed??0)-dt*4),(e.moveSpeed??0)+dt*4);const step=Math.min(e.moveSpeed*dt,dist(e,point)),next={x:e.x+Math.sin(e.angle)*step,z:e.z+Math.cos(e.angle)*step},radius=this.footprint(e)*.8;if([-radius,radius].every(dx=>[-radius,radius].every(dz=>isWater(next.x+dx,next.z+dz)))){e.x=next.x;e.z=next.z;e.state='walk';e.timer=0;}else{e.path=[];e.pathGoal=undefined;e.moveSpeed=0;e.state='blocked';}return false;}
+ private waterFits(p:Point,radius:number){if(Math.abs(p.x)>MAP_HALF-3-radius||Math.abs(p.z)>MAP_HALF-3-radius||!isWater(p.x,p.z))return false;for(let i=0;i<8;i++){const a=i*Math.PI/4;if(!isWater(p.x+Math.sin(a)*radius,p.z+Math.cos(a)*radius))return false;}return true;}
+ private waterExit(p:Point,from=3.5,to=12,ship?:Entity):Point|undefined{
+  const radius=ship?Math.max(.85,this.footprint(ship)*.8):1.1;
+  const previous=ship?.pathGoal;
+  if(ship&&previous){const d=dist(previous,p);if(d>=from-.5&&d<=to+.5&&this.waterFits(previous,radius)&&!this.unitsNear(previous,3).some(v=>v.id!==ship.id&&isNaval(v.def)&&dist(v,previous)<this.footprint(v)+this.footprint(ship)*.7)&&(ship.path.length>0||findPath(ship,previous,this.waterBlocked,radius).length>0))return previous;}
+  const candidates:{point:Point;score:number}[]=[];
+  for(let ring=from;ring<=to;ring+=1.5)for(let i=0;i<24;i++){const a=i*Math.PI/12,q={x:p.x+Math.sin(a)*ring,z:p.z+Math.cos(a)*ring};if(!this.waterFits(q,radius))continue;
+   const traffic=this.unitsNear(q,4).reduce((n,v)=>n+(v.id!==ship?.id&&isNaval(v.def)&&dist(v,q)<this.footprint(v)+(ship?this.footprint(ship):.8)?1:0),0);
+   const cost=ring*.38+(ship?dist(ship,q):0)+traffic*18;
+   candidates.push({point:q,score:cost});
+  }
+  candidates.sort((a,b)=>a.score-b.score);
+  return ship?candidates.find(v=>findPath(ship,v.point,this.waterBlocked,radius).length>0)?.point:candidates[0]?.point;
+ }
+ private waterTarget(e:Entity){const preference=(n:Entity)=>dist(e,n)-(e.def==='whaling-boat'?(n.def==='whale'?65:n.def==='tuna'?42:0):0),sites=this.entities.filter(n=>n.type==='resource'&&n.amount>0&&(n.def==='fish'||e.def==='whaling-boat'&&(n.def==='tuna'||n.def==='whale'))&&this.canSee(e.owner,n)).sort((a,b)=>preference(a)-preference(b));return sites.find(n=>{const path=findPath(e,n,this.waterBlocked,Math.max(.85,this.footprint(e)*.8));return path.length>0&&dist(path[path.length-1],n)<3;});}
+ private sailTo(e:Entity,target:Point,reach:number,dt:number){
+  const distance=dist(e,target),radius=Math.max(.85,this.footprint(e)*.8);
+  if(!this.waterFits(e,radius)){const safe=this.waterExit(e,1,7,e);if(safe){const d=dist(e,safe),step=Math.min(d,dt*2.2),next={x:e.x+(safe.x-e.x)/Math.max(.01,d)*step,z:e.z+(safe.z-e.z)/Math.max(.01,d)*step};e.angle=Math.atan2(safe.x-e.x,safe.z-e.z);if(isWater(next.x,next.z)){e.x=next.x;e.z=next.z;e.moveSpeed=step/Math.max(dt,.001);e.state='walk';}else{e.moveSpeed=0;e.state='blocked';}e.path=[];e.pathGoal=undefined;return false;}}
+  if(distance<=reach){e.path=[];e.pathGoal=undefined;e.moveSpeed=0;e.timer=0;this.sailWatch.delete(e.id);return true;}
+  const watch=this.sailWatch.get(e.id);
+  if(!watch)this.sailWatch.set(e.id,{x:e.x,z:e.z,at:this.time});
+  else if(this.time-watch.at>2.4){if(dist(e,watch)<.55){e.path=[];e.pathGoal=undefined;e.timer=1;}this.sailWatch.set(e.id,{x:e.x,z:e.z,at:this.time});}
+  if(!e.pathGoal||dist(e.pathGoal,target)>2||!e.path.length&&e.timer>=.7){
+   let blocked=this.waterBlocked;
+   if(e.timer>=.7){blocked=new Set(this.waterBlocked);for(const other of this.unitsNear(e,9))if(other.id!==e.id&&isNaval(other.def)&&dist(e,other)>this.footprint(e)+this.footprint(other)*.6){const center=cell(other),ring=Math.ceil((this.footprint(e)+this.footprint(other))/2);for(let dz=-ring;dz<=ring;dz++)for(let dx=-ring;dx<=ring;dx++){const x=center.x+dx,z=center.z+dz;if(x>=0&&z>=0&&x<GRID_SIZE&&z<GRID_SIZE&&dist(e,{x:cellCentre(x),z:cellCentre(z)})>1.6)blocked.add(index(x,z));}}}
+   e.path=findPath(e,target,blocked,radius);e.pathGoal={...target};e.timer=0;
+  }
+  while(e.path.length>1&&dist(e,e.path[0])<.9)e.path.shift();
+  const point=e.path[0];if(!point){e.state='blocked';e.moveSpeed=0;e.timer+=dt;return false;}
+  if(e.path.length===1&&dist(e,point)<.75){if(distance<=reach+2.25){e.path=[];e.pathGoal=undefined;e.moveSpeed=0;this.sailWatch.delete(e.id);return true;}e.path=[];e.pathGoal=undefined;e.moveSpeed=0;e.state='blocked';e.timer=1;return false;}
+  const heading=Math.atan2(point.x-e.x,point.z-e.z),turn=Math.atan2(Math.sin(heading-e.angle),Math.cos(heading-e.angle));
+  e.angle+=clamp(turn,-dt*(UNITS[e.def].turnRate??2.8),dt*(UNITS[e.def].turnRate??2.8));
+  const slowTurn=Math.max(.12,1-Math.abs(turn)/1.2),speed=this.shipStats(e).speed*slowTurn;
+  const desired=Math.min(speed,Math.sqrt(Math.max(0,dist(e,point)))*2.4);
+  e.moveSpeed=clamp(desired,Math.max(0,(e.moveSpeed??0)-dt*4),(e.moveSpeed??0)+dt*4);
+  const step=Math.min(e.moveSpeed*dt,dist(e,point)*.9),mid={x:e.x+Math.sin(e.angle)*step*.5,z:e.z+Math.cos(e.angle)*step*.5},next={x:e.x+Math.sin(e.angle)*step,z:e.z+Math.cos(e.angle)*step};
+  const open=(q:Point)=>this.waterFits(q,radius)&&!this.unitsNear(q,this.footprint(e)+2).some(other=>other.id!==e.id&&isNaval(other.def)&&dist(q,other)<(this.footprint(e)+this.footprint(other))*.82);
+  if(open(mid)&&open(next)){e.x=next.x;e.z=next.z;e.state='walk';e.timer=0;}
+  else{
+   // Turn around another hull or a shoreline corner before rebuilding the route.
+   const detour=e.timer>.25?[.38,-.38,.76,-.76,1.12,-1.12].map(delta=>{const angle=e.angle+delta,short=step*.65,q={x:e.x+Math.sin(angle)*short,z:e.z+Math.cos(angle)*short},half={x:e.x+Math.sin(angle)*short*.5,z:e.z+Math.cos(angle)*short*.5};return{angle,q,half,score:dist(q,point)+Math.abs(delta)*.24};}).filter(v=>open(v.half)&&open(v.q)).sort((a,b)=>a.score-b.score)[0]:undefined;
+   if(detour){e.angle=detour.angle;e.x=detour.q.x;e.z=detour.q.z;e.moveSpeed*=.65;e.state='walk';e.timer=0;}
+   else{e.moveSpeed=0;e.state='blocked';e.timer+=dt;if(e.timer>1.2){e.path=[];e.pathGoal=undefined;}}
+  }
+  return false;
+ }
  private fishBoat(e:Entity,dt:number){
   const o=e.order;
   if(o?.kind==='hold'){e.state='idle';e.moveSpeed=0;return;}
-  if(o?.kind==='move'&&o.point){const goal=isWater(o.point.x,o.point.z)?o.point:this.waterExit(o.point,0,9);if(!goal||this.sailTo(e,goal,1,dt)){e.order=undefined;e.state='idle';}return;}
+  if(o?.kind==='move'&&o.point){const goal=this.waterFits(o.point,Math.max(.85,this.footprint(e)*.8))?o.point:this.waterExit(o.point,0,9,e);if(!goal||this.sailTo(e,goal,1,dt)){e.order=undefined;e.state='idle';}return;}
   if(o&&o.kind!=='gather')e.order=undefined;
   const harbor=this.alive(e.owner,'building').filter(b=>b.def==='harbor'&&b.progress>=1).sort((a,b)=>dist(e,a)-dist(e,b))[0],limit=this.shipStats(e).capacity;
   let node=this.get(e.order?.target);
   if(!node||node.type!=='resource'||node.amount<=0||node.def!=='fish'&&!(e.def==='whaling-boat'&&(node.def==='tuna'||node.def==='whale'))){node=(e.workRetryAt??0)>this.time?undefined:this.waterTarget(e);e.workRetryAt=node?0:this.time+3;e.order=node?{kind:'gather',target:node.id,resource:'food'}:undefined;e.workPhase=0;}
   if(e.cargo.food>=limit-.01||!node&&e.cargo.food>0){
    if(!harbor){e.state='idle';e.moveSpeed=0;return;}
-   const dock=this.waterExit(harbor,3.5,11);
+   const dock=this.waterExit(harbor,3.5,11,e);
    if(dock&&this.sailTo(e,dock,1.5,dt)){this.players[e.owner].stock.food+=e.cargo.food;if(e.owner===0)this.deposited.food+=e.cargo.food;e.cargo.food=0;e.workPhase=0;harbor.processUntil=this.time+2;e.state='deposit';}
    return;
   }
   if(!node){e.state='idle';e.moveSpeed=0;return;}
-  if(!this.sailTo(e,node,2.1,dt))return;
+  if(!this.sailTo(e,node,e.def==='fishing-boat'?3.8:3.1,dt))return;
   e.angle=Math.atan2(node.x-e.x,node.z-e.z);e.state=node.def==='whale'||node.def==='tuna'?'hunt':'fish';e.workPhase=(e.workPhase??0)+dt;node.processUntil=this.time+1;
   if(e.workPhase>=3.6){e.workPhase-=3.6;const caught=Math.min(node.amount,e.def==='whaling-boat'?(node.def==='whale'?28:node.def==='tuna'?19:14):8*this.shipStats(e).gather,limit-e.cargo.food);node.amount-=caught;e.cargo.food+=caught;if(node.amount<=0){node.amount=0;node.depletedAt=this.time;e.order=undefined;this.rebuildNav();}}
  }
@@ -272,14 +316,14 @@ export class World {
   for(const id of e.garrison){const u=this.get(id);if(u&&this.time-(u.enteredAt??0)>.7){u.x=e.x;u.z=e.z;}}
   if(UNITS[e.def].role==='fisher'){this.fishBoat(e,dt);return;}
   const o=e.order,stats=this.shipStats(e);if(o?.kind==='unload'&&e.def==='transport-ship'){
-   const goal=o.point?this.waterExit(o.point,0,10):e;if(!goal){e.order=undefined;e.state='idle';if(e.owner===0)this.emit('Choose a landing on the shoreline.');return;}
+   const goal=o.point?this.waterExit(o.point,0,10,e):e;if(!goal){e.order=undefined;e.state='idle';if(e.owner===0)this.emit('Choose a landing on the shoreline.');return;}
    if(this.sailTo(e,goal,1,dt)){if(e.state!=='unloading'){e.unloadStartedAt=this.time;e.landingAt=this.time;}e.state='unloading';if(this.time-(e.landingAt??this.time)>=.58){e.landingAt=this.time;if(this.unloadShip(e)){e.order=undefined;e.state='idle';}}}return;
   }
   let target=o?.kind==='attack'?this.get(o.target):undefined;if(target&&(!this.hostile(e.owner,target.owner)||!this.canSee(e.owner,target)))target=undefined;
   if(!target&&stats.damage>0&&(!o||o.kind==='hold'||o.kind==='attackmove'))target=this.enemiesNear(e,stats.range+4).filter(t=>isWater(t.x,t.z)||t.def==='harbor'||dist(e,t)<=stats.range).sort((a,b)=>dist(e,a)-dist(e,b))[0];
-  if(target&&stats.damage>0){const range=stats.range+(target.type==='building'?BUILDINGS[target.def].radius:0);if(dist(e,target)>range){if(o?.kind==='hold'){e.state='idle';return;}const point=isWater(target.x,target.z)?target:this.waterExit(target,Math.max(2,range-3),range);if(point)this.sailTo(e,point,isWater(target.x,target.z)?range:.8,dt);else{e.state='blocked';e.moveSpeed=0;}return;}
+  if(target&&stats.damage>0){const range=stats.range+(target.type==='building'?BUILDINGS[target.def].radius:0);if(dist(e,target)>range){if(o?.kind==='hold'){e.state='idle';return;}const point=isWater(target.x,target.z)?target:this.waterExit(target,Math.max(2,range-3),range,e);if(point)this.sailTo(e,point,isWater(target.x,target.z)?range:.8,dt);else{e.state='blocked';e.moveSpeed=0;}return;}
    e.moveSpeed=0;e.angle=Math.atan2(target.x-e.x,target.z-e.z);e.state='recover';if(e.cooldown<=0){e.cooldown=stats.cooldown;e.lastAttackAt=this.time;e.state='attack';e.strike={target:target.id,remaining:ATTACK_WINDUP};}return;}
-  if(o?.point&&(o.kind==='move'||o.kind==='attackmove')){const goal=isWater(o.point.x,o.point.z)?o.point:this.waterExit(o.point,0,10);if(!goal||this.sailTo(e,goal,1,dt)){e.order=undefined;e.state='idle';}return;}
+  if(o?.point&&(o.kind==='move'||o.kind==='attackmove')){const goal=this.waterFits(o.point,Math.max(.85,this.footprint(e)*.8))?o.point:this.waterExit(o.point,0,10,e);if(!goal||this.sailTo(e,goal,1,dt)){e.order=undefined;e.state='idle';}return;}
   if(o?.kind==='attack'&&!target)e.order=undefined;e.state='idle';e.moveSpeed=0;
  }
  private resolveNavalStrike(e:Entity,target:Entity){const stats=this.shipStats(e),range=stats.range+(target.type==='building'?BUILDINGS[target.def].radius:0);if(!this.hostile(e.owner,target.owner)||dist(e,target)>range+1)return;
@@ -325,8 +369,9 @@ export class World {
  return false;}
 
  exit(b:Entity){const r=BUILDINGS[b.def].radius,base=(b.facing??0)*Math.PI/2,near=this.entities.filter(e=>e.type==='unit'&&e.hp>0&&!e.inside&&dist(e,b)<r+18),fits=(p:Point)=>[-.5,.5].every(dx=>[-.5,.5].every(dz=>this.walkable({x:p.x+dx,z:p.z+dz})));let crowded:Point|null=null;
+ const hasWayOut=(p:Point)=>{const heading=Math.atan2(p.x-b.x,p.z-b.z);return[-.75,0,.75].some(turn=>{const q={x:p.x+Math.sin(heading+turn)*2.5,z:p.z+Math.cos(heading+turn)*2.5};return this.clearSegment(p,q,.5);});};
  // Search outward rings so a crowd or neighbouring buildings never seal units inside; a crowded spot is the last resort.
- for(let ring=r+2;ring<=r+14;ring+=1.5){const n=Math.max(24,Math.round(ring*4));for(let i=0;i<n;i++){const a=base+i*Math.PI*2/n,p={x:b.x+Math.sin(a)*ring,z:b.z+Math.cos(a)*ring};if(!fits(p))continue;if(!near.some(e=>dist(e,p)<1.2+this.footprint(e)))return p;crowded??=p;}}return crowded;}
+ for(let ring=r+2;ring<=r+14;ring+=1.5){const n=Math.max(24,Math.round(ring*4));for(let i=0;i<n;i++){const a=base+i*Math.PI*2/n,p={x:b.x+Math.sin(a)*ring,z:b.z+Math.cos(a)*ring};if(!fits(p)||!hasWayOut(p))continue;if(!near.some(e=>dist(e,p)<1.2+this.footprint(e)))return p;crowded??=p;}}return crowded;}
  dropoff(e:Entity,r:Resource){const cached=this.get(e.depositTarget);if(cached&&e.depositNavVersion===this.navVersion&&cached.progress>=1&&BUILDINGS[cached.def].deposit?.includes(r))return cached;const target=this.alive(e.owner,'building').filter(b=>b.progress>=1&&BUILDINGS[b.def].deposit?.includes(r)).sort((a,b)=>dist(e,a)-dist(e,b)).find(b=>!!this.findWorkSite(e,b));e.depositTarget=target?.id;e.depositNavVersion=this.navVersion;return target;}
  private findWorkSite(e:Entity,node:Entity){
   const radius=this.footprint(e),field=isField(node.def)&&node.progress>=1,reach=node.type==='building'&&!field?BUILDINGS[node.def].radius+1.3:2.65;
@@ -529,7 +574,7 @@ export class World {
  private unitsNear(p:Point,radius:number){if(!this.unitBuckets.size)return this.entities.filter(e=>e.type==='unit'&&e.hp>0&&!e.inside&&dist(e,p)<radius);const result:Entity[]=[];const x=Math.floor(p.x/4),z=Math.floor(p.z/4),reach=Math.ceil(radius/4)+1;for(let dx=-reach;dx<=reach;dx++)for(let dz=-reach;dz<=reach;dz++)for(const u of this.unitBuckets.get((x+dx)+','+(z+dz))??[])if(u.hp>0&&!u.inside&&dist(u,p)<radius)result.push(u);return result;}
  private separateUnits(){
  const units=this.entities.filter(e=>e.type==='unit'&&e.hp>0&&!e.inside);this.rebuildUnitBuckets();const buckets=this.unitBuckets;
- for(const u of units){const gx=Math.floor(u.x/4),gz=Math.floor(u.z/4);for(let x=gx-1;x<=gx+1;x++)for(let z=gz-1;z<=gz+1;z++)for(const v of buckets.get(x+','+z)??[]){if(v.id<=u.id||(isNaval(u.def)!==isNaval(v.def)))continue;const gap=dist(u,v),minimum=this.footprint(u)+this.footprint(v);if(gap>=minimum)continue;const angle=gap<.001?u.id*2.399:Math.atan2(v.z-u.z,v.x-u.x),push=Math.min(.12,(minimum-gap)*.51),dx=Math.cos(angle)*push,dz=Math.sin(angle)*push;const a={x:u.x-dx,z:u.z-dz},b={x:v.x+dx,z:v.z+dz};const fits=(e:Entity,p:Point)=>isNaval(e.def)?isWater(p.x,p.z):this.clearSegment(e,p,this.footprint(e)*.8);if(fits(u,a)){u.x=a.x;u.z=a.z;}if(fits(v,b)){v.x=b.x;v.z=b.z;}}}
+ for(const u of units){const gx=Math.floor(u.x/4),gz=Math.floor(u.z/4);for(let x=gx-1;x<=gx+1;x++)for(let z=gz-1;z<=gz+1;z++)for(const v of buckets.get(x+','+z)??[]){if(v.id<=u.id||(isNaval(u.def)!==isNaval(v.def)))continue;const gap=dist(u,v),minimum=this.footprint(u)+this.footprint(v);if(gap>=minimum)continue;const angle=gap<.001?u.id*2.399:Math.atan2(v.z-u.z,v.x-u.x),push=Math.min(.12,(minimum-gap)*.51),dx=Math.cos(angle)*push,dz=Math.sin(angle)*push;const a={x:u.x-dx,z:u.z-dz},b={x:v.x+dx,z:v.z+dz};const fits=(e:Entity,p:Point)=>isNaval(e.def)?this.waterFits(p,Math.max(.85,this.footprint(e)*.8)):this.clearSegment(e,p,this.footprint(e)*.8);if(fits(u,a)){u.x=a.x;u.z=a.z;}if(fits(v,b)){v.x=b.x;v.z=b.z;}}}
  }
  tick(dt:number){if(this.winner!==null)return;this.time+=dt;this.rebuildUnitBuckets();for(const e of [...this.entities])if(e.hp>0){if(e.type==='unit'&&e.owner!==2)this.updateUnit(e,dt);else if(e.type==='building')this.updateBuilding(e,dt);}this.separateUnits();for(const s of this.shots){s.remaining-=dt;if(s.remaining<=0){const t=this.get(s.target);this.effects.push({x:s.to.x,z:s.to.z,at:this.time,fire:s.fire??false,kind:s.kind,water:isWater(s.to.x,s.to.z)||!!t&&isNaval(t.def)});if(s.kind==='flame'&&t&&isNaval(t.def))t.burningUntil=this.time+3.8;if(s.splash){for(const e of this.entities)if(e.hp>0&&e.type!=='resource'&&!e.inside&&dist(e,s.to)<s.splash)this.hit(e,s.damage*(1-dist(e,s.to)/s.splash*.5));}else if(t&&dist(t,s.to)<2)this.hit(t,s.damage);}}this.shots=this.shots.filter(s=>s.remaining>0);this.effects=this.effects.filter(e=>this.time-e.at<(e.kind==='flame'?2.5:e.kind==='cannon'?1.8:1.2));this.fogTimer+=dt;if(this.fogTimer>=.3){this.updateFog();this.fogTimer=0;}this.aiTimer+=dt;if(this.aiTimer>=AI_LEVELS[this.aiLevel].interval){this.aiTimer=0;for(const s of this.realms)if(s!==0&&this.players[s].defeat<30)this.ai(s);}this.autoTimer+=dt;if(this.autoTimer>=1){this.autoTimer=0;this.autoVillagers();}for(const side of this.realms){const civic=this.alive(side,'building').some(b=>b.progress>=1&&['town','landmark'].includes(b.def));this.players[side].defeat=civic?0:this.players[side].defeat+dt;}const out=(s:Side)=>this.players[s].defeat>=30;if(out(0))this.winner=this.realms.find(s=>s!==0&&!out(s))??1;else if(this.realms.every(s=>s===0||out(s)))this.winner=0;if(this.mode==='provisions'&&this.deposited.food>=400)this.winner=0;if(this.mode==='trade'&&this.players[0].stock.gold>=1000)this.winner=0;}
  snapshot():Snapshot{return structuredClone({version:3,mapSize:MAP_SIZE,time:this.time,nextId:this.nextId,rng:this.rng,players:this.players,entities:this.entities,shots:this.shots,explored:this.explored.map(s=>[...s]),winner:this.winner,mode:this.mode,deposited:this.deposited,aiTimer:this.aiTimer,diplomacy:this.diplomacy,attackWarnAt:this.attackWarnAt,aiIntel:this.aiIntel,map:this.map});}
