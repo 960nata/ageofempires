@@ -5,22 +5,34 @@ type MeasuredRect={x:number;y:number;w:number;h:number;cx?:number;ground?:number
 export const poseRect=(r:MeasuredRect):PoseRect=>({...r,cx:r.cx??r.x+(r.anchorX??.5)*r.w,ground:r.ground??r.y+(r.anchorY??1)*r.h});
 const ease=(t:number)=>{const v=Math.max(0,Math.min(1,t));return v*v*(3-2*v);};
 /** Brief holds preserve readable silhouettes; transitions use the same ground pivot. */
-export function cyclePose(position:number,sequence:readonly number[]){const p=((position%sequence.length)+sequence.length)%sequence.length,i=Math.floor(p);return{from:sequence[i],to:sequence[(i+1)%sequence.length],mix:ease((p-i-.25)/.75)};}
+export function cyclePose(position:number,sequence:readonly number[],continuous=false){const p=((position%sequence.length)+sequence.length)%sequence.length,i=Math.floor(p);return{from:sequence[i],to:sequence[(i+1)%sequence.length],mix:continuous?p-i:ease((p-i-.25)/.75)};}
 export function timedPose(age:number,keys:readonly (readonly [number,number])[]){if(age<=keys[0][0])return{from:keys[0][1],to:keys[0][1],mix:0};for(let i=1;i<keys.length;i++){const [end,to]=keys[i],[start,from]=keys[i-1];if(age<end)return{from,to,mix:ease((age-start)/(end-start))};}const last=keys[keys.length-1][1];return{from:last,to:last,mix:0};}
-interface MotionAtlas {renderScale:number;file:string;fallback:string;frames:Record<string,IsolatedRect>;bytes:number;}
+interface MotionAtlas {renderScale:number;file:string;fallback:string;frames:Record<string,IsolatedRect>;bytes:number;decodedBytes?:number;}
 let motionData:Record<string,MotionAtlas>={};let motionLoading:Promise<void>|undefined;
 export function prepareMotionFrames(){return motionLoading??=import('./motion-frames.json').then(({default:data})=>{motionData=data as Record<string,MotionAtlas>;});}
 
 class MotionImages {
- private sheets=new Map<string,HTMLImageElement>();
+ private sheets=new Map<string,{image:HTMLImageElement;bytes:number;used:number}>();
  clear(){this.sheets.clear();}
  frame(source:HTMLImageElement,a:PoseRect,b:PoseRect,sample:number):{image:HTMLImageElement;rect:IsolatedRect}|undefined{
   const stem=source.src.split('?')[0].split('/').pop()?.replace(/\.(png|webp|avif)$/,'');if(!stem||!isolatedAtlas(stem))return;
-  if(window.matchMedia('(pointer:coarse)').matches)return;if(!motionLoading)void prepareMotionFrames();const data=motionData[stem];if(!data)return;
+  const memory=(navigator as Navigator&{deviceMemory?:number}).deviceMemory??4;const budget=memory<=2?24:memory<=4?48:96;if(!motionLoading)void prepareMotionFrames();const data=motionData[stem];if(!data)return;
   const direct=`${a.x},${a.y}:${b.x},${b.y}:${sample}`;const reverse=`${b.x},${b.y}:${a.x},${a.y}:${8-sample}`;
   const rect=data.frames[direct]??data.frames[reverse];if(!rect)return;
-  let image=this.sheets.get(stem);if(!image){image=new Image();let failed=false;image.onerror=()=>{if(!failed){failed=true;image!.src=import.meta.env.BASE_URL+'assets/isometric/'+data.fallback;}};image.src=import.meta.env.BASE_URL+'assets/isometric/'+data.file;this.sheets.set(stem,image);}
-  if(image.complete&&image.naturalWidth){this.sheets.delete(stem);this.sheets.set(stem,image);let bytes=0;for(const entry of this.sheets.values())bytes+=entry.naturalWidth*entry.naturalHeight*4;while(bytes>96*1024*1024&&this.sheets.size>1){const oldest=this.sheets.keys().next().value!;const evicted=this.sheets.get(oldest)!;this.sheets.delete(oldest);bytes-=evicted.naturalWidth*evicted.naturalHeight*4;}return{image,rect};}return undefined;
+  const now=performance.now(),limit=budget*1024*1024;let entry=this.sheets.get(stem);
+  if(!entry){
+   // Reserve decoded memory before loading. Recently drawn sheets stay resident;
+   // otherwise mixed armies would evict one another on every rendered frame.
+   const bytes=data.decodedBytes??32*1024*1024;if(bytes>limit)return;
+   let resident=0;for(const sheet of this.sheets.values())resident+=sheet.bytes;
+   for(const [key,sheet] of this.sheets){if(resident+bytes<=limit)break;if(now-sheet.used<1500)continue;this.sheets.delete(key);resident-=sheet.bytes;}
+   if(resident+bytes>limit)return;
+   const image=new Image();entry={image,bytes,used:now};this.sheets.set(stem,entry);
+   let failed=false;image.onerror=()=>{if(!failed){failed=true;image.src=import.meta.env.BASE_URL+'assets/isometric/'+data.fallback;}};
+   image.src=import.meta.env.BASE_URL+'assets/isometric/'+data.file;
+  }
+  entry.used=now;const image=entry.image;
+  if(image.complete&&image.naturalWidth)return{image,rect};return undefined;
  }
 }
 const motionImages=new MotionImages();
@@ -31,10 +43,13 @@ class PoseCache {
  private blends=new WeakSet<HTMLImageElement>();private alpha=new WeakMap<HTMLImageElement,Uint8Array>();
  clear(){this.cache.clear();this.bytes=0;this.alpha=new WeakMap();motionImages.clear();}
  opaque(image:HTMLImageElement,x:number,y:number){if(!this.blends.has(image))return undefined;let mask=this.alpha.get(image);if(!mask){const c=(image as unknown as HTMLCanvasElement).getContext('2d')!,rgba=c.getImageData(0,0,image.width,image.height).data;mask=new Uint8Array(image.width*image.height);for(let i=0;i<mask.length;i++)mask[i]=rgba[i*4+3];this.alpha.set(image,mask);}return mask[Math.floor(y)*image.width+Math.floor(x)]>70;}
- sample(image:HTMLImageElement,a:PoseRect,b:PoseRect,mix:number,pixel:number,flip=false):SceneSprite{
+ sample(image:HTMLImageElement,a:PoseRect,b:PoseRect,mix:number,pixel:number,flip=false,solid=false):SceneSprite{
   const frame=(r:PoseRect):SceneSprite=>({image,sx:r.x,sy:r.y,sw:r.w,sh:r.h,width:r.w*pixel,height:r.h*pixel,anchor:(r.ground-r.y)/r.h,anchorX:(r.cx-r.x)/r.w,flip});
   const sample=Math.round(Math.max(0,Math.min(1,mix))*8);if(sample===0||a.x===b.x&&a.y===b.y)return frame(a);if(sample===8)return frame(b);
   const inbetween=motionImages.frame(image,a,b,sample);if(inbetween){const {image:mid,rect:r}=inbetween;const stem=image.src.split('?')[0].split('/').pop()!.replace(/\.(png|webp|avif)$/,'');const density=motionData[stem]?.renderScale??1;return{image:mid,sx:r.x,sy:r.y,sw:r.w,sh:r.h,width:r.w*pixel/density,height:r.h*pixel/density,anchor:(r.ground-r.y)/r.h,anchorX:(r.cx-r.x)/r.w,flip};}
+  // Cross-fading unrelated silhouettes creates translucent duplicate limbs.
+  // Keep an opaque authored pose when no registered intermediary is available.
+  if(solid)return frame(sample<4?a:b);
   let identity=this.identities.get(image);if(identity===undefined){identity=this.nextId++;this.identities.set(image,identity);}const key=[identity,a.x,a.y,a.w,a.h,a.cx,a.ground,b.x,b.y,b.w,b.h,b.cx,b.ground,sample].join(':');let cached=this.cache.get(key);
   if(cached){this.cache.delete(key);this.cache.set(key,cached);}else{
    const left=Math.floor(Math.min(a.x-a.cx,b.x-b.cx)),top=Math.floor(Math.min(a.y-a.ground,b.y-b.ground)),right=Math.ceil(Math.max(a.x+a.w-a.cx,b.x+b.w-b.cx)),bottom=Math.ceil(Math.max(a.y+a.h-a.ground,b.y+b.h-b.ground));

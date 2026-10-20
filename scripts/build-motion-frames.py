@@ -15,6 +15,8 @@ for stem in ['saracen-horse-sword-v1','saracen-horse-shield-v1','saracen-horse-a
  jobs[stem]=[(r,[(1,2),(2,3),(4,5),(5,6)]) for r in range(8)]
 for stem in ['worker-actions-v1','villager-female-actions-v1','villager-hijab-actions-v1']:
  jobs[stem]=[(r,[(i,(i+1)%4) for i in range(4)]+[(i,4+(i-3)%4) for i in range(4,8)]) for r in range(5)]
+for stem in m:
+ if 'fortification-eras' in stem:jobs[stem]=[(r,[(1,2),(2,3)]) for r in range(4)]
 if args.only:jobs={k:v for k,v in jobs.items() if any(x in k for x in args.only.split(','))}
 # The flow needs a consistent opaque background; transparent pixels are excluded again afterward.
 def make_pair(src,fa,fb):
@@ -58,7 +60,7 @@ def process(job):
  render_scale=.75;sheet=sheet.resize((round(sheet.width*render_scale),round(sheet.height*render_scale)),Image.Resampling.LANCZOS)
  rects={key:{field:round(value*render_scale,3) for field,value in rect.items()} for key,rect in rects.items()}
  assets=out/'assets';assets.mkdir(exist_ok=True);sheet.save(assets/(stem+'.avif'),quality=80,speed=8,subsampling='4:4:4');sheet.save(assets/(stem+'.webp'),quality=86,method=4)
- return stem,dict(renderScale=render_scale,file='motion-v1/'+stem+'.avif',fallback='motion-v1/'+stem+'.webp',frames=rects,bytes=(assets/(stem+'.avif')).stat().st_size)
+ return stem,dict(renderScale=render_scale,file='motion-v1/'+stem+'.avif',fallback='motion-v1/'+stem+'.webp',frames=rects,bytes=(assets/(stem+'.avif')).stat().st_size,decodedBytes=sheet.width*sheet.height*4)
 results={}
 with ThreadPoolExecutor(max_workers=2) as pool:
  for i,(stem,data) in enumerate(pool.map(process,jobs.items())):

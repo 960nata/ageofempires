@@ -1,7 +1,8 @@
 import {MAP_HALF,MAP_SIZE,elevation,elevationFast,worldCell,gridIndex} from './map';
 import type {World,Point} from './world';
 // Cache a sharper desktop surface once; coarse-pointer devices keep the smaller memory budget.
-const RES=Math.round((matchMedia('(pointer: coarse)').matches?6:9)*256/MAP_SIZE),PAD=100,FOG_STEP=MAP_SIZE>256?6:4; // fog quads stay ~4k as the map grows
+// Pixels per world unit: floored so the 512 map's terrain bitmap (and its depth buffer) stays smaller than the old 384 map's.
+const RES=Math.max(3,Math.floor((matchMedia('(pointer: coarse)').matches?6:9)*256/MAP_SIZE)),PAD=100,FOG_STEP=MAP_SIZE>384?8:MAP_SIZE>256?6:4; // fog quads stay ~4k as the map grows
 export class TerrainSurface {
  private depths=new Float32Array(0);private raise=new Float32Array(0);private raiseW=0;private raiseOf?:Float32Array;
  private image=document.createElement('canvas');private fog=document.createElement('canvas');private softFog=document.createElement('canvas');

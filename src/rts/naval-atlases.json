@@ -368,7 +368,7 @@
     "sharedAcrossFactions": true
   },
   "prey": {
-    "file": "marine-prey-v1.webp",
+    "file": "marine-prey-v1.avif",
     "fallback": "marine-prey-v1.webp",
     "cell": [
       128,
@@ -379,7 +379,7 @@
     "anchor": 0.72
   },
   "whaling-v1": {
-    "file": "whaling-boat-frames-v1.webp",
+    "file": "whaling-boat-frames-v1.avif",
     "fallback": "whaling-boat-frames-v1.webp",
     "cell": [
       256,
@@ -391,7 +391,7 @@
     "anchor": 0.9
   },
   "fishing-v1": {
-    "file": "fishing-boat-frames-v1.webp",
+    "file": "fishing-boat-frames-v1.avif",
     "fallback": "fishing-boat-frames-v1.webp",
     "cell": [
       192,

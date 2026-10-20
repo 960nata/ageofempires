@@ -1,12 +1,14 @@
+import {isWallLine,wallLevel} from './fortification';
 import {poses,cyclePose,poseRect} from './pose-sampling';
 import {NatureLayer,type WeatherMode} from './nature-layer';
 import {setSpriteSource} from './assets';
 import {isolatedAtlas} from './isolated-sprites';
 import {FactionAnimations} from './faction-animations';
+import {EraUnitArt} from './era-unit-art';
 import {SceneArt} from './scene-art';
 import {MarineSprites,boatWidth,type CrewAction} from './marine-sprites';
 import {drawMarineLife,drawBoatWake,drawFishingNet} from './marine-life';
-import {boatPose,boatFloat,crewAction,unitCycle,FISHING_SECONDS} from './marine-motion';
+import {rowingRate,boatPose,boatFloat,boatRock,crewAction,unitCycle,FISHING_SECONDS} from './marine-motion';
 import {WaterEffects} from './water-effects';
 import {isNaval} from './naval-data';
 import {ConstructionFrames,CONSTRUCTION_FRAME_COUNT} from './construction-frames';
@@ -15,12 +17,12 @@ import {fieldPlots,harvestedPlots,TREE_FALL_SECONDS,isField} from './field-layou
 import {mountedArt} from './mounted-art';
 import {WalkingSprites} from './walking-sprites';
 import {VillagerSprites} from './villager-sprites';
-import {paintGround,terrainPattern} from './ground-materials';
+import {paintAridGround,paintGround,terrainPattern} from './ground-materials';
 import {CombatSprites} from './combat-sprites';
 import {TerrainSurface} from './terrain-surface';
-import {MAP_HALF,MAP_SIZE,GRID_SIZE,worldCell,gridIndex,coastX,elevationFast,HIGHLANDS,isCliff,isWater,isShore,ravineX,MAP_SCALE,mapSpec,hasSea,hasRavine,isMarsh,isRiver,isFord} from './map';
+import {MAP_HALF,MAP_SIZE,GRID_SIZE,worldCell,gridIndex,coastX,elevationFast,HIGHLANDS,isCliff,isWater,isShore,ravineX,MAP_SCALE,mapSpec,hasSea,hasRavine,isMarsh,isRiver,isFord,isSwamp,seaDepth} from './map';
 import {BUILDINGS,UNITS,FACTIONS} from './data';
-import {World,type Entity,type Point} from './world';
+import {World,REALM_COLORS,type Entity,type Point} from './world';
 
 // Picking only needs alpha: keep one byte per pixel instead of the full RGBA readback.
 const alphaOnly=(rgba:Uint8ClampedArray)=>{const a=new Uint8Array(rgba.length/4);for(let i=0;i<a.length;i++)a[i]=rgba[i*4+3];return a;};
@@ -35,6 +37,7 @@ export class Battlefield {
  private scene=new SceneArt();private marine=new MarineSprites();private construction=new ConstructionFrames();private treeFall=new TreeFallSprites();private wilds:{x:number;z:number;index:number;width:number}[]=[];private damageCache=new Map<string,HTMLCanvasElement>();private shadowCache=new Map<string,HTMLCanvasElement>();private wheatCache=new Map<string,HTMLCanvasElement>();private shadowsRequested=true;private rocks:{x:number;z:number;index:number;width:number}[]=[];private walking=new WalkingSprites();private villagers=new VillagerSprites();private groundImage=new Image();private previousPositions=new Map<number,Point>();private interpolation=1;private visualTime=0;
  private rotors=new Map<number,{angle:number;speed:number;time:number}>();
  private factionAnimations=new FactionAnimations();
+ private eraUnits=new EraUnitArt();
  private combat=new CombatSprites();unitGhosts=true;roadPreview:{from:Point;to:Point;kind?:string}|null=null;private institutionsImage=new Image();private surface=new TerrainSurface();private productionImage=new Image();private workImage=new Image();private resourceImage=new Image();private siegeImage=new Image();private worldImage=new Image();private unitImage=new Image();private loading:Promise<void>;private peopleImage=new Image();private persianImage=new Image();private mountedImage=new Image();private frameBounds=new Map<string,{x:number;y:number;w:number;h:number;cx?:number;ground?:number}>();private motion=new Map<number,Motion>();private alphaData=new Map<HTMLImageElement,{width:number;data:Uint8Array}>();private fogClock=1;private terrain=document.createElement('canvas');private waterEffects=new WaterEffects();private biomeTrees=new Set<number>();
  constructor(host:HTMLElement,world:World){this.world=world;host.append(this.canvas);this.canvas.setAttribute('aria-label','Isometric battlefield');this.ctx=this.canvas.getContext('2d',{alpha:false})!;this.loading=Promise.all([[this.groundImage,'terrain-materials-v1.png'],[this.worldImage,'world-atlas-v1.png'],[this.unitImage,'units-atlas-v1.png'],[this.peopleImage,'people-directions-v2.png'],[this.persianImage,'persian-directions-v2.png'],[this.mountedImage,'mounted-directions-v2.png'],[this.workImage,'worker-actions-v1.png'],[this.resourceImage,'resource-states-v1.png'],[this.siegeImage,'siege-actions-v1.png'],[this.productionImage,'production-atlas-v1.png'],[this.institutionsImage,'institutions-v1.png']].map(([image,file])=>new Promise<void>((resolve,reject)=>{const i=image as HTMLImageElement;i.onload=()=>resolve();i.onerror=()=>reject(Error('Sprite atlas unavailable'));setSpriteSource(i,file as string);}))).then(()=>{for(const image of [this.peopleImage,this.persianImage,this.mountedImage])this.measureFrames(image);for(const image of [this.worldImage,this.unitImage])this.readAlpha(image);this.measureGrid(this.workImage,8,[0,258,520,763,982,1254]);this.measureGrid(this.resourceImage,4,[0,255,492,720,1024]);this.measureGrid(this.siegeImage,4,[0,251,514,748,1024]);this.measureGrid(this.productionImage,4,[0,341,678,1024]);this.measureGrid(this.institutionsImage,4,[0,433,887]);this.paintTerrain();});new ResizeObserver(()=>{this.width=host.clientWidth;this.height=host.clientHeight;this.resize();}).observe(host);this.paintTerrain();}
  private resize(){this.canvas.width=Math.round(this.width*this.ratio);this.canvas.height=Math.round(this.height*this.ratio);this.canvas.style.width=this.width+'px';this.canvas.style.height=this.height+'px';}
@@ -65,19 +68,20 @@ export class Battlefield {
   if(biome==='winter'){c.globalCompositeOperation='source-over';c.fillStyle='#eef3f5a8';c.fillRect(0,0,size,size);c.globalCompositeOperation='multiply';c.fillStyle='#e4ecf2';c.fillRect(0,0,size,size);}
   c.restore();}
  // Lakes, rivers, sea, fords and marsh painted from the terrain mask with a distance-to-shore depth ramp.
- private paintWater(c:CanvasRenderingContext2D){const N=512,step=MAP_SIZE/N,biome=mapSpec().biome,water=new Uint8Array(N*N),ford=new Uint8Array(N*N),marsh=new Uint8Array(N*N);
-  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=-MAP_HALF+(i+.5)*step,z=-MAP_HALF+(j+.5)*step,k=j*N+i;if(isWater(x,z))water[k]=1;else if(isRiver(x,z)&&isFord(x,z))ford[k]=1;else if(isMarsh(x,z))marsh[k]=1;}
+ private paintWater(c:CanvasRenderingContext2D){const N=512,step=MAP_SIZE/N,biome=mapSpec().biome,water=new Uint8Array(N*N),ford=new Uint8Array(N*N),marsh=new Uint8Array(N*N),swamp=new Uint8Array(N*N);
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=-MAP_HALF+(i+.5)*step,z=-MAP_HALF+(j+.5)*step,k=j*N+i;if(isWater(x,z))water[k]=1;else if(isRiver(x,z)&&isFord(x,z))ford[k]=1;else if(isMarsh(x,z)){marsh[k]=1;if(isSwamp(x,z))swamp[k]=1;}}
   // Two-pass chamfer distance: cells into the water (depth) and cells onto land (shore sand).
   const chamfer=(inside:(k:number)=>boolean)=>{const d=new Float32Array(N*N);for(let k=0;k<N*N;k++)d[k]=inside(k)?1e9:0;
    for(let j=0;j<N;j++)for(let i=0;i<N;i++){const k=j*N+i;if(!d[k])continue;let v=d[k];if(i)v=Math.min(v,d[k-1]+1);if(j)v=Math.min(v,d[k-N]+1);if(i&&j)v=Math.min(v,d[k-N-1]+1.41);if(j&&i<N-1)v=Math.min(v,d[k-N+1]+1.41);d[k]=v;}
    for(let j=N-1;j>=0;j--)for(let i=N-1;i>=0;i--){const k=j*N+i;if(!d[k])continue;let v=d[k];if(i<N-1)v=Math.min(v,d[k+1]+1);if(j<N-1)v=Math.min(v,d[k+N]+1);if(i<N-1&&j<N-1)v=Math.min(v,d[k+N+1]+1.41);if(j<N-1&&i)v=Math.min(v,d[k+N-1]+1.41);d[k]=v;}return d;};
   const depth=chamfer(k=>!!water[k]),shore=chamfer(k=>!water[k]);
-  const pal=biome==='winter'?{sh:[176,208,218],dp:[66,104,134],sand:[226,233,236]}:biome==='arid'?{sh:[86,176,170],dp:[22,84,112],sand:[214,190,140]}:{sh:[92,172,168],dp:[18,59,97],sand:[201,186,142]};
+  const pal=biome==='winter'?{sh:[176,208,218],dp:[66,104,134],abyss:[34,62,92],sand:[226,233,236]}:biome==='arid'?{sh:[86,176,170],dp:[22,84,112],abyss:[10,46,78],sand:[214,190,140]}:{sh:[92,172,168],dp:[18,59,97],abyss:[7,30,64],sand:[201,186,142]};
   const img=new ImageData(N,N),px=img.data;
   for(let k=0;k<N*N;k++){const o=k*4;
-   if(water[k]){const t=Math.min(1,depth[k]*step/16),mid=Math.min(1,depth[k]*step/2.5);for(let ch=0;ch<3;ch++)px[o+ch]=pal.sand[ch]+(pal.sh[ch]-pal.sand[ch])*mid+(pal.dp[ch]-pal.sh[ch])*t;px[o+3]=255;}
+   if(water[k]){const t=Math.min(1,depth[k]*step/16),mid=Math.min(1,depth[k]*step/2.5),i=k%N,j=(k-i)/N,abyss=seaDepth(-MAP_HALF+(i+.5)*step,-MAP_HALF+(j+.5)*step);for(let ch=0;ch<3;ch++)px[o+ch]=pal.sand[ch]+(pal.sh[ch]-pal.sand[ch])*mid+(pal.dp[ch]-pal.sh[ch])*t+(pal.abyss[ch]-pal.dp[ch])*abyss;px[o+3]=255;}
    else if(ford[k]){px[o]=140;px[o+1]=176;px[o+2]=160;px[o+3]=210;}
    else if(shore[k]*step<1.8){const a=1-shore[k]*step/1.8;px[o]=pal.sand[0];px[o+1]=pal.sand[1];px[o+2]=pal.sand[2];px[o+3]=Math.round(a*190);}
+   else if(swamp[k]){const n=Math.sin(k*.37)*Math.sin(k*.0113);px[o]=biome==='winter'?150:58+n*8;px[o+1]=biome==='winter'?170:84+n*8;px[o+2]=biome==='winter'?176:72;px[o+3]=biome==='winter'?150:185;}
    else if(marsh[k]){const n=Math.sin(k*.37)*Math.sin(k*.0113);px[o]=78+n*10;px[o+1]=88+n*12;px[o+2]=58;px[o+3]=biome==='winter'?70:125;}}
   const layer=document.createElement('canvas');layer.width=layer.height=N;layer.getContext('2d')!.putImageData(img,0,0);c.save();c.imageSmoothingEnabled=true;c.drawImage(layer,0,0,c.canvas.width,c.canvas.height);c.restore();}
  // One object failing to draw must not hide everything drawn after it (the loop runs back to front).
@@ -86,7 +90,7 @@ export class Battlefield {
  private drawError(err:unknown,e:Entity){const c=this.ctx;for(let i=0;i<6;i++)c.restore();c.setTransform(this.ratio,0,0,this.ratio,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.filter='none';
   const key=`${e.type}:${e.def}:${e.state}:${String((err as Error)?.message??err)}`;if(this.drawErrors.has(key))return;this.drawErrors.add(key);console.error('[Iron Crown] could not draw',e.type,e.def,'state',e.state,'id',e.id,err);}
  private paintTerrain(){const t=this.terrain;t.width=t.height=matchMedia('(pointer: coarse)').matches?2048:3072;const c=t.getContext('2d')!;let seed=847;const r=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};const px=(n:number)=>(n+MAP_HALF)*8;
- paintGround(c,this.groundImage);this.tintBiome(c);const unit=t.width/(MAP_SIZE*8);c.setTransform(unit,0,0,unit,0,0);
+ paintGround(c,this.groundImage);if(mapSpec().biome==='arid')paintAridGround(c);this.tintBiome(c);const unit=t.width/(MAP_SIZE*8);c.setTransform(unit,0,0,unit,0,0);
  const roadTexture=terrainPattern(c,this.groundImage,2,96);
  // Layer translucent local soil over the existing terrain: no opaque circular island.
  for(const tree of this.world.entities){if(tree.resource!=='wood')continue;const x=px(tree.x),y=px(tree.z),pine=tree.z<-45,coastal=mapSpec().type==='archipelago'&&isShore(tree.x,tree.z)||tree.x>coastX(tree.z)-19;
@@ -144,7 +148,7 @@ export class Battlefield {
   }
   // Actual locomotion advances the gait. Crowd separation is not a walking order.
   const walking=['walk','deposit'].includes(e.state)&&(e.moveSpeed??0)>.05;
-  if(walking&&distance>.0005&&distance<8)m.phase=(m.phase+distance/(UNITS[e.def].stride??(UNITS[e.def].mounted?3.8:2.6)))%1;
+  if(walking&&distance>.0005&&distance<8){const naval=isNaval(e.def),stride=UNITS[e.def].stride??(UNITS[e.def].mounted?(m.running?4.8:3.8):2.6);m.phase=(m.phase+(naval?dt*rowingRate(m.speed):distance/stride))%1;}
   const vx=Math.sin(e.angle),vz=Math.cos(e.angle),heading=Math.atan2((vx+vz)*.5,vx-vz);
   const delta=Math.atan2(Math.sin(heading-m.heading),Math.cos(heading-m.heading));
   m.heading+=Math.max(-dt*9,Math.min(dt*9,delta));
@@ -168,7 +172,7 @@ export class Battlefield {
    }
    const target=this.world.get(e.order?.target);
    if(worker&&!moving&&['gather','cultivate','build','repair-tools'].includes(e.state)){
-    const row=e.state==='build'||e.state==='repair-tools'?3:target?.def==='orchard'?4:e.state==='cultivate'?2:target?.resource==='wood'?0:target?.resource==='gold'||target?.resource==='stone'?1:target?.def==='farm'?2:4;
+    const row=e.state==='build'||e.state==='repair-tools'?3:target?.def==='orchard'?4:e.state==='cultivate'?2:target?.resource==='wood'?0:target?.resource==='gold'||target?.resource==='stone'?1:target?.def==='farm'||target?.def==='ranch'?2:4;
     const cycle=row===0?1.25:row===1?1.4:1.3,phase=e.state==='build'||e.state==='repair-tools'||e.state==='cultivate'?this.visualTime+e.id*.17:Math.max(0,(e.workPhase??0)+this.visualTime-this.world.time+cycle)%cycle;
     const back=direction>=5&&direction<=7,pose=((phase/cycle*4)%4+4)%4,sample=cyclePose(pose,back?[4,5,6,7]:[0,1,2,3]),col=sample.from;
     const femaleAction=this.villagers.action(e.appearance??(e.id%2===0?'female':'male'),row===0?'chop':row===1?'mine':row===2?'farm':row===3?'build':'orchard',direction,pose,this.scale,['ayyubid','persian'].includes(this.world.players[e.owner]?.faction));if(femaleAction)return femaleAction;
@@ -176,38 +180,39 @@ export class Battlefield {
    }
    if(worker){const villager=this.villagers.locomotion(e.appearance??(e.id%2===0?'female':'male'),direction,moving?(m?.phase??0)*5:null,this.scale,['ayyubid','persian'].includes(this.world.players[e.owner]?.faction));if(villager)return villager;}
    const attacking=e.lastAttackAt!==undefined&&['attack','recover','deploy'].includes(e.state)&&this.visualTime>=e.lastAttackAt&&this.visualTime-e.lastAttackAt<UNITS[e.def].cooldown;
-   const faction=this.world.players[e.owner]?.faction??'',gaitSpeed=m?.running?Math.max(3.21,m.speed):Math.min(3.19,m?.speed??0);
+   const faction=this.world.players[e.owner]?.faction??'',era=this.world.players[e.owner]?.era??2,gaitSpeed=m?.running?Math.max(3.21,m.speed):Math.min(3.19,m?.speed??0);
+   const dress=(sprite:Sprite|null,native=true)=>this.eraUnits.style(sprite,faction,era,direction,!!d.mounted,e.def,native);
    // Original civilization signature art takes priority over the generic faction family.
-   const regionalSprite=()=>this.scene.regional.troop(faction,e.def,direction,moving,m?.phase??0,attacking&&!moving?this.visualTime-(e.lastAttackAt??0):-1,this.scale,gaitSpeed);
-   if(this.scene.regional.prefers(faction,e.def)){const signature=regionalSprite();if(signature)return signature;}
-   const factionSprite=this.factionAnimations.sprite(faction,e.def,direction,m?.phase??0,moving?gaitSpeed:0,attacking?this.visualTime-(e.lastAttackAt??0):-1,e.hp<e.maxHp?this.visualTime-e.lastHit:-1,e.hp<=0?Math.max(0,this.visualTime-(e.destroyedAt??e.lastHit)):-1,this.scale);if(factionSprite)return factionSprite;
+   const regionalSprite=()=>dress(this.scene.regional.troop(faction,e.def,direction,moving,m?.phase??0,attacking&&!moving?this.visualTime-(e.lastAttackAt??0):-1,this.scale,gaitSpeed,era));
+   if(this.scene.regional.prefers(faction,e.def)&&!this.factionAnimations.hasEra(faction,e.def,era)){const signature=regionalSprite();if(signature)return signature;}
+   const factionSprite=dress(this.factionAnimations.sprite(faction,e.def,direction,m?.phase??0,moving?gaitSpeed:0,attacking?this.visualTime-(e.lastAttackAt??0):-1,e.hp<e.maxHp?this.visualTime-e.lastHit:-1,e.hp<=0?Math.max(0,this.visualTime-(e.destroyedAt??e.lastHit)):-1,this.scale,era));if(factionSprite)return factionSprite;
    const signature=regionalSprite();if(signature)return signature;
    const dedicatedMounted=mountedArt(e.def);const unsupportedMounted=d.mounted&&!dedicatedMounted&&d.range>3;
-   const combatFamily=dedicatedMounted?dedicatedMounted.attack:e.def==='ram'?'ram':e.def==='mangonel'||e.def==='trebuchet'?'mangonel':e.def==='ballista'?'ballista':d.mounted&&d.range<=3&&!e.def.startsWith('camel')?'horse':!d.mounted&&d.range>3?'archer':d.role==='spear'?'spear':'sword';
+   const combatFamily=dedicatedMounted?dedicatedMounted.attack:e.def==='ram'?'ram':['mangonel','trebuchet','bombard'].includes(e.def)?'mangonel':e.def==='ballista'?'ballista':d.mounted&&d.range<=3&&!e.def.startsWith('camel')?'horse':!d.mounted&&d.range>3?'archer':d.role==='spear'?'spear':'sword';
    if(d.siege||attacking&&!moving&&d.role!=='worker'&&!unsupportedMounted){
     const age=this.visualTime-(e.lastAttackAt??-100),pose=attacking&&!moving?this.combat.pose(combatFamily,age):0;
-    const attackSprite=this.combat.sprite(combatFamily,direction,pose,this.scale);if(attackSprite)return attackSprite;
+    const attackSprite=this.combat.sprite(combatFamily,direction,pose,this.scale);if(attackSprite)return dress(attackSprite,false)!;
    }
    if(d.siege||attacking&&['legionary','centurion','swordsman','heavy'].includes(e.def)){
     const row=d.siege?(e.def==='ram'?0:e.def==='ballista'?2:1):3;
     const age=this.visualTime-(e.lastAttackAt??-100),pose=attacking?(age<.2?0:age<.5?1:age<.8?2:3):0;
-    const s=this.atlasSprite(this.siegeImage,row,pose,(d.siege?5.4:3)*this.scale);const pixel=(d.siege?5.4/340:2.65/225)*this.scale;s.width=s.sw*pixel;s.height=s.sh*pixel;const isolated=isolatedAtlas(this.siegeImage.src)?.frames[row*4+pose];s.anchorX=((isolated?.cx??(pose+.5)*this.siegeImage.width/4)-s.sx)/s.sw;s.flip=direction>=3&&direction<=5;return s;
+    const s=this.atlasSprite(this.siegeImage,row,pose,(d.siege?5.4:3)*this.scale);const pixel=(d.siege?5.4/340:2.65/225)*this.scale;s.width=s.sw*pixel;s.height=s.sh*pixel;const isolated=isolatedAtlas(this.siegeImage.src)?.frames[row*4+pose];s.anchorX=((isolated?.cx??(pose+.5)*this.siegeImage.width/4)-s.sx)/s.sw;s.flip=direction>=3&&direction<=5;return dress(s,false)!;
    }
-   if(dedicatedMounted&&!moving){const rest=this.combat.sprite(dedicatedMounted.attack,direction,0,this.scale);if(rest)return rest;}
+   if(dedicatedMounted&&!moving){const rest=this.combat.sprite(dedicatedMounted.attack,direction,0,this.scale);if(rest)return dress(rest,false)!;}
    if(!d.siege&&d.role!=='trader'){
     const civilian=['worker','scout','healer'].includes(d.role),persian=this.world.players[e.owner].faction==='persian';
     const family=dedicatedMounted?.walk??(d.mounted?(e.def.startsWith('camel')?'camel':'horse'):civilian?'worker':d.range>3?'archer':d.role==='spear'?'spear':'sword');
-    const walk=this.walking.sprite(family,direction,moving?(m?.phase??0)*8:0,this.scale);if(walk)return walk;
+    const walk=this.walking.sprite(family,direction,moving?m?.phase??0:0,this.scale,era);if(walk)return dress(walk,false)!;
    }
    if(!d.siege&&d.role!=='trader'){
     const civilian=d.role==='worker'||d.role==='scout'||d.role==='healer';const ranged=d.range>3;const persian=this.world.players[e.owner].faction==='persian';
     const image=d.mounted?this.mountedImage:ranged||persian&&!civilian?this.persianImage:this.peopleImage;
     const base=d.mounted?(e.def.startsWith('camel')?3:0):image===this.persianImage?(ranged?3:0):(civilian?0:3),row=base+[0,1,2,1][frame];
     const rect=this.frameBounds.get(image.src+':'+row+':'+direction),sw=image.width/8,sh=image.height/8;
-    const bounds=rect??{x:direction*sw,y:row*sh,w:sw,h:sh};const nominal=image===this.mountedImage?(base===3?187:160):image===this.persianImage?(base===0?135:153):(base===0?155:164);const target=(d.mounted?3.8:2.65)*this.scale,pixelScale=target/(nominal*(isolatedAtlas(image.src)?.sourceHeight??image.height)/1254);return{image,sx:bounds.x,sy:bounds.y,sw:bounds.w,sh:bounds.h,width:bounds.w*pixelScale,height:bounds.h*pixelScale,anchor:'ground'in bounds?(Number(bounds.ground)-bounds.y)/bounds.h:.98,anchorX:(('cx'in bounds?Number(bounds.cx):(direction+.5)*sw)-bounds.x)/bounds.w};
+    const bounds=rect??{x:direction*sw,y:row*sh,w:sw,h:sh};const nominal=image===this.mountedImage?(base===3?187:160):image===this.persianImage?(base===0?135:153):(base===0?155:164);const target=(d.mounted?3.8:2.65)*this.scale,pixelScale=target/(nominal*(isolatedAtlas(image.src)?.sourceHeight??image.height)/1254);return dress({image,sx:bounds.x,sy:bounds.y,sw:bounds.w,sh:bounds.h,width:bounds.w*pixelScale,height:bounds.h*pixelScale,anchor:'ground'in bounds?(Number(bounds.ground)-bounds.y)/bounds.h:.98,anchorX:(('cx'in bounds?Number(bounds.cx):(direction+.5)*sw)-bounds.x)/bounds.w},false)!;
    }
    const row=e.def==='ram'?6:7,edges=[0,.108,.222,.335,.435,.583,.735,.865,1],sw=this.unitImage.width/4,sy=this.unitImage.height*edges[row],sh=this.unitImage.height*(edges[row+1]-edges[row]);const size=4.5*this.scale;
-   const isolated=isolatedAtlas(this.unitImage.src)?.frames[row*4+frame];if(isolated)return{image:this.unitImage,sx:isolated.x,sy:isolated.y,sw:isolated.w,sh:isolated.h,width:size,height:size*isolated.h/isolated.w,anchor:(isolated.ground-isolated.y)/isolated.h,anchorX:(isolated.cx-isolated.x)/isolated.w,flip:Math.sin(e.angle)-Math.cos(e.angle)<0};return{image:this.unitImage,sx:frame*sw,sy,sw,sh,width:size,height:size*sh/sw,anchor:.96,flip:Math.sin(e.angle)-Math.cos(e.angle)<0};
+   const isolated=isolatedAtlas(this.unitImage.src)?.frames[row*4+frame];if(isolated)return dress({image:this.unitImage,sx:isolated.x,sy:isolated.y,sw:isolated.w,sh:isolated.h,width:size,height:size*isolated.h/isolated.w,anchor:(isolated.ground-isolated.y)/isolated.h,anchorX:(isolated.cx-isolated.x)/isolated.w,flip:Math.sin(e.angle)-Math.cos(e.angle)<0},false)!;return dress({image:this.unitImage,sx:frame*sw,sy,sw,sh,width:size,height:size*sh/sw,anchor:.96,flip:Math.sin(e.angle)-Math.cos(e.angle)<0},false)!;
   }
   if(e.type==='building'){
    if(e.def==='harbor'){const harbor=this.marine.harbor(BUILDINGS.harbor.radius*4.2*this.scale,e.facing??0,this.world.players[e.owner].faction,e.visualEra??this.world.players[e.owner].era);if(harbor)return harbor;}
@@ -254,28 +259,31 @@ export class Battlefield {
    const s=this.sprite(e);if(!s.image.complete||!s.image.naturalWidth)continue;if(p.x+s.width<0||p.x-s.width>this.width||p.y+s.height<0||p.y-s.height>this.height)continue;
    if(e.hp<=0){if(e.type==='unit'){c.save();c.globalAlpha=Math.min(1,Math.max(0,5-(this.visualTime-(e.destroyedAt??e.lastHit))));this.surface.clipObject(c,this.focus,this.width,this.height,this.scale,{x:p.x-s.width*(s.anchorX??.5),y:p.y-s.height*s.anchor,width:s.width,height:s.height},e.x+e.z-elevationFast(e.x,e.z)*2,p.y,elevationFast(e.x,e.z));c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,p.x-s.width*(s.anchorX??.5),p.y-s.height*s.anchor,s.width,s.height);c.restore();}else this.drawCollapse(e,p,s);continue;}
    if(e.type==='building'&&!isField(e.def))this.drawFooting(e,p,s);
-   if(e.type==='unit'&&UNITS[e.def].naval){const m=this.motion.get(e.id);drawBoatWake(c,p,s,m?.direction??this.facing(e.angle),m?.speed??0,m?.phase??0,this.scale);p.y+=boatFloat(this.visualTime,e.id,this.scale);}
+   if(e.type==='unit'&&UNITS[e.def].naval){const m=this.motion.get(e.id);drawBoatWake(c,p,s,m?.direction??this.facing(e.angle),m?.speed??0,m?.phase??0,this.scale);p.y+=boatFloat(this.visualTime,e.id,this.scale,m?.speed??0);}
    const x=p.x-s.width*(s.anchorX??.5),y=p.y-s.height*s.anchor;if(this.selected.has(e.id)){c.beginPath();c.ellipse(p.x,p.y,Math.max(7,this.world.footprint(e)*this.scale*1.1),Math.max(3,this.world.footprint(e)*this.scale*.5),0,0,Math.PI*2);c.strokeStyle='#f9e2a1';c.lineWidth=1.8;c.stroke();}
    c.save();
    const fallingWood=e.type==='resource'&&e.resource==='wood'&&e.felledAt!==undefined&&e.amount>0?Math.max(0,Math.min(1,(this.visualTime-e.felledAt)/TREE_FALL_SECONDS)):-1;
    const clipBox=fallingWood>=0?{x:p.x-4.6*this.scale,y:p.y-7*this.scale,width:9.2*this.scale,height:8*this.scale}:{x,y,width:s.width,height:s.height};
    this.surface.clipObject(c,this.focus,this.width,this.height,this.scale,clipBox,e.x+e.z-elevationFast(e.x,e.z)*2+(e.type==='building'?BUILDINGS[e.def].radius: this.world.footprint(e)),p.y,elevationFast(e.x,e.z));
+   if(e.type==='unit'&&UNITS[e.def].naval){c.translate(p.x,p.y);c.rotate(boatRock(this.visualTime,e.id,this.motion.get(e.id)?.speed??0));c.translate(-p.x,-p.y);}
    if(e.inside)c.globalAlpha=Math.max(0,Math.min(1,1-(this.visualTime-(e.enteredAt??0))/.65));
    
    if(e.type==='resource'&&e.resource==='wood'&&e.felledAt===undefined&&(e.chopProgress??0)>0){const lean=Math.min(.12,(e.chopProgress??0)/7.5*.12),sway=Math.sin(this.visualTime*17+e.id)*.022;c.translate(p.x,p.y);c.rotate(-lean+sway);c.translate(-p.x,-p.y);}// Wall sections are frontal sprites: shear them onto the isometric run (x-axis runs fall right, z-axis runs fall left).
    if((e.def==='wall'||e.def==='palisade')&&!s.image.src.includes('fortification-eras')){const k=(e.facing??0)%2?-.5:.5;c.translate(p.x,p.y);c.transform(1,k,0,1,0,0);c.translate(-p.x,-p.y);}if(s.flip){c.translate(p.x*2,0);c.scale(-1,1);}if(this.shadows&&(e.type==='building'||e.type==='unit'&&!UNITS[e.def].naval)){c.save();c.globalCompositeOperation='multiply';c.fillStyle=e.type==='unit'?'#1820134d':'#1a1b163d';c.beginPath();c.ellipse(p.x,p.y-1,e.type==='unit'?s.width*.25:BUILDINGS[e.def].radius*this.scale*.78,e.type==='unit'?s.width*.09:Math.max(2,this.scale*.12),0,0,Math.PI*2);c.fill();c.restore();}
    let constructionFrame:HTMLCanvasElement|undefined;
    if(fallingWood>=0&&fallingWood<1&&!this.biomeTrees.has(e.id)){const fallen=this.treeFall.sprite(this.scene.vegetationFamily(e.id,e.x,e.z),fallingWood,this.scale);if(fallen){const direction=e.fallAngle??(e.id%2?Math.PI/3:-Math.PI/3),screenAngle=Math.atan2(Math.sin(direction)+Math.cos(direction),Math.sin(direction)-Math.cos(direction)),root=this.treeFall.rootFraction(fallingWood);c.save();c.translate(p.x,p.y);c.rotate(screenAngle);c.globalAlpha=1;c.drawImage(fallen.image,fallen.sx,fallen.sy,fallen.sw,fallen.sh,-fallen.width*root,-fallen.height*.94,fallen.width,fallen.height);c.restore();}else c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,x,y,s.width,s.height);}
-   else if(e.def==='town'&&e.type==='building'&&e.progress<1&&this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,0)){const phase=Math.min(3.999,e.progress*4),index=Math.floor(phase),blend=phase-index;const stage=this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,index)!,next=this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,index+1)!;c.drawImage(stage.image,stage.sx,stage.sy,stage.sw,stage.sh,x,y,s.width,s.height);if(blend>.01){c.globalAlpha*=blend;c.drawImage(next.image,next.sx,next.sy,next.sw,next.sh,x,y,s.width,s.height);}}
+   else if(e.def==='town'&&e.type==='building'&&e.progress<1&&this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,0)){const phase=Math.min(3.999,e.progress*4),index=Math.floor(phase),blend=phase-index;const stage=this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,index)!,next=this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,index+1)!;c.drawImage(stage.image,stage.sx,stage.sy,stage.sw,stage.sh,p.x-stage.width*(stage.anchorX??.5),p.y-stage.height*stage.anchor,stage.width,stage.height);if(blend>.01){c.globalAlpha*=blend;c.drawImage(next.image,next.sx,next.sy,next.sw,next.sh,p.x-next.width*(next.anchorX??.5),p.y-next.height*next.anchor,next.width,next.height);}}
    else if(e.type==='building'&&!isField(e.def)&&e.progress<1){const age=e.visualEra??this.world.players[e.owner]?.era??0,phase=Math.max(0,Math.min(CONSTRUCTION_FRAME_COUNT-.0001,e.progress*CONSTRUCTION_FRAME_COUNT)),index=Math.floor(phase),blend=phase-index,frame=this.construction.frame(s,age,index,false,e.def,e.facing??0);constructionFrame=frame;c.drawImage(frame,x,y,s.width,s.height);if(blend>.001&&index<CONSTRUCTION_FRAME_COUNT-1){c.globalAlpha*=blend;c.drawImage(this.construction.frame(s,age,index+1,false,e.def,e.facing??0),x,y,s.width,s.height);}}else if(e.type==='building'&&e.hp<e.maxHp*.75){const damage=this.damagedSprite(s,e.hp/e.maxHp);c.drawImage(damage,x,y,s.width,s.height);}else if(e.type==='resource'&&(e.def==='fish'||e.def==='tuna'||e.def==='whale'))drawMarineLife(c,e,p,this.scale,this.visualTime,s);else c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,x,y,s.width,s.height);if(e.type==='resource'&&e.resource==='wood'&&e.felledAt===undefined&&(e.chopProgress??0)>0)this.drawChopMark(e,p,s);c.restore();
-   if(!e.inside)this.hits.push({entity:e,x:s.flip?2*p.x-x-s.width:x,y,width:s.width,height:s.height,sprite:s,constructionFrame});this.drawActivity(e,p,s);if(e.type==='unit'&&e.def==='transport-ship')this.drawLandingRamp(e,p);if(e.type==='building')this.drawProduction(e,p,s);
-   if(this.selected.has(e.id)||e.hp<e.maxHp){const width=e.type==='building'?46:24;c.fillStyle='#161811';c.fillRect(p.x-width/2,y-7,width,4);c.fillStyle=e.owner===0?'#7dd269':'#d97459';c.fillRect(p.x-width/2+1,y-6,(width-2)*e.hp/e.maxHp,2);}
+   if(!e.inside)this.hits.push({entity:e,x:s.flip?2*p.x-x-s.width:x,y,width:s.width,height:s.height,sprite:s,constructionFrame});
+   if(e.type==='unit'&&UNITS[e.def].naval){c.save();c.translate(p.x,p.y);c.rotate(boatRock(this.visualTime,e.id,this.motion.get(e.id)?.speed??0));c.translate(-p.x,-p.y);this.drawActivity(e,p,s);c.restore();}else this.drawActivity(e,p,s);
+   if(e.type==='unit'&&e.def==='transport-ship')this.drawLandingRamp(e,p);if(e.type==='building')this.drawProduction(e,p,s);
+   if(this.selected.has(e.id)||e.hp<e.maxHp){const width=e.type==='building'?46:24;c.fillStyle='#161811';c.fillRect(p.x-width/2,y-7,width,4);c.fillStyle=e.owner===0?'#7dd269':e.owner===2?'#ddd3ad':this.world.stance(0,e.owner)==='ally'?'#6fb6e8':this.world.stance(0,e.owner)==='neutral'?'#e0c060':'#d97459';c.fillRect(p.x-width/2+1,y-6,(width-2)*e.hp/e.maxHp,2);}
    if(e.type==='building'&&e.progress<1){c.fillStyle='#d9bb76';c.fillRect(x+s.width*.2,p.y+6,s.width*.6*e.progress,3);}if(e.type==='unit'&&Object.values(e.cargo).some(v=>v>0)){c.fillStyle='#ceaa62';c.fillRect(p.x+5,p.y-s.height*.45,4,4);}
   }catch(err){this.drawError(err,e);}}
   while(rockIndex<rocks.length)paintRock(rocks[rockIndex++]);while(wildIndex<wilds.length)paintWild(wilds[wildIndex++]);
   // Own units stay readable behind buildings and trees: a faint ghost on top (over an unobstructed unit it only darkens slightly).
   if(this.unitGhosts){c.save();c.globalAlpha=.32;
-  for(const h of this.hits){if(h.entity.type!=='unit'||h.entity.owner!==0||h.entity.hp<=0)continue;const s=h.sprite;c.save();if(s.flip){c.translate(2*h.x+h.width,0);c.scale(-1,1);}c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,h.x,h.y,h.width,h.height);c.restore();}
+  for(const h of this.hits){if(h.entity.type!=='unit'||isNaval(h.entity.def)||h.entity.owner!==0||h.entity.hp<=0)continue;const s=h.sprite;c.save();if(s.flip){c.translate(2*h.x+h.width,0);c.scale(-1,1);}c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,h.x,h.y,h.width,h.height);c.restore();}
   c.restore();}
   for(const shot of this.world.shots){
    const progress=Math.max(0,Math.min(1,1-(shot.remaining+Math.max(0,this.world.time-this.visualTime))/shot.duration));
@@ -304,7 +312,7 @@ export class Battlefield {
    c.restore();}
   if(this.roadPreview?.kind&&['wall','palisade'].includes(this.roadPreview.kind)){for(const site of this.world.wallSites(this.roadPreview.from,this.roadPreview.to)){const valid=this.world.existingWall(this.roadPreview.kind,site)||this.world.validPlacement(this.roadPreview.kind,site);this.diamond(site,1.1,valid?'#d8c59555':'#d2564f66',valid?'#ffe2aa':'#f07060');}}
   if(this.roadPreview){const route=this.roadPreview,sites=route.kind&&['wall','palisade'].includes(route.kind)?this.world.wallSites(route.from,route.to):[route.from,route.to];const a=this.project(sites[0]);c.save();c.strokeStyle='#f2d89a';c.setLineDash([5,5]);c.lineWidth=3;c.beginPath();c.moveTo(a.x,a.y);for(const site of sites.slice(1)){const b=this.project(site);c.lineTo(b.x,b.y);}c.stroke();c.restore();}
-  if(this.placement.visible){const site=this.placement;this.diamond(site,site.radius,site.valid?'#a5cf7033':'#cd654c66',site.valid?'#d6e6a5':'#ef9682');const ghost=site.def==='harbor'?this.marine.harbor(BUILDINGS.harbor.radius*4.2*this.scale,site.facing,this.world.players[0].faction,this.world.players[0].era):this.scene.building(site.def,this.world.players[0].faction==='persian',site.facing,site.radius,this.scale,this.world.players[0].era,this.world.players[0].faction),p=this.project(site);if(ghost){c.save();c.globalAlpha=site.valid?.65:.3;if(ghost.flip){c.translate(p.x*2,0);c.scale(-1,1);}c.drawImage(ghost.image,ghost.sx,ghost.sy,ghost.sw,ghost.sh,p.x-ghost.width/2,p.y-ghost.height*ghost.anchor,ghost.width,ghost.height);c.restore();const a=site.facing*Math.PI/2,q=this.project({x:site.x+Math.sin(a)*(site.radius+2),z:site.z+Math.cos(a)*(site.radius+2)});c.strokeStyle='#ffe3a0';c.lineWidth=3;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(q.x,q.y);c.stroke();c.fillStyle='#ffe3a0';c.beginPath();c.arc(q.x,q.y,4,0,Math.PI*2);c.fill();}}
+  if(this.placement.visible){const site=this.placement;this.diamond(site,site.radius,site.valid?'#a5cf7033':'#cd654c66',site.valid?'#d6e6a5':'#ef9682');const ghost=site.def==='harbor'?this.marine.harbor(BUILDINGS.harbor.radius*4.2*this.scale,site.facing,this.world.players[0].faction,this.world.players[0].era):this.scene.building(site.def,this.world.players[0].faction==='persian',site.facing,site.radius,this.scale,isWallLine(site.def)?site.def==='palisade'?0:Math.max(site.def==='wall'?1:0,wallLevel(this.world.players[0].tech)):this.world.players[0].era,this.world.players[0].faction),p=this.project(site);if(ghost){c.save();c.globalAlpha=site.valid?.65:.3;if(ghost.flip){c.translate(p.x*2,0);c.scale(-1,1);}c.drawImage(ghost.image,ghost.sx,ghost.sy,ghost.sw,ghost.sh,p.x-ghost.width/2,p.y-ghost.height*ghost.anchor,ghost.width,ghost.height);c.restore();const a=site.facing*Math.PI/2,q=this.project({x:site.x+Math.sin(a)*(site.radius+2),z:site.z+Math.cos(a)*(site.radius+2)});c.strokeStyle='#ffe3a0';c.lineWidth=3;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(q.x,q.y);c.stroke();c.fillStyle='#ffe3a0';c.beginPath();c.arc(q.x,q.y,4,0,Math.PI*2);c.fill();}}
 
   this.nature.drawSky(c,this.world,this.visualTime,this.scale,this.width,this.height,p=>this.project(p));
   this.nature.drawWeather(c,this.visualTime,this.width,this.height);
@@ -375,7 +383,7 @@ export class Battlefield {
    for(let i=0;i<4;i++){c.save();c.rotate(i*Math.PI/2);c.strokeStyle='#563f25';c.lineWidth=2;c.beginPath();c.moveTo(0,0);c.lineTo(0,-length);c.stroke();c.fillStyle='#d7c29afa';c.strokeStyle='#7e6540';c.lineWidth=.7;c.beginPath();c.moveTo(1,-length*.32);c.lineTo(length*.21,-length*.27);c.lineTo(length*.21,-length);c.lineTo(1,-length);c.closePath();c.fill();c.stroke();for(let j=1;j<5;j++){c.beginPath();c.moveTo(1,-length*(.28+j*.14));c.lineTo(length*.21,-length*(.28+j*.14));c.stroke();}c.restore();}c.fillStyle='#463626';c.beginPath();c.arc(0,0,3,0,Math.PI*2);c.fill();c.restore();if(busy)worker(2,t/1.3,p.x-s.width*.2,p.y+2);
   }
   if(e.def==='range'&&training){for(let i=0;i<2;i++){const phase=(t+i*.6)%1.7;actor(this.combat.sprite('archer',0,this.combat.pose('archer',Math.max(0,phase-.2)),this.scale*.82),p.x-s.width*.18+i*10,p.y-2+i*5);if(phase>.7&&phase<1.05){const progress=(phase-.7)/.35;c.strokeStyle='#e0c99a';c.beginPath();c.moveTo(p.x-s.width*.18+progress*s.width*.55,p.y-18+i*5);c.lineTo(p.x-s.width*.18+progress*s.width*.55+7,p.y-18+i*5);c.stroke();}}}
-  if(['stable','camel'].includes(e.def)&&training){const trainee=UNITS[e.queue[0].unit],phase=t*(trainee.turnRate? .45:.8),dx=Math.cos(phase)*s.width*.16,dy=Math.sin(phase)*s.width*.055,direction=(Math.round(Math.atan2(Math.cos(phase)*.055,-Math.sin(phase)*.16)/(Math.PI/4))+8)%8,family=mountedArt(trainee.id)?.walk??(e.def==='camel'?'camel':'horse');actor(this.walking.sprite(family,direction,(t*trainee.speed/(trainee.stride??3.8)*8)%8,this.scale*.82),p.x+dx,p.y-3+dy);}
+  if(['stable','camel'].includes(e.def)&&training){const trainee=UNITS[e.queue[0].unit],phase=t*(trainee.turnRate? .45:.8),dx=Math.cos(phase)*s.width*.16,dy=Math.sin(phase)*s.width*.055,direction=(Math.round(Math.atan2(Math.cos(phase)*.055,-Math.sin(phase)*.16)/(Math.PI/4))+8)%8,family=mountedArt(trainee.id)?.walk??(e.def==='camel'?'camel':'horse');actor(this.walking.sprite(family,direction,t*trainee.speed/(trainee.stride??3.8),this.scale*.82,this.world.players[e.owner]?.era??2),p.x+dx,p.y-3+dy);}
   if(e.def==='barracks'&&training)actor(this.combat.sprite(e.owner!==2&&this.world.players[e.owner].faction==='persian'?'spear':'sword',1,this.combat.pose(e.owner!==2&&this.world.players[e.owner].faction==='persian'?'spear':'sword',t%1.5),this.scale*.9),p.x+s.width*.15,p.y);
   if(e.def==='smithy'&&working){worker(3,t/1.1,p.x-s.width*.05,p.y-3);for(let i=0;i<4;i++){const phase=(t*2+i*.23)%1;c.fillStyle='#ffb746';c.fillRect(p.x+s.width*.12+Math.sin(i*2)*phase*12,p.y-s.height*.25-phase*17,1.8,1.8);}c.fillStyle='#ee833a66';c.beginPath();c.ellipse(p.x+s.width*.2,p.y-s.height*.35,7,9+Math.sin(t*9)*2,0,0,Math.PI*2);c.fill();}
   if(e.def==='mine'&&busy){worker(1,t/1.4,p.x-s.width*.2,p.y+1);const x=p.x+Math.sin(t*1.5)*s.width*.14;c.fillStyle='#715033';c.fillRect(x-5,p.y-7,11,6);c.strokeStyle='#242721';c.lineWidth=1.5;for(const dx of [-3,4]){c.beginPath();c.arc(x+dx,p.y,2.5,0,Math.PI*2);c.stroke();}}
@@ -434,7 +442,7 @@ export class Battlefield {
   if(e.type==='unit'&&e.state==='gather'){const phase=e.workPhase??0,job=this.world.get(e.order?.target);if(phase<.22&&job){const q=this.project(job);for(let i=0;i<4;i++){c.fillStyle=job.resource==='wood'?'#cda775b0':job.resource==='food'?'#c5b361b0':'#c2bbaaac';const a=i*1.7+e.id;c.fillRect(q.x+Math.cos(a)*phase*42,q.y-4-Math.sin(phase*8)*10+i,2,2);}}}
  }
  minimap(canvas:HTMLCanvasElement){const c=canvas.getContext('2d')!,size=canvas.width;c.drawImage(this.terrain,0,0,size,size);// Fog is written into one GRID_SIZE² bitmap and scaled up, instead of one fillRect per cell.
-  {const fog=this.minimapFog,fc=fog.getContext('2d')!;if(fog.width!==GRID_SIZE){fog.width=fog.height=GRID_SIZE;}const img=fc.createImageData(GRID_SIZE,GRID_SIZE),px=img.data,seen=this.world.visible[0],known=this.world.explored[0];for(let i=0;i<GRID_SIZE*GRID_SIZE;i++){if(seen.has(i))continue;const k=i*4;if(known.has(i)){px[k]=21;px[k+1]=39;px[k+2]=28;px[k+3]=136;}else{px[k]=8;px[k+1]=16;px[k+2]=9;px[k+3]=238;}}fc.putImageData(img,0,0);c.imageSmoothingEnabled=false;c.drawImage(fog,0,0,size,size);c.imageSmoothingEnabled=true;}for(const e of this.world.entities){if(e.hp<=0||e.inside||e.type==='resource'||!this.world.canSee(0,e))continue;c.fillStyle=e.owner===0?'#e3c488':e.owner===1?'#79a6d8':e.owner===3?'#d9786a':'#ddd3ad';const w=e.def==='road'?1:e.type==='building'?4:2;if(e.def==='road')c.fillStyle='#bba173';c.fillRect((e.x+MAP_HALF)/MAP_SIZE*size-w/2,(e.z+MAP_HALF)/MAP_SIZE*size-w/2,w,w);}for(const a of this.world.alerts){const age=this.world.time-a.at;if(age<0||age>6)continue;const r=3+(age%1.5)*6;c.strokeStyle=`rgba(232,90,70,${1-age/6})`;c.lineWidth=2;c.beginPath();c.arc((a.x+MAP_HALF)/MAP_SIZE*size,(a.z+MAP_HALF)/MAP_SIZE*size,r,0,Math.PI*2);c.stroke();}// The main camera is isometric; its visible rectangle becomes a diamond here.
+  {const fog=this.minimapFog,fc=fog.getContext('2d')!;if(fog.width!==GRID_SIZE){fog.width=fog.height=GRID_SIZE;}const img=fc.createImageData(GRID_SIZE,GRID_SIZE),px=img.data,seen=this.world.visible[0],known=this.world.explored[0];for(let i=0;i<GRID_SIZE*GRID_SIZE;i++){if(seen.has(i))continue;const k=i*4;if(known.has(i)){px[k]=21;px[k+1]=39;px[k+2]=28;px[k+3]=136;}else{px[k]=8;px[k+1]=16;px[k+2]=9;px[k+3]=238;}}fc.putImageData(img,0,0);c.imageSmoothingEnabled=false;c.drawImage(fog,0,0,size,size);c.imageSmoothingEnabled=true;}for(const e of this.world.entities){if(e.hp<=0||e.inside||e.type==='resource'||!this.world.canSee(0,e))continue;c.fillStyle=REALM_COLORS[e.owner]??'#ddd3ad';const w=e.def==='road'?1:e.type==='building'?4:2;if(e.def==='road')c.fillStyle='#bba173';c.fillRect((e.x+MAP_HALF)/MAP_SIZE*size-w/2,(e.z+MAP_HALF)/MAP_SIZE*size-w/2,w,w);}for(const a of this.world.alerts){const age=this.world.time-a.at;if(age<0||age>6)continue;const r=3+(age%1.5)*6;c.strokeStyle=`rgba(232,90,70,${1-age/6})`;c.lineWidth=2;c.beginPath();c.arc((a.x+MAP_HALF)/MAP_SIZE*size,(a.z+MAP_HALF)/MAP_SIZE*size,r,0,Math.PI*2);c.stroke();}// The main camera is isometric; its visible rectangle becomes a diamond here.
  const b=this.canvas.getBoundingClientRect();const corners=[[0,0],[this.width,0],[this.width,this.height],[0,this.height]].map(([x,y])=>this.groundPoint(b.left+x,b.top+y));
  c.save();c.beginPath();c.rect(0,0,size,size);c.clip();c.strokeStyle='#fff0ca';c.fillStyle='#fff0ca0b';c.lineWidth=1;c.beginPath();corners.forEach((p,i)=>{const x=(p.x+MAP_HALF)/MAP_SIZE*size,y=(p.z+MAP_HALF)/MAP_SIZE*size;i?c.lineTo(x,y):c.moveTo(x,y);});c.closePath();c.fill();c.stroke();c.restore();}
 }

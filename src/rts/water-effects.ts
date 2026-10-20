@@ -1,9 +1,9 @@
-import {MAP_HALF,isWater,isRiver,isShore,mapSpec,waterFlow} from './map';
+import {MAP_HALF,isWater,isRiver,isShore,mapSpec,waterFlow,riverRocks} from './map';
 import {drawCurrent} from './marine-life';
 import {unitCycle} from './marine-motion';
 type Point={x:number;z:number};
 type Screen={x:number;y:number};
-type SeaSite=Point&{depth:number;seed:number;river:boolean};
+type SeaSite=Point&{depth:number;seed:number;river:boolean;rapid:boolean;flow:Point};
 type ShoreSite={land:Point;water:Point;nx:number;nz:number;seed:number};
 const BUCKETS=5;
 
@@ -31,7 +31,7 @@ export class WaterEffects {
    const jx=x+(hash(x,z)-.5)*1.6,jz=z+(hash(z,x)-.5)*1.6;if(!isWater(jx,jz))continue;
    // Rough distance to the shore: how far the water reaches in eight directions.
    let reach=0;for(const r of [4,8,14])if([0,1,2,3,4,5,6,7].every(k=>isWater(jx+Math.cos(k*Math.PI/4)*r,jz+Math.sin(k*Math.PI/4)*r)))reach=r;
-   this.sea.push({x:jx,z:jz,depth:reach/14,seed:hash(jx,jz),river:isRiver(jx,jz)});
+   const rapid=riverRocks().some(k=>Math.hypot(k.x-jx,k.z-jz)<7);this.sea.push({x:jx,z:jz,depth:reach/14,seed:hash(jx,jz),river:isRiver(jx,jz),rapid,flow:waterFlow(jx,jz)});
   }
   const {biome}=mapSpec(),taken=new Set<string>();
   for(let z=-MAP_HALF+2;z<MAP_HALF-2;z+=1.8)for(let x=-MAP_HALF+2;x<MAP_HALF-2;x+=1.8){
@@ -59,10 +59,14 @@ export class WaterEffects {
    const s=this.sea[i];if(this.low&&i%2)continue;
    const p=project(s);if(!visible(p))continue;
    if(s.river){
-    const flow=waterFlow(s.x,s.z),phase=unitCycle(time/5+s.seed*3),age=(phase-.5)*6;
-    const q={x:s.x+flow.x*age,z:s.z+flow.z*age};if(isWater(q.x,q.z))drawCurrent(c,project(q),{x:flow.x-flow.z,y:(flow.x+flow.z)*.5},scale,phase,.32);
+    // Rapids churn white and fast between the boulders; calm reaches carry slow streaks.
+    const flow=s.flow,phase=unitCycle(time/(s.rapid?2.2:5)+s.seed*3),age=(phase-.5)*6;
+    const q={x:s.x+flow.x*age,z:s.z+flow.z*age};if(isWater(q.x,q.z))drawCurrent(c,project(q),{x:flow.x-flow.z,y:(flow.x+flow.z)*.5},scale,phase,s.rapid?.7:.32);
+    if(s.rapid){const foam=unitCycle(time*.9+s.seed*7),r=scale*(.25+foam*.5);c.save();c.strokeStyle=`rgba(244,250,248,${(.55*(1-foam)).toFixed(3)})`;c.lineWidth=Math.max(.8,scale*.07);c.beginPath();c.ellipse(p.x,p.y,r,r*.45,0,0,Math.PI*2);c.stroke();c.restore();}
     continue;
    }
+   // Open-sea currents: sparse streaks drifting with the longshore stream, strongest offshore.
+   if(s.seed<.16&&s.depth>.3){const flow=s.flow,speed=Math.hypot(flow.x,flow.z);if(speed>.12){const phase=unitCycle(time/6+s.seed*5),age=(phase-.5)*8,q={x:s.x+flow.x*age,z:s.z+flow.z*age};if(isWater(q.x,q.z))drawCurrent(c,project(q),{x:flow.x-flow.z,y:(flow.x+flow.z)*.5},scale,phase,Math.min(.45,speed*.8));}}
    const wave=Math.sin((s.x*.62+s.z*.38)*.42-time*1.15+s.seed*1.4)*.5+.5,strength=wave**4*(.35+.65*Math.min(1,s.depth+.25));
    const bucket=Math.min(BUCKETS-1,Math.floor(strength*BUCKETS));
    if(strength>.12){const path=swell[bucket],w=half*(.7+s.seed*.6),bob=Math.sin(time*1.6+s.seed*9)*scale*.05;path.moveTo(p.x-w,p.y+bob);path.quadraticCurveTo(p.x,p.y-lift+bob,p.x+w,p.y+bob*.6);}

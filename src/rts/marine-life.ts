@@ -6,9 +6,9 @@ import {unitCycle,ease as smooth,headingVector,marineEvent,FISHING_SECONDS} from
 
 type Point={x:number;y:number};
 const TAU=Math.PI*2;
-const netImage=new Image();netImage.src=assetUrl('cast-net-frames-v1.avif');
+const netImage=new Image();netImage.src=assetUrl('cast-net-isolated-v2.avif');
 const swimImage=new Image();swimImage.src=assetUrl('marine-swim-v2.avif');
-const netFrames=[{x:0,y:100,w:400,h:460},{x:410,y:100,w:555,h:460},{x:1010,y:125,w:635,h:435},{x:1700,y:100,w:472,h:460}];
+const netFrames=[0,1,2,3].map(i=>({x:i*512,y:0,w:512,h:320}));
 
 /** Animate the painted fish atlas; no substitute white silhouettes are drawn over the sea. */
 export function drawMarineLife(c:CanvasRenderingContext2D,e:Entity,p:Point,scale:number,time:number,prey:SceneSprite){
@@ -73,9 +73,18 @@ export function drawBoatWake(c:CanvasRenderingContext2D,p:Point,s:SceneSprite,di
 }
 
 export function drawCurrent(c:CanvasRenderingContext2D,p:Point,vector:Point,scale:number,phase:number,strength=.13){
- const opacity=Math.sin(phase*Math.PI)**2*strength,length=Math.hypot(vector.x,vector.y)||1;
- const dx=vector.x/length*scale*.48,dy=vector.y/length*scale*.48;
- c.save();c.strokeStyle=`rgba(170,209,211,${opacity})`;c.lineWidth=Math.max(.6,scale*.028);c.beginPath();c.moveTo(p.x-dx,p.y-dy);c.quadraticCurveTo(p.x-dy*.1,p.y+dx*.1,p.x+dx,p.y+dy);c.stroke();c.restore();
+ const pulse=.28+.72*Math.sin(phase*Math.PI)**2,length=Math.hypot(vector.x,vector.y)||1;
+ const ux=vector.x/length,uy=vector.y/length,dx=ux*scale*(.82+.16*pulse),dy=uy*scale*(.82+.16*pulse),nx=-uy,ny=ux;
+ c.save();c.lineCap='round';
+ // Two broken highlights read as a moving current band, rather than a tiny white scratch.
+ for(let strand=0;strand<2;strand++){
+  const offset=(strand?1:-1)*scale*.11,fade=strand?.54:1;
+  c.strokeStyle=`rgba(${strand?'183,220,218':'111,178,186'},${Math.min(.58,strength*(.85+pulse*.7)*fade)})`;
+  c.lineWidth=Math.max(.7,scale*(strand?.035:.055));c.beginPath();
+  c.moveTo(p.x-dx*.72+nx*offset,p.y-dy*.72+ny*offset);
+  c.quadraticCurveTo(p.x+dx*.05+nx*offset*1.35,p.y+dy*.05+ny*offset*1.35,p.x+dx*.76+nx*offset,p.y+dy*.76+ny*offset);c.stroke();
+ }
+ c.restore();
 }
 
 /** Cast, spread, and haul the same net in the game and the animation preview. */
@@ -91,10 +100,12 @@ export function drawFishingNet(c:CanvasRenderingContext2D,p:Point,q:Point,s:Scen
  c.save();c.lineCap='round';c.strokeStyle='#705d3b';c.lineWidth=Math.max(.7,scale*.018);c.globalAlpha=.75;c.beginPath();c.moveTo(hand.x,hand.y);c.quadraticCurveTo((hand.x+x)/2,(hand.y+y)/2+scale*.12,x,y);c.stroke();
  if(flat){const landing=smooth((phase-.41)/.14);c.strokeStyle=`rgba(187,214,209,${.23*(1-landing)})`;c.lineWidth=Math.max(.7,scale*.027);c.beginPath();c.ellipse(x,y,radius*(1+landing*.35),radius*.42*(1+landing*.35),0,0,TAU);c.stroke();}
  if(netImage.complete&&netImage.naturalWidth){
-  const frame=phase<.18?0:phase<.42?1:phase<.75?2:3,rect=netFrames[frame];
-  const width=Math.max(scale*.65,radius*(frame===2?2.65:frame===1?2.2:1.9)),height=width*rect.h/rect.w;
-  c.globalAlpha=frame===2?.82:.92;
-  c.drawImage(netImage,rect.x,rect.y,rect.w,rect.h,x-width*.5,y-height*(frame===2?.66:.78),width,height);
+  const frame=phase<.18?0:phase<.42?1:phase<.86?2:3;
+  const width=Math.max(scale*.65,radius*(1.9+.65*opened)),height=width*320/512;
+  const paint=(index:number,alpha:number)=>{const rect=netFrames[index];c.globalAlpha=alpha;c.drawImage(netImage,rect.x,rect.y,rect.w,rect.h,x-width*.5,y-height*.76,width,height);};
+  const boundaries=[.18,.42,.86],boundary=boundaries.find(v=>Math.abs(phase-v)<.035);
+  if(boundary!==undefined){const before=boundaries.indexOf(boundary),mix=smooth((phase-boundary+.035)/.07);paint(before,.9*(1-mix));paint(before+1,.9*mix);}
+  else paint(frame,.9);
   c.restore();return;
  }
  // Radial twine, sagging rings, and small rim weights read as a cast net in perspective.

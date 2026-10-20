@@ -6,8 +6,8 @@ import {coastX,isShore,mapSpec} from './map';
 import eraFrames from './era-frames.json';
 import buildingAtlases from './building-atlases.json';
 const allFrames:Record<string,{x:number;y:number;w:number;h:number}[]>={...frames,...eraFrames};
-export interface SceneSprite {image:HTMLImageElement;sx:number;sy:number;sw:number;sh:number;width:number;height:number;anchor:number;anchorX?:number;flip?:boolean;}
-export const BUILDING_VIEWS:Record<string,number>={town:0,keep:1,house:2,barracks:3,range:4,stable:5,market:6,smithy:7,academy:8,government:9,healing:10,siege:11,camel:5,wall:12,gate:13,tower:14,'archer-tower':14,'cannon-tower':14,lumber:15,mine:16,mill:17,palisade:18,landmark:19,specialist:20,farm:-1,orchard:-2,harbor:-3};
+export interface SceneSprite {image:HTMLImageElement;sx:number;sy:number;sw:number;sh:number;width:number;height:number;anchor:number;anchorX?:number;flip?:boolean;eraSpecific?:boolean;}
+export const BUILDING_VIEWS:Record<string,number>={town:0,keep:1,house:2,barracks:3,range:4,stable:5,market:6,smithy:7,academy:8,government:9,healing:10,siege:11,camel:5,wall:12,gate:13,tower:14,'archer-tower':14,'cannon-tower':14,lumber:15,mine:16,mill:17,palisade:18,landmark:19,specialist:20,ranch:5,farm:-1,orchard:-2,harbor:-3};
 export const FACING_NAMES=['South','East','North','West'];
 export class SceneArt {
  readonly regional=new RegionalArt();
@@ -30,19 +30,26 @@ export class SceneArt {
  preloadFactions(factions:string[]){return Promise.all([...new Set(factions)].map(f=>this.loadFacades(f)));}
  private facade(def:string,faction:string,age:number,width:number,direction:number,stage=4):SceneSprite|null{
   const data=buildingAtlases[faction as keyof typeof buildingAtlases];if(!data)return null;
-  const slots:Record<string,number>={house:0,mill:1,lumber:2,mine:3,barracks:4,range:5,stable:6,camel:6,smithy:7,market:8,healing:9,academy:10,government:11};
+  const slots:Record<string,number>={house:0,mill:1,lumber:2,mine:3,barracks:4,range:5,stable:6,camel:6,ranch:6,smithy:7,market:8,healing:9,academy:10,government:11};
   const kind=def==='town'?'town':'facades',slot=def==='town'?Math.max(0,Math.min(7,stage)):slots[def];if(slot===undefined)return null;
   const atlas=data[kind],image=this.images.get(faction+':'+kind);if(!image)return null;const row=Math.max(0,Math.min(3,Math.floor(age))),r=atlas.frames[row*atlas.columns+slot];
   return{image,sx:r.x,sy:r.y,sw:r.w,sh:r.h,width,height:width*r.h/r.w,anchor:(r.ground-r.y)/r.h,anchorX:(r.cx-r.x)/r.w,flip:direction%2===1};
  }
  townStage(faction:string,age:number,width:number,facing:number,stage:number){return this.facade('town',faction,age,width,facing,stage);}
- building(def:string,persian:boolean,facing:number,radius:number,scale:number,age=2,faction='',gateOpen=0,tier=1){const index=BUILDING_VIEWS[def];if(index===undefined||index<0)return null;const direction=((facing%4)+4)%4,civ=persian?'persian':'roman';let name='',cell=0,width=radius*3.65*scale;
-  const fort=this.regional.fortification(faction,def,direction,gateOpen,def==='gate'?width*1.15:radius*3.25*scale,age,tier);if(fort)return fort;
+ building(def:string,persian:boolean,facing:number,radius:number,scale:number,age=2,faction='',gateOpen=0,tier=1){const index=BUILDING_VIEWS[def];if(index===undefined||index<0)return null;const direction=((facing%4)+4)%4,civ=persian?'persian':'roman';let name='',cell=0,width=radius*3.65*scale*(def==='ranch'?.58:1);
+  const fort=this.regional.fortification(faction,def,direction,gateOpen,def==='gate'?width*1.25:radius*4.25*scale,age,tier);if(fort)return fort;
   if(def==='gate'){const gate=this.regional.gate(direction,gateOpen,width);if(gate)return gate;}
+  // Roman and Persian have authored four-view art for Dark, Feudal and Imperial
+  // structures. Use those views before the shared era facade atlas so a turn
+  // actually changes which side of the building the camera sees.
+  if((faction==='roman'||faction==='persian')&&age!==2&&index<12){
+   const era=age===0?'dark':age===1?'feudal':'imperial',view=['','-east','-north','-west'][direction],version=faction==='persian'&&era==='imperial'?'-v3':'';
+   let name=`${faction}-${era}${view}${version}-${String(index).padStart(2,'0')}`;
+   if((eraFrames as Record<string,unknown>)[name]){if(isolatedAtlas(name)?.complete===false){for(const alternate of ['','-east','-north','-west']){const candidate=`${faction}-${era}${alternate}${version}-${String(index).padStart(2,'0')}`;if(isolatedAtlas(candidate)?.complete!==false){name=candidate;break;}}}this.requestEra(name);const art=this.sprite(name,0,width);if(art){art.anchor=1-art.width*.22/art.height;art.eraSpecific=true;return art;}}
+  }
+  if((faction==='roman'||faction==='persian')&&age===2&&index<12){const view=['','-east','-north','-west'][direction],name=`${faction}-settlement${view}-v2`,art=this.sprite(name,index,width);if(art){art.anchor=1-art.width*.22/art.height;art.eraSpecific=true;return art;}}
   const facade=this.facade(def,faction,age,width,direction);if(facade)return facade;
   const regional=this.regional.building(faction,index,direction,width,age);if(regional)return regional;
-  if(index<12&&age!==2){const era=age===0?'dark':age===1?'feudal':'imperial',view=['','-east','-north','-west'][direction],version=civ==='persian'&&era==='imperial'?'-v3':'';name=`${civ}-${era}${view}${version}-${String(index).padStart(2,'0')}`;if((eraFrames as Record<string,unknown>)[name]){if(isolatedAtlas(name)?.complete===false){for(const alternate of ['','-east','-north','-west']){const candidate=`${civ}-${era}${alternate}${version}-${String(index).padStart(2,'0')}`;if(isolatedAtlas(candidate)?.complete!==false){name=candidate;break;}}}this.requestEra(name);const art=this.sprite(name,0,width);if(art){art.anchor=1-art.width*.22/art.height;return art;}}
-  }
   // Wall runs use one frontal source view; the renderer shears it along the run (see iso-view).
   const runs=def==='wall'||def==='palisade';
   if(index<12){name=`${civ}-settlement${['','-east','-north','-west'][direction]}-v2`;cell=index;}

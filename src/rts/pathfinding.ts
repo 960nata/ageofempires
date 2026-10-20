@@ -21,9 +21,11 @@ function clearance(blocked:Set<number>,radius:number){
  }
  sizes.set(key,denied);return denied;
 }
-export function findPath(start:Point,goal:Point,blocked:Set<number>,radius=0):Point[]{
+// `extra` holds a few temporary obstacles (cells of units in the way). They are checked as-is rather than merged into
+// `blocked`, so a detour never copies the map-wide set or rebuilds its clearance cache.
+export function findPath(start:Point,goal:Point,blocked:Set<number>,radius=0,extra?:Set<number>):Point[]{
  const a=worldCell(start),b=worldCell(goal),denied=clearance(blocked,radius);
- const valid=(x:number,z:number)=>x>=1&&z>=1&&x<GRID_SIZE-1&&z<GRID_SIZE-1&&!denied.has(gridIndex(x,z));
+ const valid=(x:number,z:number)=>x>=1&&z>=1&&x<GRID_SIZE-1&&z<GRID_SIZE-1&&!denied.has(gridIndex(x,z))&&!extra?.has(gridIndex(x,z));
  if(a.x<0||a.z<0||a.x>=GRID_SIZE||a.z>=GRID_SIZE||Math.abs(goal.x)>=MAP_HALF-2||Math.abs(goal.z)>=MAP_HALF-2)return[];
  const pointFits=(p:Point)=>[-radius,radius].every(dx=>[-radius,radius].every(dz=>{const c=worldCell({x:p.x+dx,z:p.z+dz});return valid(c.x,c.z);}));
  let tx=b.x,tz=b.z;if(!valid(tx,tz)){let best=Infinity;for(let dz=-4;dz<=4;dz++)for(let dx=-4;dx<=4;dx++){const x=b.x+dx,z=b.z+dz;if(!valid(x,z))continue;const distance=Math.hypot(cellCentre(x)-goal.x,cellCentre(z)-goal.z)+Math.hypot(cellCentre(x)-start.x,cellCentre(z)-start.z)*.01;if(distance<best){best=distance;tx=x;tz=z;}}if(best===Infinity)return[];}

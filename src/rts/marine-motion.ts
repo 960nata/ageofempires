@@ -1,5 +1,6 @@
 export type CrewAction='idle'|'row'|'fish'|'hunt'|'attack';
 export const FISHING_SECONDS=3.6;
+export const rowingRate=(speed:number)=>.48+Math.min(Math.max(speed,0),5)*.09;
 export const unitCycle=(value:number)=>((value%1)+1)%1;
 export const ease=(value:number)=>{const t=Math.max(0,Math.min(1,value));return t*t*(3-2*t);};
 export const headingVector=(direction:number)=>({x:Math.cos(direction*Math.PI/4),y:Math.sin(direction*Math.PI/4)});
@@ -20,17 +21,23 @@ export function boatPose(action:CrewAction,rowCycle:number,workSeconds:number){
  }
  if(action==='fish'||action==='hunt'){
   const p=unitCycle(workSeconds/FISHING_SECONDS);
-  if(p<.18)return 3;
-  if(p<.4)return 3+ease((p-.18)/.22);
-  if(p<.66)return 4;
-  if(p<.88)return 4+ease((p-.66)/.22);
-  return 5-2*ease((p-.88)/.12);
+  if(p<.12)return 3;
+  if(p<.32)return 3+ease((p-.12)/.2);
+  if(p<.52)return 4;
+  if(p<.72)return 4+ease((p-.52)/.2);
+  if(p<.86)return 5-ease((p-.72)/.14);
+  return 4-ease((p-.86)/.14);
  }
  return 0;
 }
-export function boatFloat(time:number,id:number,scale:number){
- // A slow swell, not an independent bounce for each crew member.
- return scale*(Math.sin(time*1.12+id*.71)*.025+Math.sin(time*.53+id*.37)*.013);
+export function boatFloat(time:number,id:number,scale:number,speed=0){
+ // Hull follows two overlapping swells; underway boats ride a slightly broader wave.
+ const motion=Math.min(1,Math.max(0,speed/4));
+ return scale*(Math.sin(time*1.12+id*.71)*(.032+motion*.014)+Math.sin(time*.53+id*.37)*(.018+motion*.008));
+}
+export function boatRock(time:number,id:number,speed=0){
+ const motion=Math.min(1,Math.max(0,speed/4));
+ return Math.sin(time*.83+id*.71)*(.014+motion*.008)+Math.sin(time*1.71+id*.23)*(.004+motion*.003);
 }
 
 export function marineEvent(kind:string,time:number,id:number){

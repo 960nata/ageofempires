@@ -1,4 +1,4 @@
-import {MAP_HALF,isWater,isShore,isMarsh,isCliff,hasSea,mapSpec,worldCell,gridIndex} from './map';
+import {MAP_HALF,isWater,isShore,isMarsh,isCliff,hasSea,mapSpec,worldCell,gridIndex,isRiver,riverRocks} from './map';
 import type {Point,World,Entity} from './world';
 import {BUILDINGS} from './data';
 import {isField} from './field-layout';
@@ -53,9 +53,13 @@ export class NatureLayer {
   for(let z=-MAP_HALF+4;z<MAP_HALF-4;z+=2.5)for(let x=-MAP_HALF+4;x<MAP_HALF-4;x+=2.5){
    const h=hash(x,z);if(h>.22||!isShore(x,z)||isCliff(x,z)||shoreProps.some(q=>Math.hypot(q.x-x,q.z-z)<11))continue;shoreProps.push({x,z});
    const kind=hash(z,x);
+   // Pebbled river banks with their own shallow water painted in, on rivers and streams (not in snow).
+   if(biome!=='winter'&&kind<.55&&[[-3,0],[3,0],[0,-3],[0,3]].some(([dx,dz])=>isRiver(x+dx,z+dz))){this.props.push({x,z,sheet:'shore-river-props-v1',row:0,col:Math.floor(kind*5.4)%3,width:4.2+kind*2,flip:kind<.27});continue;}
    if(kind<.5)this.props.push({x,z,sheet:'biome-rock-shores-v1',row:bed[0],col:bed[1],width:4+kind*3,flip:kind<.25});
    else this.props.push({x,z,sheet:'shore-river-props-v1',row:2,col:biome==='arid'?1:kind<.8?0:2,width:2.3+kind*1.4,flip:kind>.9});
   }
+  // Boulders standing in the rapids; the same rocks block boats and troops.
+  for(const rock of riverRocks()){const h=hash(rock.x,rock.z);this.props.push({x:rock.x,z:rock.z,sheet:biome==='winter'?'biome-rock-shores-v1':'shore-river-props-v1',row:biome==='winter'?0:2,col:biome==='winter'?0:biome==='arid'?1:0,width:rock.r*(biome==='winter'?2.6:3.1),flip:h<.5});}
   for(let z=-MAP_HALF+6;z<MAP_HALF-6;z+=7)for(let x=-MAP_HALF+6;x<MAP_HALF-6;x+=7){
    const jx=x+(hash(x,z)-.5)*4,jz=z+(hash(z,x)-.5)*4,h=hash(jx,jz);
    if(isShore(jx,jz))continue;
@@ -70,7 +74,7 @@ export class NatureLayer {
  /** Biome trees with their own chopped, falling and felled paintings. Null keeps the shared woodland art. */
  biomeTree(id:number,x:number,z:number,stage:0|1|2|3,scale:number):SceneSprite|null{
   const {biome,type}=mapSpec(),h=hash(id*.37,x+z);
-  const row=biome==='winter'?0:biome==='arid'?1:biome==='autumn'?2:type==='wetlands'?3:-1;
+  const row=biome==='winter'?0:biome==='arid'?1:biome==='autumn'?2:type==='wetlands'||type==='delta'?3:-1;
   if(row<0||h>(row===3?.4:.65)||isShore(x,z))return null;
   const image=this.image('biome-trees-lifecycle-v1'),frames=this.atlases['biome-trees-lifecycle-v1']?.frames[row];if(!image?.complete||!image.naturalWidth||!frames)return null;
   // One pixel scale per species, from the standing tree, so the felled log keeps its length.
@@ -109,10 +113,23 @@ export class NatureLayer {
   if(mapSpec().biome==='winter'&&this.low)return;
   let drawn=0;const limit=this.low?6:18;
   for(const farm of world.entities){
-   if(farm.type!=='building'||!isField(farm.def)||farm.hp<=0||farm.progress<1||drawn>=limit)continue;
-   const count=1+farm.id%2;
+   if(farm.type!=='building'||(!isField(farm.def)&&farm.def!=='ranch')||farm.hp<=0||farm.progress<1||drawn>=limit)continue;
+   const ranch=farm.def==='ranch',count=ranch?4:1+farm.id%2;
+   if(ranch&&world.canSee(0,farm)){
+    // Open entrance on the near edge; the paddock follows the terrain projection.
+    const radius=BUILDINGS.ranch.radius*.92;
+    c.save();c.lineWidth=Math.max(1,scale*.09);c.strokeStyle='#65523c';
+    for(let side=0;side<4;side++)for(let j=0;j<6;j++){
+     if(side===1&&(j===2||j===3))continue;
+     const point=(t:number)=>side===0?{x:farm.x-radius+t*radius*2,z:farm.z-radius}:side===1?{x:farm.x+radius,z:farm.z-radius+t*radius*2}:side===2?{x:farm.x+radius-t*radius*2,z:farm.z+radius}:{x:farm.x-radius,z:farm.z+radius-t*radius*2};
+     const a=project(point(j/6)),b=project(point((j+1)/6));
+     c.beginPath();c.moveTo(a.x,a.y);c.lineTo(a.x,a.y-scale*.7);c.stroke();
+     for(const height of [.28,.58]){c.beginPath();c.moveTo(a.x,a.y-scale*height);c.lineTo(b.x,b.y-scale*height);c.stroke();}
+    }
+    c.restore();
+   }
    for(let k=0;k<count&&drawn<limit;k++){
-    const herd=HERDS[(farm.id+k*3)%HERDS.length],seed=farm.id*7.31+k*3.7,radius=BUILDINGS[farm.def].radius+1.6;
+    const herd=HERDS[ranch?k%3:(farm.id+k*3)%HERDS.length],seed=farm.id*7.31+k*3.7,radius=ranch?BUILDINGS.ranch.radius*.74:BUILDINGS[farm.def].radius+1.6;
     // Each animal alternates a slow walk along the field edge with a pause to graze.
     const cycle=14+(seed%5),local=unitCycle(time/cycle+seed*.13),walking=herd.walk&&local<.45;
     const travel=herd.walk?(Math.floor(time/cycle+seed*.13)*.45+Math.min(local,.45))*1.1:0;

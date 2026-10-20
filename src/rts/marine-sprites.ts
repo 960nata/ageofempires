@@ -3,7 +3,7 @@ import type {Faction} from './data';
 import {navalEra} from './naval-data';
 import atlasData from './naval-atlases.json';
 import {poses,poseRect} from './pose-sampling';
-import {FISHING_SECONDS,unitCycle,headingVector,type CrewAction} from './marine-motion';
+import {FISHING_SECONDS,unitCycle,headingVector,ease,type CrewAction} from './marine-motion';
 
 type Atlas={file:string;fallback:string;cell:number[];columns:number;frames:number;anchor?:number;poses?:number;fps?:number};
 const atlases=atlasData as Record<string,Atlas>;
@@ -53,7 +53,10 @@ export class MarineSprites {
   const phase=working?unitCycle(workPhase/FISHING_SECONDS)*(m.poses??24):action==='row'?unitCycle(rowCycle)*(m.poses??12):0;
   const index=((Math.floor(phase)%(m.poses??12))+(m.poses??12))%(m.poses??12);
   const d=((Math.round(direction)+6)%8+8)%8;
-  return this.blend(key,index*8+d,((index+1)%(m.poses??12))*8+d,phase-Math.floor(phase),width);
+  // Keep each silhouette legible; the transparent net overlaps itself if two
+  // widely separated poses are exposed for an entire frame interval.
+  const blendStart=working?.75:.55,mix=ease((phase-Math.floor(phase)-blendStart)/(1-blendStart));
+  return this.blend(key,index*8+d,((index+1)%(m.poses??12))*8+d,mix,width);
  }
  drawCrew(c:CanvasRenderingContext2D,p:{x:number;y:number},hull:SceneSprite,def:string,direction:number,time:number,action:CrewAction,workPhase=0,passengers:SceneSprite[]=[],combatant?:SceneSprite|null,factionAccent?:string){
   // The whaler atlas includes complete, matching crew poses for each action.

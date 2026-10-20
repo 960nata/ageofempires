@@ -1,7 +1,9 @@
 export type Resource = 'food' | 'wood' | 'gold' | 'stone';
 export type Stock = Record<Resource, number>;
 export type Cost = Partial<Stock>;
-export type Side = 0 | 1 | 2 | 3;
+// Side 2 is the neutral world (resources, wildlife, neutral markets); kingdoms are 0, 1 and 3–6 (up to six realms).
+export type Side = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export const MAX_REALMS = 6;
 export type Faction = 'english' | 'french' | 'castilian' | 'ayyubid' | 'steppe' | 'roman' | 'persian' | 'chinese' | 'japanese' | 'khmer';
 export const ERAS = ['Dark Age', 'Feudal Age', 'Castle Age', 'Imperial Age'];
 export const FACTIONS: Record<Faction, {name:string; accent:string; description:string; landmark:string}> = {
@@ -90,6 +92,7 @@ export const BUILDINGS:Record<string,BuildingDef> = {
  lumber:{id:'lumber',name:'Lumber Camp',era:0,cost:{wood:70},seconds:25,hp:280,radius:1.8,model:'lumber',deposit:['wood']},
  mine:{id:'mine',name:'Mining Camp',era:0,cost:{wood:70},seconds:25,hp:280,radius:1.8,model:'mine',deposit:['gold','stone']},
  orchard:{id:'orchard',name:'Fruit Orchard',era:0,cost:{wood:90},seconds:35,hp:220,radius:2.9,model:'farm'},
+ ranch:{id:'ranch',name:'Livestock Farm',era:0,cost:{wood:130,food:40},seconds:45,hp:450,radius:4.2,model:'stable'},
  farm:{id:'farm',name:'Farm',era:0,cost:{wood:55},seconds:20,hp:180,radius:2.6,model:'farm'},
  barracks:{id:'barracks',name:'Barracks',era:0,cost:{wood:140},seconds:50,hp:700,radius:3,model:'barracks'},
  range:{id:'range',name:'Archery Ground',era:1,cost:{wood:150},seconds:50,hp:600,radius:3,model:'range'},
@@ -107,7 +110,7 @@ export const BUILDINGS:Record<string,BuildingDef> = {
  keep:{id:'keep',name:'Castle Keep',era:2,cost:{stone:420,wood:180},seconds:150,hp:2400,radius:4,model:'keep',attack:28,range:17,garrison:15},
  siege:{id:'siege',name:'Siege Workshop',era:2,cost:{wood:200,gold:70},seconds:65,hp:800,radius:3,model:'siege'},
  healing:{id:'healing',name:'Temple & Infirmary',era:2,cost:{wood:140,gold:60},seconds:55,hp:500,radius:2.6,model:'healing'},
- academy:{id:'academy',name:'University',era:2,cost:{wood:200,gold:150},seconds:65,hp:850,radius:3,model:'academy'},
+ academy:{id:'academy',name:'University',era:1,cost:{wood:200,gold:150},seconds:65,hp:850,radius:3,model:'academy'},
  landmark:{id:'landmark',name:'Civic Landmark',era:2,cost:{wood:250,stone:250,gold:150},seconds:150,hp:2200,radius:4,model:'landmark',capacity:10},
  specialist:{id:'specialist',name:'Trade Landmark',era:3,cost:{wood:200,stone:300,gold:200},seconds:160,hp:1800,radius:3.5,model:'specialist'},
 };
@@ -117,6 +120,9 @@ export const costText=(cost:Cost)=>Object.entries(cost).map(([k,v])=>`${v} ${k}`
 export const emptyStock=():Stock=>({food:0,wood:0,gold:0,stone:0});
 
 export const TECHNOLOGIES:Record<string,{name:string;building:string;era:number;cost:Cost;seconds:number;description:string;factions?:Faction[];requires?:string}>= {
+ 'stone-walls':{name:'Stone Walls · level 1',building:'academy',era:1,cost:{wood:120,stone:200},seconds:60,description:'Villagers rebuild existing palisades and gates in stone. New wall sections use this design.'},
+ 'fortified-walls':{name:'Fortified Walls · level 2',building:'academy',era:2,cost:{stone:300,gold:150},seconds:90,requires:'stone-walls',description:'Villagers renovate walls and gates with battlements. Wall health +35% over level 1.'},
+ 'imperial-walls':{name:'Imperial Walls · level 3',building:'academy',era:3,cost:{stone:450,gold:250},seconds:120,requires:'fortified-walls',description:'Villagers complete the final wall and gate design. Wall health +75% over level 1.'},
  shipwright:{name:'Shipwrights',building:'harbor',era:1,cost:{wood:150,gold:80},seconds:55,description:'Ship hull health +12%. Damage ratios are preserved.'},
  navalholds:{name:'Deep Holds',building:'harbor',era:2,cost:{wood:180,gold:100},seconds:65,description:'Fishing and hunting ships carry 25% more food.',requires:'shipwright'},
  navalordnance:{name:'Naval Ordnance',building:'harbor',era:3,cost:{wood:200,gold:180},seconds:75,description:'Warship attack +10%. Each civilization retains its own weapon style.',requires:'shipwright'},
