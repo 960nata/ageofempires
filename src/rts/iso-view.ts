@@ -8,7 +8,7 @@ import {EraUnitArt} from './era-unit-art';
 import {SceneArt} from './scene-art';
 import {MarineSprites,boatWidth,type CrewAction} from './marine-sprites';
 import {drawMarineLife,drawBoatWake,drawFishingNet} from './marine-life';
-import {rowingRate,boatPose,boatFloat,boatRock,crewAction,unitCycle,FISHING_SECONDS} from './marine-motion';
+import {rowingRate,boatPose,boatFloat,boatRock,crewAction,unitCycle,FISHING_SECONDS,hullRipple} from './marine-motion';
 import {WaterEffects} from './water-effects';
 import {isNaval} from './naval-data';
 import {ConstructionFrames,CONSTRUCTION_FRAME_COUNT} from './construction-frames';
@@ -63,7 +63,8 @@ export class Battlefield {
  pick(clientX:number,clientY:number){const b=this.canvas.getBoundingClientRect(),x=clientX-b.left,y=clientY-b.top;const hit=(h:Hit)=>{if(x<h.x||x>h.x+h.width||y<h.y||y>h.y+h.height)return false;if(h.constructionFrame){const frame=h.constructionFrame,px=Math.min(frame.width-1,Math.max(0,Math.floor((x-h.x)/h.width*frame.width))),py=Math.min(frame.height-1,Math.max(0,Math.floor((y-h.y)/h.height*frame.height)));return frame.getContext('2d')!.getImageData(px,py,1,1).data[3]>50;}const s=h.sprite,data=this.alphaData.get(s.image);if(h.entity.def==='road')return true;const u=(x-h.x)/h.width,v=(y-h.y)/h.height,sx=Math.min(s.image.width-1,Math.floor(s.sx+(s.flip?1-u:u)*s.sw)),sy=Math.min(s.image.height-1,Math.floor(s.sy+v*s.sh));return poses.opaque(s.image,sx,sy)??(data?data.data[sy*data.width+sx]>70:this.factionAnimations.opaque(s.image,sx,sy)??this.scene.opaque(s.image,sx,sy)??this.walking.opaque(s.image,sx,sy)??this.villagers.opaque(s.image,sx,sy)??this.combat.opaque(s.image,sx,sy)??true);};for(const h of [...this.hits].reverse())if(h.entity.type==='unit'&&hit(h))return h.entity;for(const h of [...this.hits].reverse())if(hit(h))return h.entity;const ground=this.groundPoint(clientX,clientY);return this.world.entities.find(e=>isField(e.def)&&e.hp>0&&e.progress>=1&&this.world.explored[0].has(gridIndex(worldCell(e).x,worldCell(e).z))&&Math.abs(ground.x-e.x)<=BUILDINGS[e.def].radius&&Math.abs(ground.z-e.z)<=BUILDINGS[e.def].radius);}
  // Biome wash over the base ground: dry, autumn and snow variants of the same materials.
  private tintBiome(c:CanvasRenderingContext2D){const biome=mapSpec().biome,size=c.canvas.width;if(biome==='temperate')return;c.save();
-  if(biome==='arid'){c.globalCompositeOperation='multiply';c.fillStyle='#e8cf98';c.fillRect(0,0,size,size);c.globalCompositeOperation='source-over';c.fillStyle='#d9bb8030';c.fillRect(0,0,size,size);}
+  // Arid ground is already painted as sand (paintAridGround); multiplying it again turned it mustard.
+   if(biome==='arid'){c.globalCompositeOperation='source-over';c.fillStyle='#f0dcb40c';c.fillRect(0,0,size,size);}
   if(biome==='autumn'){c.globalCompositeOperation='multiply';c.fillStyle='#ecd2a2';c.fillRect(0,0,size,size);c.globalCompositeOperation='source-over';c.fillStyle='#a8632a1c';c.fillRect(0,0,size,size);}
   if(biome==='winter'){c.globalCompositeOperation='source-over';c.fillStyle='#eef3f5a8';c.fillRect(0,0,size,size);c.globalCompositeOperation='multiply';c.fillStyle='#e4ecf2';c.fillRect(0,0,size,size);}
   c.restore();}
@@ -75,14 +76,19 @@ export class Battlefield {
    for(let j=0;j<N;j++)for(let i=0;i<N;i++){const k=j*N+i;if(!d[k])continue;let v=d[k];if(i)v=Math.min(v,d[k-1]+1);if(j)v=Math.min(v,d[k-N]+1);if(i&&j)v=Math.min(v,d[k-N-1]+1.41);if(j&&i<N-1)v=Math.min(v,d[k-N+1]+1.41);d[k]=v;}
    for(let j=N-1;j>=0;j--)for(let i=N-1;i>=0;i--){const k=j*N+i;if(!d[k])continue;let v=d[k];if(i<N-1)v=Math.min(v,d[k+1]+1);if(j<N-1)v=Math.min(v,d[k+N]+1);if(i<N-1&&j<N-1)v=Math.min(v,d[k+N+1]+1.41);if(j<N-1&&i)v=Math.min(v,d[k+N-1]+1.41);d[k]=v;}return d;};
   const depth=chamfer(k=>!!water[k]),shore=chamfer(k=>!water[k]);
-  const pal=biome==='winter'?{sh:[176,208,218],dp:[66,104,134],abyss:[34,62,92],sand:[226,233,236]}:biome==='arid'?{sh:[86,176,170],dp:[22,84,112],abyss:[10,46,78],sand:[214,190,140]}:{sh:[92,172,168],dp:[18,59,97],abyss:[7,30,64],sand:[201,186,142]};
+  // Sampled from the painted shore/river props so open water matches their muted, green-grey water.
+  const pal=biome==='winter'?{sh:[150,180,186],dp:[60,94,112],abyss:[30,54,76],sand:[222,228,230]}:biome==='arid'?{sh:[112,146,128],dp:[42,92,100],abyss:[20,56,72],sand:[208,180,138]}:{sh:[100,134,120],dp:[36,78,90],abyss:[16,44,62],sand:[196,174,136]};
   const img=new ImageData(N,N),px=img.data;
   for(let k=0;k<N*N;k++){const o=k*4;
    if(water[k]){const t=Math.min(1,depth[k]*step/16),mid=Math.min(1,depth[k]*step/2.5),i=k%N,j=(k-i)/N,abyss=seaDepth(-MAP_HALF+(i+.5)*step,-MAP_HALF+(j+.5)*step);for(let ch=0;ch<3;ch++)px[o+ch]=pal.sand[ch]+(pal.sh[ch]-pal.sand[ch])*mid+(pal.dp[ch]-pal.sh[ch])*t+(pal.abyss[ch]-pal.dp[ch])*abyss;px[o+3]=255;}
    else if(ford[k]){px[o]=140;px[o+1]=176;px[o+2]=160;px[o+3]=210;}
    else if(shore[k]*step<1.8){const a=1-shore[k]*step/1.8;px[o]=pal.sand[0];px[o+1]=pal.sand[1];px[o+2]=pal.sand[2];px[o+3]=Math.round(a*190);}
-   else if(swamp[k]){const n=Math.sin(k*.37)*Math.sin(k*.0113);px[o]=biome==='winter'?150:58+n*8;px[o+1]=biome==='winter'?170:84+n*8;px[o+2]=biome==='winter'?176:72;px[o+3]=biome==='winter'?150:185;}
-   else if(marsh[k]){const n=Math.sin(k*.37)*Math.sin(k*.0113);px[o]=78+n*10;px[o+1]=88+n*12;px[o+2]=58;px[o+3]=biome==='winter'?70:125;}}
+   else if(swamp[k]||marsh[k]){
+    // Olive mud with murky standing water in the hollows, from the mangrove props' palette.
+    // Smooth world-space noise: the old per-index sine left horizontal stripes.
+    const i=k%N,j=(k-i)/N,x=i*step,z=j*step,wet=Math.sin(x*.21+Math.sin(z*.13)*2.1)*Math.sin(z*.19+Math.sin(x*.11)*1.7)*.5+.5,pool=swamp[k]?Math.max(0,Math.min(1,(wet-.42)*3.2)):Math.max(0,Math.min(1,(wet-.7)*3)),grain=Math.sin(x*1.7+z*.9)*Math.sin(z*1.3-x*.6)*6;
+    const mud=biome==='winter'?[150,160,158]:[92,86,52],pond=biome==='winter'?[176,192,196]:[96,112,104];
+    for(let ch=0;ch<3;ch++)px[o+ch]=mud[ch]+(pond[ch]-mud[ch])*pool+grain;px[o+3]=Math.round((swamp[k]?150+pool*90:85+pool*80)*(biome==='winter'?.7:1));}}
   const layer=document.createElement('canvas');layer.width=layer.height=N;layer.getContext('2d')!.putImageData(img,0,0);c.save();c.imageSmoothingEnabled=true;c.drawImage(layer,0,0,c.canvas.width,c.canvas.height);c.restore();}
  // One object failing to draw must not hide everything drawn after it (the loop runs back to front).
  // Unwind any save() left open by the failed object, restore the base transform, and log each distinct error once.
@@ -94,7 +100,7 @@ export class Battlefield {
  const roadTexture=terrainPattern(c,this.groundImage,2,96);
  // Layer translucent local soil over the existing terrain: no opaque circular island.
  for(const tree of this.world.entities){if(tree.resource!=='wood')continue;const x=px(tree.x),y=px(tree.z),pine=tree.z<-45,coastal=mapSpec().type==='archipelago'&&isShore(tree.x,tree.z)||tree.x>coastX(tree.z)-19;
-  for(let patch=0;patch<4;patch++){const angle=tree.id*2.399+patch*1.9,offset=patch?6+patch*2:0,cx=x+Math.cos(angle)*offset,cy=y+Math.sin(angle)*offset,radius=(patch?15:24)+(tree.id%5)*2;const g=c.createRadialGradient(cx,cy,0,cx,cy,radius);g.addColorStop(0,coastal?'#78644424':pine?'#554c352d':'#4653372c');g.addColorStop(.45,pine?'#64503918':'#55603b18');g.addColorStop(1,'#55603b00');c.fillStyle=g;c.fillRect(cx-radius,cy-radius,radius*2,radius*2);}
+  for(let patch=0;patch<4;patch++){const angle=tree.id*2.399+patch*1.9,offset=patch?6+patch*2:0,cx=x+Math.cos(angle)*offset,cy=y+Math.sin(angle)*offset,radius=(patch?15:24)+(tree.id%5)*2;const g=c.createRadialGradient(cx,cy,0,cx,cy,radius);const arid=mapSpec().biome==='arid';g.addColorStop(0,arid?'#d2b4842e':coastal?'#78644424':pine?'#554c352d':'#4653372c');g.addColorStop(.45,arid?'#c8a87420':pine?'#64503918':'#55603b18');g.addColorStop(1,arid?'#c8a87400':'#55603b00');c.fillStyle=g;c.fillRect(cx-radius,cy-radius,radius*2,radius*2);}
   const contact=c.createRadialGradient(x,y,0,x,y,7);contact.addColorStop(0,'#302e2460');contact.addColorStop(1,'#302e2400');c.fillStyle=contact;c.fillRect(x-7,y-7,14,14);
   for(let k=0;k<20;k++){const a=k*2.399+tree.id,rr=3+Math.sqrt((k*13%23)/23)*22,cx=x+Math.cos(a)*rr,cy=y+Math.sin(a)*rr;c.strokeStyle=pine?'#84704c50':k%3?'#8c79524a':'#56633d48';c.lineWidth=pine?.55:.9;c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+Math.cos(a)*1.8,cy+Math.sin(a)*1.8);c.stroke();}
  }
@@ -105,7 +111,9 @@ export class Battlefield {
  for(const side of this.world.realms){const buildings=this.world.alive(side,'building'),town=buildings.find(b=>b.def==='town');if(!town)continue;const junctions=[{x:town.x-9,z:town.z-8},{x:town.x+7,z:town.z+7},{x:town.x+15,z:town.z-5}];for(let i=1;i<junctions.length;i++)drawRoad(junctions[i-1],junctions[i],8);for(const b of buildings){if(b.def==='farm'||b.def==='harbor')continue;const entrance={x:b.x+BUILDINGS[b.def].radius+1.5,z:b.z+2};const near=[...junctions].sort((a,b)=>Math.hypot(a.x-entrance.x,a.z-entrance.z)-Math.hypot(b.x-entrance.x,b.z-entrance.z))[0];drawRoad(near,entrance,4);const g=c.createRadialGradient(px(b.x),px(b.z),0,px(b.x),px(b.z),(BUILDINGS[b.def].radius+2)*8);g.addColorStop(0,'#95846428');g.addColorStop(1,'#95846400');c.fillStyle=g;c.fillRect(px(b.x)-55,px(b.z)-55,110,110);}}
  // Water for every map type comes from the same mask navigation uses.
  c.setTransform(1,0,0,1,0,0);this.paintWater(c);c.setTransform(unit,0,0,unit,0,0);
- if(hasSea())for(let i=0;i<4200;i++){let x:number,z:number;if(mapSpec().type==='archipelago'){x=r()*MAP_SIZE-MAP_HALF;z=r()*MAP_SIZE-MAP_HALF;if(!isWater(x,z))continue;}else{z=r()*MAP_SIZE-MAP_HALF;x=coastX(z)+1+r()*38;if(x>MAP_HALF)continue;}c.strokeStyle=i%3?'#b4e4d336':'#16596e45';c.lineWidth=.6;c.beginPath();c.moveTo(px(x),px(z));c.lineTo(px(x)+3+r()*9,px(z)+1);c.stroke();}
+ if(hasSea())for(let i=0;i<4200;i++){let x:number,z:number;if(mapSpec().type==='archipelago'){x=r()*MAP_SIZE-MAP_HALF;z=r()*MAP_SIZE-MAP_HALF;if(!isWater(x,z))continue;}else{z=r()*MAP_SIZE-MAP_HALF;x=coastX(z)+1+r()*38;if(x>MAP_HALF)continue;}if(i%5)continue;
+  // Broad soft swells of darker and lighter water read as depth; the old short scratches read as a flat texture.
+  const radius=(6+r()*16)*8,g=c.createRadialGradient(px(x),px(z),0,px(x),px(z),radius);g.addColorStop(0,i%2?'#0d2a3a1c':'#b6cdbf12');g.addColorStop(1,i%2?'#0d2a3a00':'#b6cdbf00');c.fillStyle=g;c.fillRect(px(x)-radius,px(z)-radius,radius*2,radius*2);}
  if(mapSpec().type==='archipelago'){const shores=this.waterEffects.shoreSites();for(let i=0;i<Math.min(260,shores.length);i++){const q=shores[(i*37)%shores.length];if(this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-q.land.x,e.z-q.land.z)<BUILDINGS[e.def].radius+2))continue;const x=px(q.land.x),y=px(q.land.z),radius=5+(i%5)*2,g=c.createRadialGradient(x,y,0,x,y,radius);g.addColorStop(0,i%3?'#74654b36':'#6b60433b');g.addColorStop(1,'#6b604300');c.fillStyle=g;c.fillRect(x-radius,y-radius,radius*2,radius*2);}}
  else if(hasSea())for(let i=0;i<Math.round(150*MAP_SCALE);i++){const z=-118*MAP_SCALE+i*1.58,x=coastX(z)-3.2-Math.sin(i*1.7)*1.2;if(this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+3))continue;const radius=12+(i%4)*5,g=c.createRadialGradient(px(x),px(z),0,px(x),px(z),radius);g.addColorStop(0,i%3?'#4c513688':'#493c2d99');g.addColorStop(1,'#64734700');c.fillStyle=g;c.fillRect(px(x)-radius,px(z)-radius,radius*2,radius*2);}
  c.setTransform(1,0,0,1,0,0);this.surface.rebuild(this.terrain,this.groundImage);
@@ -117,7 +125,13 @@ export class Battlefield {
  for(const tree of trees){if(tree.id%3!==0)continue;for(let n=0;n<2;n++){const angle=tree.id*2.399+n*2.7,spread=1.25+(tree.id%4)*.28,x=tree.x+Math.cos(angle)*spread,z=tree.z+Math.sin(angle)*spread;if(isWater(x,z)||isCliff(x,z)||this.world.entities.some(e=>e.type==='building'&&e.hp>0&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+1))continue;this.wilds.push({x,z,index:(tree.id+n)%4,width:.42+(tree.id%4)*.07});}}
  if(hasRavine())for(let i=0;i<Math.round(21*MAP_SCALE);i++){const z=-89*MAP_SCALE+i*4.9+Math.sin(i*2.7)*1.25;for(const side of [-1,1]){if((i+(side>0?1:0))%4===0)continue;this.rocks.push({x:ravineX(z)+side*(5.5+Math.sin(i*1.7)*.9),z,index:8+(i+(side>0?1:0))%3,width:3.1+(i*7%5)*.38});}}
  if(mapSpec().type==='archipelago'){const shores=this.waterEffects.shoreSites();for(let i=0;i<Math.min(190,shores.length);i++){const q=shores[(i*29)%shores.length];if(this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-q.land.x,e.z-q.land.z)<BUILDINGS[e.def].radius+2))continue;this.rocks.push({x:q.land.x,z:q.land.z,index:i%4,width:1.2+(i%4)*.34});}}
- else if(hasSea())for(let i=0;i<Math.round(46*MAP_SCALE);i++){const z=-120*MAP_SCALE+i*5.2,x=coastX(z)+.25+(i%3)*.25;this.rocks.push({x,z,index:i%4,width:2.2+(i%4)*.5});}
+ else if(hasSea()){
+   // Uneven groups with open beach between them; one rock every 5.2 units lined the coast like a fence.
+   const h=(n:number)=>{const v=Math.sin(n*127.1)*43758.5453;return v-Math.floor(v);};
+   for(let z=-120*MAP_SCALE,i=0;z<120*MAP_SCALE;i++){const a=h(i+.3),b=h(i*1.7+5.1),d=h(i*2.3+9.7);z+=a<.3?14+b*22:2.2+b*6;if(d<.25)continue;
+    const x=coastX(z)+.15+b*.9;this.rocks.push({x,z,index:Math.floor(d*4),width:1.5+d*d*2.4});
+    if(a>.6)this.rocks.push({x:x+.6+b*.6,z:z+(a-.8)*3,index:(Math.floor(d*4)+1)%4,width:.8+b*.7});}
+  }
 
  }
  private measureIsolated(image:HTMLImageElement){const data=isolatedAtlas(image.src);if(!data)return false;this.readAlpha(image);for(let row=0;row<data.rows;row++)for(let col=0;col<data.cols;col++)this.frameBounds.set(image.src+':'+row+':'+col,data.frames[row*data.cols+col]);return true;}
@@ -259,13 +273,13 @@ export class Battlefield {
    const s=this.sprite(e);if(!s.image.complete||!s.image.naturalWidth)continue;if(p.x+s.width<0||p.x-s.width>this.width||p.y+s.height<0||p.y-s.height>this.height)continue;
    if(e.hp<=0){if(e.type==='unit'){c.save();c.globalAlpha=Math.min(1,Math.max(0,5-(this.visualTime-(e.destroyedAt??e.lastHit))));this.surface.clipObject(c,this.focus,this.width,this.height,this.scale,{x:p.x-s.width*(s.anchorX??.5),y:p.y-s.height*s.anchor,width:s.width,height:s.height},e.x+e.z-elevationFast(e.x,e.z)*2,p.y,elevationFast(e.x,e.z));c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,p.x-s.width*(s.anchorX??.5),p.y-s.height*s.anchor,s.width,s.height);c.restore();}else this.drawCollapse(e,p,s);continue;}
    if(e.type==='building'&&!isField(e.def))this.drawFooting(e,p,s);
-   if(e.type==='unit'&&UNITS[e.def].naval){const m=this.motion.get(e.id);drawBoatWake(c,p,s,m?.direction??this.facing(e.angle),m?.speed??0,m?.phase??0,this.scale);p.y+=boatFloat(this.visualTime,e.id,this.scale,m?.speed??0);}
+   if(e.type==='unit'&&UNITS[e.def].naval){const m=this.motion.get(e.id);drawBoatWake(c,p,s,m?.direction??this.facing(e.angle),m?.speed??0,m?.phase??0,this.scale);hullRipple(c,p,s.width,this.visualTime,e.id,this.scale,m?.speed??0,e.x,e.z);p.y+=boatFloat(this.visualTime,e.id,this.scale,m?.speed??0,e.x,e.z);}
    const x=p.x-s.width*(s.anchorX??.5),y=p.y-s.height*s.anchor;if(this.selected.has(e.id)){c.beginPath();c.ellipse(p.x,p.y,Math.max(7,this.world.footprint(e)*this.scale*1.1),Math.max(3,this.world.footprint(e)*this.scale*.5),0,0,Math.PI*2);c.strokeStyle='#f9e2a1';c.lineWidth=1.8;c.stroke();}
    c.save();
    const fallingWood=e.type==='resource'&&e.resource==='wood'&&e.felledAt!==undefined&&e.amount>0?Math.max(0,Math.min(1,(this.visualTime-e.felledAt)/TREE_FALL_SECONDS)):-1;
    const clipBox=fallingWood>=0?{x:p.x-4.6*this.scale,y:p.y-7*this.scale,width:9.2*this.scale,height:8*this.scale}:{x,y,width:s.width,height:s.height};
    this.surface.clipObject(c,this.focus,this.width,this.height,this.scale,clipBox,e.x+e.z-elevationFast(e.x,e.z)*2+(e.type==='building'?BUILDINGS[e.def].radius: this.world.footprint(e)),p.y,elevationFast(e.x,e.z));
-   if(e.type==='unit'&&UNITS[e.def].naval){c.translate(p.x,p.y);c.rotate(boatRock(this.visualTime,e.id,this.motion.get(e.id)?.speed??0));c.translate(-p.x,-p.y);}
+   if(e.type==='unit'&&UNITS[e.def].naval){c.translate(p.x,p.y);c.rotate(boatRock(this.visualTime,e.id,this.motion.get(e.id)?.speed??0,e.x,e.z));c.translate(-p.x,-p.y);}
    if(e.inside)c.globalAlpha=Math.max(0,Math.min(1,1-(this.visualTime-(e.enteredAt??0))/.65));
    
    if(e.type==='resource'&&e.resource==='wood'&&e.felledAt===undefined&&(e.chopProgress??0)>0){const lean=Math.min(.12,(e.chopProgress??0)/7.5*.12),sway=Math.sin(this.visualTime*17+e.id)*.022;c.translate(p.x,p.y);c.rotate(-lean+sway);c.translate(-p.x,-p.y);}// Wall sections are frontal sprites: shear them onto the isometric run (x-axis runs fall right, z-axis runs fall left).
@@ -275,7 +289,7 @@ export class Battlefield {
    else if(e.def==='town'&&e.type==='building'&&e.progress<1&&this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,0)){const phase=Math.min(3.999,e.progress*4),index=Math.floor(phase),blend=phase-index;const stage=this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,index)!,next=this.scene.townStage(this.world.players[e.owner].faction,e.visualEra??0,s.width,e.facing??0,index+1)!;c.drawImage(stage.image,stage.sx,stage.sy,stage.sw,stage.sh,p.x-stage.width*(stage.anchorX??.5),p.y-stage.height*stage.anchor,stage.width,stage.height);if(blend>.01){c.globalAlpha*=blend;c.drawImage(next.image,next.sx,next.sy,next.sw,next.sh,p.x-next.width*(next.anchorX??.5),p.y-next.height*next.anchor,next.width,next.height);}}
    else if(e.type==='building'&&!isField(e.def)&&e.progress<1){const age=e.visualEra??this.world.players[e.owner]?.era??0,phase=Math.max(0,Math.min(CONSTRUCTION_FRAME_COUNT-.0001,e.progress*CONSTRUCTION_FRAME_COUNT)),index=Math.floor(phase),blend=phase-index,frame=this.construction.frame(s,age,index,false,e.def,e.facing??0);constructionFrame=frame;c.drawImage(frame,x,y,s.width,s.height);if(blend>.001&&index<CONSTRUCTION_FRAME_COUNT-1){c.globalAlpha*=blend;c.drawImage(this.construction.frame(s,age,index+1,false,e.def,e.facing??0),x,y,s.width,s.height);}}else if(e.type==='building'&&e.hp<e.maxHp*.75){const damage=this.damagedSprite(s,e.hp/e.maxHp);c.drawImage(damage,x,y,s.width,s.height);}else if(e.type==='resource'&&(e.def==='fish'||e.def==='tuna'||e.def==='whale'))drawMarineLife(c,e,p,this.scale,this.visualTime,s);else c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,x,y,s.width,s.height);if(e.type==='resource'&&e.resource==='wood'&&e.felledAt===undefined&&(e.chopProgress??0)>0)this.drawChopMark(e,p,s);c.restore();
    if(!e.inside)this.hits.push({entity:e,x:s.flip?2*p.x-x-s.width:x,y,width:s.width,height:s.height,sprite:s,constructionFrame});
-   if(e.type==='unit'&&UNITS[e.def].naval){c.save();c.translate(p.x,p.y);c.rotate(boatRock(this.visualTime,e.id,this.motion.get(e.id)?.speed??0));c.translate(-p.x,-p.y);this.drawActivity(e,p,s);c.restore();}else this.drawActivity(e,p,s);
+   if(e.type==='unit'&&UNITS[e.def].naval){c.save();c.translate(p.x,p.y);c.rotate(boatRock(this.visualTime,e.id,this.motion.get(e.id)?.speed??0,e.x,e.z));c.translate(-p.x,-p.y);this.drawActivity(e,p,s);c.restore();}else this.drawActivity(e,p,s);
    if(e.type==='unit'&&e.def==='transport-ship')this.drawLandingRamp(e,p);if(e.type==='building')this.drawProduction(e,p,s);
    if(this.selected.has(e.id)||e.hp<e.maxHp){const width=e.type==='building'?46:24;c.fillStyle='#161811';c.fillRect(p.x-width/2,y-7,width,4);c.fillStyle=e.owner===0?'#7dd269':e.owner===2?'#ddd3ad':this.world.stance(0,e.owner)==='ally'?'#6fb6e8':this.world.stance(0,e.owner)==='neutral'?'#e0c060':'#d97459';c.fillRect(p.x-width/2+1,y-6,(width-2)*e.hp/e.maxHp,2);}
    if(e.type==='building'&&e.progress<1){c.fillStyle='#d9bb76';c.fillRect(x+s.width*.2,p.y+6,s.width*.6*e.progress,3);}if(e.type==='unit'&&Object.values(e.cargo).some(v=>v>0)){c.fillStyle='#ceaa62';c.fillRect(p.x+5,p.y-s.height*.45,4,4);}

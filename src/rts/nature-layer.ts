@@ -51,7 +51,8 @@ export class NatureLayer {
   // Biome shoreline rock beds, boulders and driftwood along every coast, lake and river bank, evenly spaced.
   const shoreProps:Point[]=[];
   for(let z=-MAP_HALF+4;z<MAP_HALF-4;z+=2.5)for(let x=-MAP_HALF+4;x<MAP_HALF-4;x+=2.5){
-   const h=hash(x,z);if(h>.22||!isShore(x,z)||isCliff(x,z)||shoreProps.some(q=>Math.hypot(q.x-x,q.z-z)<11))continue;shoreProps.push({x,z});
+   // Irregular gaps: a fixed spacing lined the coast with rocks at even intervals.
+   const h=hash(x,z),gap=9+hash(x*.3,z*.7)*22;if(h>.16||!isShore(x,z)||isCliff(x,z)||shoreProps.some(q=>Math.hypot(q.x-x,q.z-z)<gap))continue;shoreProps.push({x,z});
    const kind=hash(z,x);
    // Pebbled river banks with their own shallow water painted in, on rivers and streams (not in snow).
    if(biome!=='winter'&&kind<.55&&[[-3,0],[3,0],[0,-3],[0,3]].some(([dx,dz])=>isRiver(x+dx,z+dz))){this.props.push({x,z,sheet:'shore-river-props-v1',row:0,col:Math.floor(kind*5.4)%3,width:4.2+kind*2,flip:kind<.27});continue;}
@@ -63,10 +64,15 @@ export class NatureLayer {
   for(let z=-MAP_HALF+6;z<MAP_HALF-6;z+=7)for(let x=-MAP_HALF+6;x<MAP_HALF-6;x+=7){
    const jx=x+(hash(x,z)-.5)*4,jz=z+(hash(z,x)-.5)*4,h=hash(jx,jz);
    if(isShore(jx,jz))continue;
-   if(isMarsh(jx,jz)){if(h<.5)this.props.push({x:jx,z:jz,sheet:'shore-river-props-v1',row:1,col:Math.floor(h*8)%4,width:3.4+h*2,flip:h<.25});continue;}
+   if(isMarsh(jx,jz)){
+    // Thickets gather in clumps with open mud between them; an even scatter read as a stamped grid.
+    const clump=Math.sin(jx*.09+Math.sin(jz*.07)*1.8)*Math.sin(jz*.08+Math.sin(jx*.05)*1.6)*.5+.5;
+    if(clump>.52&&h<.35+clump*.5)this.props.push({x:jx,z:jz,sheet:'shore-river-props-v1',row:1,col:Math.floor(h*8)%4,width:3+clump*3.6+h*1.5,flip:h<.25});continue;}
    // Wild grasses and flowers on open ground, away from water and cliffs.
    if(biome==='winter'||h>.075||isWater(jx,jz)||isCliff(jx,jz)||isShore(jx,jz))continue;
-   const col=biome==='arid'?0:Math.floor(h/.025)%3;
+   // Desert: occasional sandstone outcrops instead of green garden grass on its own square of turf.
+   if(biome==='arid'){if(h<.022)this.props.push({x:jx,z:jz,sheet:'shore-river-props-v1',row:2,col:1,width:2.2+h*60,flip:h<.011});continue;}
+   const col=Math.floor(h/.025)%3;
    this.props.push({x:jx,z:jz,sheet:'tall-trees-gardens-v1',row:1,col,width:col===0?2.1:1.7,flip:h<.035});
   }
  }

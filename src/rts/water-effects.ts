@@ -51,9 +51,9 @@ export class WaterEffects {
   this.rebuild();
   const margin=scale*3,visible=(p:Screen)=>p.x>-margin&&p.x<width+margin&&p.y>-margin&&p.y<height+margin;
   const {biome}=mapSpec(),winter=biome==='winter';
-  const crest=winter?'232,242,246':'205,236,238',glint=winter?'255,255,255':'236,250,248';
+  const crest=winter?'232,242,246':'204,222,210',glint=winter?'255,255,255':'240,246,232';
   // Swell travels diagonally across the whole sea; each site lights up as a crest passes.
-  const swell:Path2D[]=Array.from({length:BUCKETS},()=>new Path2D()),glints=new Path2D();
+  const swell:Path2D[]=Array.from({length:BUCKETS},()=>new Path2D()),trough:Path2D[]=Array.from({length:BUCKETS},()=>new Path2D()),glints=new Path2D();
   const half=scale*.95,lift=scale*.16;
   for(let i=0;i<this.sea.length;i++){
    const s=this.sea[i];if(this.low&&i%2)continue;
@@ -66,15 +66,18 @@ export class WaterEffects {
     continue;
    }
    // Open-sea currents: sparse streaks drifting with the longshore stream, strongest offshore.
-   if(s.seed<.16&&s.depth>.3){const flow=s.flow,speed=Math.hypot(flow.x,flow.z);if(speed>.12){const phase=unitCycle(time/6+s.seed*5),age=(phase-.5)*8,q={x:s.x+flow.x*age,z:s.z+flow.z*age};if(isWater(q.x,q.z))drawCurrent(c,project(q),{x:flow.x-flow.z,y:(flow.x+flow.z)*.5},scale,phase,Math.min(.45,speed*.8));}}
+   if(s.seed<.16&&s.depth>.3){const flow=s.flow,speed=Math.hypot(flow.x,flow.z);if(speed>.12){const phase=unitCycle(time/6+s.seed*5),age=(phase-.5)*8,q={x:s.x+flow.x*age,z:s.z+flow.z*age};if(isWater(q.x,q.z))drawCurrent(c,project(q),{x:flow.x-flow.z,y:(flow.x+flow.z)*.5},scale,phase,Math.min(.22,speed*.45));}}
    const wave=Math.sin((s.x*.62+s.z*.38)*.42-time*1.15+s.seed*1.4)*.5+.5,strength=wave**4*(.35+.65*Math.min(1,s.depth+.25));
    const bucket=Math.min(BUCKETS-1,Math.floor(strength*BUCKETS));
-   if(strength>.12){const path=swell[bucket],w=half*(.7+s.seed*.6),bob=Math.sin(time*1.6+s.seed*9)*scale*.05;path.moveTo(p.x-w,p.y+bob);path.quadraticCurveTo(p.x,p.y-lift+bob,p.x+w,p.y+bob*.6);}
+   // Each crest casts a darker trough just below it, so the swell reads as raised water rather than a painted line.
+   if(strength>.12){const path=swell[bucket],w=half*(1+s.seed*.8),bob=Math.sin(time*1.6+s.seed*9)*scale*.05,low=trough[bucket],drop=lift*1.25;path.moveTo(p.x-w,p.y+bob);path.quadraticCurveTo(p.x,p.y-lift+bob,p.x+w,p.y+bob*.6);low.moveTo(p.x-w*.9,p.y+bob+drop*.55);low.quadraticCurveTo(p.x,p.y+bob+drop*.15,p.x+w*.9,p.y+bob*.6+drop*.55);}
    // Brief sun glints, a few at a time.
    const g=unitCycle(time*.33+s.seed*17);if(g<.06&&s.depth>.2){const k=Math.sin(g/.06*Math.PI),r=scale*.22*k;glints.moveTo(p.x-r,p.y);glints.lineTo(p.x+r,p.y);glints.moveTo(p.x,p.y-r*.45);glints.lineTo(p.x,p.y+r*.45);}
   }
-  c.save();c.lineCap='round';c.lineWidth=Math.max(.9,scale*.075);
-  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${crest},${(.06+b*.09).toFixed(3)})`;c.stroke(swell[b]);}
+  c.save();c.lineCap='round';c.lineWidth=Math.max(1.4,scale*.16);
+  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(8,30,40,${(.04+b*.05).toFixed(3)})`;c.stroke(trough[b]);}
+  c.lineWidth=Math.max(.9,scale*.075);
+  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${crest},${(.05+b*.075).toFixed(3)})`;c.stroke(swell[b]);}
   c.strokeStyle=`rgba(${glint},.75)`;c.lineWidth=Math.max(.6,scale*.03);c.stroke(glints);
   // Surf: each wave rolls from the water onto the beach, then the foam line fades back.
   const foam:Path2D[]=Array.from({length:BUCKETS},()=>new Path2D()),edge=new Path2D();
@@ -82,7 +85,9 @@ export class WaterEffects {
    const s=this.surf[i];if(this.low&&i%2)continue;
    const land=project(s.land);if(!visible(land))continue;
    const water=project(s.water);
-   const dx=land.x-water.x,dy=land.y-water.y,length=Math.hypot(dx,dy)||1,tx=-dy/length*scale*.95,ty=dx/length*scale*.95;
+   // The front runs along the shoreline: take the tangent in world space and project it. A screen-space
+   // perpendicular is not parallel to the coast under the isometric squash, so fronts crossed the beach.
+   const dx=land.x-water.x,dy=land.y-water.y,length=Math.hypot(dx,dy)||1,along=project({x:s.land.x-s.nz,z:s.land.z+s.nx}),ax=along.x-land.x,ay=along.y-land.y,span=Math.hypot(ax,ay)||1,tx=ax/span*scale*1.5,ty=ay/span*scale*1.5;
    // Neighbouring sites share the same waves, so the surf arrives as a line rather than as dots; two fronts per cycle.
    const base=time/5.2+(s.land.x*.011+s.land.z*.017)+s.seed*.06;
    for(const offset of [0,.5]){
@@ -90,13 +95,13 @@ export class WaterEffects {
     const x=water.x+dx*ease,y=water.y+dy*ease;
     const alpha=(phase<.7?.3+.7*Math.sin(roll*Math.PI*.5):1-(phase-.7)/.3)*(offset?.6:.95);
     const bucket=Math.min(BUCKETS-1,Math.floor(alpha*BUCKETS));
-    if(alpha>.08){const path=foam[bucket];path.moveTo(x-tx,y-ty);path.quadraticCurveTo(x+dx/length*scale*.18,y+dy/length*scale*.18,x+tx,y+ty);}
+    if(alpha>.08){const path=foam[bucket];path.moveTo(x-tx,y-ty);path.quadraticCurveTo(x+dx/length*scale*.06,y+dy/length*scale*.06,x+tx,y+ty);}
    }
    // The wet edge on the sand brightens as each wave reaches it.
    const ex=land.x+(water.x-land.x)*.16,ey=land.y+(water.y-land.y)*.16;edge.moveTo(ex-tx*.85,ey-ty*.85);edge.lineTo(ex+tx*.85,ey+ty*.85);
   }
-  c.lineWidth=Math.max(1.2,scale*.12);
-  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${winter?'246,250,252':'240,248,240'},${(.08+b*.11).toFixed(3)})`;c.stroke(foam[b]);}
+  c.lineWidth=Math.max(1.2,scale*.1);
+  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${winter?'246,250,252':'236,242,230'},${(.05+b*.08).toFixed(3)})`;c.stroke(foam[b]);}
   c.lineWidth=Math.max(.9,scale*.08);c.strokeStyle=`rgba(${crest},${(.3+.12*Math.sin(time*1.2)).toFixed(3)})`;c.stroke(edge);
   c.restore();
   // Reeds sway on the wetter, milder shorelines.

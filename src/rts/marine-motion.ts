@@ -30,14 +30,28 @@ export function boatPose(action:CrewAction,rowCycle:number,workSeconds:number){
  }
  return 0;
 }
-export function boatFloat(time:number,id:number,scale:number,speed=0){
- // Hull follows two overlapping swells; underway boats ride a slightly broader wave.
- const motion=Math.min(1,Math.max(0,speed/4));
- return scale*(Math.sin(time*1.12+id*.71)*(.032+motion*.014)+Math.sin(time*.53+id*.37)*(.018+motion*.008));
+// Phase of the swell drawn by WaterEffects at a world point, so hulls ride the crests the player sees.
+const swellPhase=(time:number,x:number,z:number)=>(x*.62+z*.38)*.42-time*1.15;
+export function boatFloat(time:number,id:number,scale:number,speed=0,x=id*3.1,z=id*1.7){
+ // Heave: the passing swell plus a slower ground swell. Underway hulls cut through and heave a little less.
+ const motion=Math.min(1,Math.max(0,speed/4)),swell=Math.sin(swellPhase(time,x,z));
+ return scale*(swell*(.12-motion*.03)+Math.sin(time*.53+id*.37)*.05);
 }
-export function boatRock(time:number,id:number,speed=0){
- const motion=Math.min(1,Math.max(0,speed/4));
- return Math.sin(time*.83+id*.71)*(.014+motion*.008)+Math.sin(time*1.71+id*.23)*(.004+motion*.003);
+export function boatRock(time:number,id:number,speed=0,x=id*3.1,z=id*1.7){
+ // Roll leads heave by a quarter wave (the hull tilts down the face of the crest), about ±3° at rest.
+ const motion=Math.min(1,Math.max(0,speed/4)),slope=Math.cos(swellPhase(time,x,z));
+ return slope*(.05-motion*.015)+Math.sin(time*.83+id*.71)*.018+Math.sin(time*1.71+id*.23)*.006;
+}
+/** Water lapping at the hull: rings swell outward in time with the heave. */
+export function hullRipple(c:CanvasRenderingContext2D,p:{x:number;y:number},width:number,time:number,id:number,scale:number,speed=0,x=id*3.1,z=id*1.7){
+ const calm=1-Math.min(1,Math.max(0,speed/3));if(calm<.05)return;
+ c.save();c.lineCap='round';
+ for(let i=0;i<2;i++){
+  const u=unitCycle(-swellPhase(time,x,z)/(Math.PI*2)+i*.5),rx=width*(.32+u*.22),ry=rx*.36;
+  c.strokeStyle=`rgba(214,230,220,${(calm*.32*(1-u)).toFixed(3)})`;c.lineWidth=Math.max(.7,scale*.05*(1-u*.5));
+  c.beginPath();c.ellipse(p.x,p.y,rx,ry,0,0,Math.PI*2);c.stroke();
+ }
+ c.restore();
 }
 
 export function marineEvent(kind:string,time:number,id:number){
