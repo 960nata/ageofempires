@@ -141,10 +141,12 @@ export class World {
   for(const [i,u] of ordered.entries()){
    const radius=this.footprint(u),wedgeRow=i===0?0:Math.ceil(i/2),side=stance==='wedge'?(i===0?0:(i%2?-1:1)*wedgeRow*spacing):(i%columns-(Math.min(columns,units.length-Math.floor(i/columns)*columns)-1)/2)*spacing;
    const back=stance==='wedge'?wedgeRow*spacing:Math.floor(i/columns)*spacing,desired={x:target.x+rx*side-fx*back,z:target.z+rz*side-fz*back};
-   const fits=(q:Point)=>reserved.every(s=>dist(s.point,q)>s.radius+radius+.25)&&(naval?this.waterFits(q,Math.max(.85,radius)):this.walkable(q)&&[-radius,radius].every(dx=>[-radius,radius].every(dz=>this.walkable({x:q.x+dx,z:q.z+dz}))));
+   // Ships test the same hull clearance the water pathfinder uses, and search in 1-unit rings: the
+   // formation spacing (~4 units) put the nearest fallback 4–8 units out, so ships never came close to a beach.
+   const step=naval?1:spacing,fits=(q:Point)=>reserved.every(s=>dist(s.point,q)>s.radius+radius+.25)&&(naval?this.waterFits(q,Math.max(.85,radius*.8)):this.walkable(q)&&[-radius,radius].every(dx=>[-radius,radius].every(dz=>this.walkable({x:q.x+dx,z:q.z+dz}))));
    let chosen:Point|undefined,searches=0;
-   for(let ring=0;ring<=8&&!chosen&&searches<12;ring++){
-    const candidates=Array.from({length:ring?ring*8:1},(_,k)=>{const a=k*Math.PI*2/(ring*8||1);return{x:desired.x+Math.sin(a)*ring*spacing,z:desired.z+Math.cos(a)*ring*spacing};}).filter(fits).sort((a,b)=>dist(a,desired)+dist(a,u)*.05-dist(b,desired)-dist(b,u)*.05);
+   for(let ring=0;ring<=(naval?24:8)&&!chosen&&searches<12;ring++){
+    const count=ring?(naval?16:ring*8):1,candidates=Array.from({length:count},(_,k)=>{const a=k*Math.PI*2/count;return{x:desired.x+Math.sin(a)*ring*step,z:desired.z+Math.cos(a)*ring*step};}).filter(fits).sort((a,b)=>dist(a,desired)+dist(a,u)*.05-dist(b,desired)-dist(b,u)*.05);
     for(const q of candidates){if(dist(u,q)<.3){chosen=q;break;}if(searches++>=12)break;const route=naval?findPath(u,q,this.waterBlocked,Math.max(.85,radius*.8)):this.path(u,q,radius),end=route.at(-1);if(end&&dist(end,q)<.35){chosen=q;break;}if(end&&fits(end)&&dist(end,desired)<spacing*8){chosen=end;break;}}
    }
    if(chosen){slots.set(u.id,chosen);reserved.push({point:chosen,radius});}
@@ -293,7 +295,7 @@ export class World {
  }
  path(start:Point,goal:Point,radius=0):Point[]{const e=start as Entity;return findPath(start,goal,e.type==='unit'?this.routingBlocked(e.owner):this.blocked,radius);}
  private waterFits(p:Point,radius:number){if(Math.abs(p.x)>MAP_HALF-3-radius||Math.abs(p.z)>MAP_HALF-3-radius||!isWater(p.x,p.z))return false;for(let i=0;i<8;i++){const a=i*Math.PI/4;if(!isWater(p.x+Math.sin(a)*radius,p.z+Math.cos(a)*radius))return false;}return true;}
- /** Water for a landing: the reachable spot nearest the chosen bank. waterExit favours points near the ship,
+ /** Reachable water nearest a point (a landing bank or a click on the beach). waterExit favours points near the ship,
   * so a transport stopped on its own side of the bay, 8–13 units off the beach, too far to land anyone. */
  private landingWater(p:Point,ship:Entity):Point|undefined{
   const radius=Math.max(.85,this.footprint(ship)*.8);
@@ -399,7 +401,8 @@ export class World {
   if(!target&&stats.damage>0&&(!o||o.kind==='hold'||o.kind==='attackmove'))target=this.enemiesNear(e,stats.range+4).filter(t=>isWater(t.x,t.z)||t.def==='harbor'||dist(e,t)<=stats.range).sort((a,b)=>dist(e,a)-dist(e,b))[0];
   if(target&&stats.damage>0){const range=stats.range+(target.type==='building'?BUILDINGS[target.def].radius:0);if(dist(e,target)>range){if(o?.kind==='hold'){e.state='idle';return;}const point=isWater(target.x,target.z)?target:this.waterExit(target,Math.max(2,range-3),range,e);if(point)this.sailTo(e,point,isWater(target.x,target.z)?range:.8,dt);else{e.state='blocked';e.moveSpeed=0;}return;}
    e.moveSpeed=0;e.angle=Math.atan2(target.x-e.x,target.z-e.z);e.state='recover';if(e.cooldown<=0){e.cooldown=stats.cooldown;e.lastAttackAt=this.time;e.state='attack';e.strike={target:target.id,remaining:ATTACK_WINDUP};}return;}
-  if(o?.point&&(o.kind==='move'||o.kind==='attackmove')){const goal=this.waterFits(o.point,Math.max(.85,this.footprint(e)*.8))?o.point:this.waterExit(o.point,0,10,e);if(!goal||this.sailTo(e,goal,o.groupSpeed!==undefined?.35:1,dt)){e.order=undefined;e.state='idle';}return;}
+  if(o?.point&&(o.kind==='move'||o.kind==='attackmove')){// A click near or on the beach sails to the reachable water nearest that point, not the first water near the ship.
+    const goal=this.waterFits(o.point,Math.max(.85,this.footprint(e)*.8))?o.point:(o.landingWater??=this.landingWater(o.point,e));if(!goal||this.sailTo(e,goal,o.groupSpeed!==undefined?.35:1,dt)||e.state==='blocked'&&dist(e,goal)<this.footprint(e)+3){e.order=undefined;e.state='idle';e.moveSpeed=0;}return;}
   if(o?.kind==='attack'&&!target)e.order=undefined;e.state='idle';e.moveSpeed=0;
  }
  private resolveNavalStrike(e:Entity,target:Entity){const stats=this.shipStats(e),range=stats.range+(target.type==='building'?BUILDINGS[target.def].radius:0);if(!this.hostile(e.owner,target.owner)||dist(e,target)>range+1)return;
