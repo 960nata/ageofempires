@@ -17,13 +17,17 @@ export const FACTION_ANIMATION_UNITS:Record<string,Record<string,string>>={
  english:{...EARLY,...HORSE,swordsman:'infantry',heavy:'infantry',archer:'archer',longbow:'archer',knight:'cavalry',...SPEAR},
  french:{...EARLY,...HORSE,swordsman:'infantry',heavy:'infantry',archer:'archer',knight:'cavalry',...SPEAR},
  chinese:{...EARLY,...HORSE,archer:'archer',swordsman:'infantry',heavy:'infantry','repeating-crossbow':'archer',...SPEAR},
- steppe:{...EARLY,...HORSE,swordsman:'infantry',heavy:'infantry',archer:'archer',crossbow:'archer',knight:'cavalry','horse-archer':'cavalry',...SPEAR},
+ // The Mongol cavalry sheet is a horse archer drawing a bow; lance and sword riders borrow the Chinese
+ // lamellar cavalry rather than shooting arrows in melee.
+ steppe:{...EARLY,scout:'chinese-cavalry','light-horse':'chinese-cavalry',lancer:'chinese-cavalry',swordsman:'infantry',heavy:'infantry',archer:'archer',crossbow:'archer',knight:'chinese-cavalry','horse-archer':'cavalry',...SPEAR},
  ayyubid:{...EARLY,...HORSE,swordsman:'infantry',heavy:'infantry',archer:'archer',...SPEAR},
  japanese:{...EARLY,...HORSE,samurai:'infantry',archer:'archer',...SPEAR},
  khmer:{...EARLY,swordsman:'infantry',heavy:'infantry',archer:'archer','war-elephant':'cavalry',...SPEAR},
  castilian:{...EARLY,...HORSE,swordsman:'infantry',heavy:'infantry',archer:'archer',knight:'cavalry',...SPEAR},
 };
 type Atlas=typeof frames[keyof typeof frames];
+// A family is normally the faction's own sheet ('cavalry' → 'steppe-cavalry'); a full key borrows another faction's.
+const sheetKey=(faction:string,family:string)=>family.includes('-')?family:faction+'-'+family;
 // Some sheets reuse the strike cell as the hit cell; flinching into a sword swing reads as an attack, so those skip the hit pose.
 const sameCell=(a:unknown,b:unknown)=>JSON.stringify(a)===JSON.stringify(b);
 const HAS_HIT=new Set(Object.entries(frames).filter(([,data])=>!data.frames.every(row=>sameCell(row[9],row[8]))).map(([key])=>key));
@@ -71,7 +75,7 @@ export class FactionAnimations {
  private eraImages=new Map<string,{image:HTMLImageElement;rects:ReturnType<typeof poseRect>[][];ratio:number}>();
  private eraPending=new Set<string>();
  private eraFailed=new Set<string>();
- hasEra(faction:string,unit:string,era:number){return !!ERA_ATLASES[faction+'-'+FACTION_ANIMATION_UNITS[faction]?.[unit]]?.[era];}
+ hasEra(faction:string,unit:string,era:number){const family=FACTION_ANIMATION_UNITS[faction]?.[unit];return !!family&&!!ERA_ATLASES[sheetKey(faction,family)]?.[era];}
  has(faction:string,unit:string){return !!FACTION_ANIMATION_UNITS[faction]?.[unit];}
  private load(key:string,data:Atlas){const pending=this.pending.get(key);if(pending)return pending;const promise=new Promise<void>((resolve,reject)=>{const image=new Image();image.onload=()=>{const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const c=canvas.getContext('2d')!;c.drawImage(image,0,0);const rgba=c.getImageData(0,0,image.width,image.height).data,a=new Uint8Array(image.width*image.height);for(let i=0;i<a.length;i++)a[i]=rgba[i*4+3];this.alpha.set(image,a);this.images.set(key,image);resolve();};image.onerror=()=>{this.pending.delete(key);reject(Error('Unit atlas unavailable: '+key));};setSpriteSource(image,data.file);});this.pending.set(key,promise);return promise;}
  private loadEra(file:string,data:Atlas){if(this.eraImages.has(file)||this.eraPending.has(file)||this.eraFailed.has(file))return;this.eraPending.add(file);const image=new Image();let fallback=false;image.onerror=()=>{if(!fallback){fallback=true;image.src=assetUrl(file+'.webp');return;}this.eraPending.delete(file);this.eraFailed.add(file);};image.onload=()=>{
@@ -89,19 +93,19 @@ export class FactionAnimations {
   }rects.push(result);}
   const standing=rects.flatMap(row=>row.slice(0,7)),nominal=standing.reduce((total,r)=>total+r.h,0)/standing.length;this.eraImages.set(file,{image,rects,ratio:nominal/data.nominal});this.eraPending.delete(file);
  };setSpriteSource(image,file+'.png');}
- preload(factions:string[]){if(factions.some(f=>Object.values(FACTION_ANIMATION_UNITS[f]??{}).includes('cavalry')))void prepareMotionFrames();return Promise.all([...new Set(factions)].flatMap(f=>[...new Set(Object.values(FACTION_ANIMATION_UNITS[f]??{}))].map(family=>{const key=f+'-'+family,data=frames[key as keyof typeof frames];return data?this.load(key,data):Promise.resolve();})));}
+ preload(factions:string[]){if(factions.some(f=>Object.values(FACTION_ANIMATION_UNITS[f]??{}).some(family=>family.endsWith('cavalry'))))void prepareMotionFrames();return Promise.all([...new Set(factions)].flatMap(f=>[...new Set(Object.values(FACTION_ANIMATION_UNITS[f]??{}))].map(family=>{const key=sheetKey(f,family),data=frames[key as keyof typeof frames];return data?this.load(key,data):Promise.resolve();})));}
  opaque(image:HTMLImageElement,x:number,y:number){const a=this.alpha.get(image);return a?a[y*image.width+x]>70:undefined;}
  sprite(faction:string,unit:string,direction:number,phase:number,speed:number,attackAge:number,hitAge:number,deathAge:number,scale:number,era=2):SceneSprite|null{
   const family=FACTION_ANIMATION_UNITS[faction]?.[unit];if(!family)return null;
-  const key=faction+'-'+family,data=frames[key as keyof typeof frames];if(!data)return null;void this.load(key,data).catch(()=>{});
+  const key=sheetKey(faction,family),data=frames[key as keyof typeof frames];if(!data)return null;void this.load(key,data).catch(()=>{});
   const eraFile=ERA_ATLASES[key]?.[era];if(eraFile)this.loadEra(eraFile,data);
   const eraArt=eraFile?this.eraImages.get(eraFile):undefined,image=eraArt?.image??this.images.get(key);if(!image)return null;
-  const moving=speed>.16,run=speed>3.2&&family==='cavalry'&&unit!=='war-elephant';
+  const moving=speed>.16,run=speed>3.2&&family.endsWith('cavalry')&&unit!=='war-elephant';
   let sample={from:0,to:0,mix:0};
   if(deathAge>=0)sample=timedPose(deathAge,[[0,10],[.48,11]]);
   else if(attackAge>=0&&attackAge<1.05)sample=timedPose(attackAge,[[0,0],[.34,7],[ATTACK_WINDUP-.06,7],[ATTACK_WINDUP,8],[.66,8],[1.05,0]]);
   else if(hitAge>=0&&hitAge<.22&&!moving&&HAS_HIT.has(key))sample=timedPose(hitAge,[[0,9],[.07,9],[.22,0]]);
-  else if(moving)sample=eraGait(phase,era,family==='cavalry',run,0,unit);
+  else if(moving)sample=eraGait(phase,era,family.endsWith('cavalry'),run,0,unit);
   const heading=(direction+8)%8,[row,mirror]=FACING[key]?.[heading]??[data.directions[heading],0],packed=isolatedAtlas(data.file),rect=(column:number)=>eraArt?.rects[row][column]??poseRect(packed?.frames[row*packed.cols+column]??data.frames[row][column]);
   return {...poses.sample(image,rect(sample.from),rect(sample.to),sample.mix,data.size*scale/(data.nominal*(eraArt?.ratio??1)),!!mirror,true),eraSpecific:!!eraArt};
  }
