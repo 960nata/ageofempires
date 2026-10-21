@@ -7,7 +7,7 @@ import {findPath,invalidatePathCache} from './pathfinding';
 import {MAP_SIZE,MAP_HALF,GRID_SIZE,isWater,isCliff,flatSite,worldCell,gridIndex,cellCentre,MAP_SCALE,terrainBlockedCells,configureMap,isMarsh,isSwamp,isFord,waterFlow,homeIslands,landRegions,landNear,hasSea,type MapSpec,MAP_TYPES,BIOMES} from './map';
 import {FACTIONS,AGE_COSTS,AGE_TIMES,BUILDINGS,UNITS,TECHNOLOGIES,emptyStock,MAX_REALMS,type Resource,type Stock,type Cost,type Side,type Faction,type UnitDef} from './data';
 export type Point={x:number;z:number};
-export type Order={kind:'move'|'attack'|'attackmove'|'gather'|'build'|'repair'|'hold'|'garrison'|'trade'|'repairtools'|'embark'|'unload';target?:number;point?:Point;resource?:Resource;gatherOrigin?:Point;groupSpeed?:number;skipped?:{id:number;until:number}[]};
+export type Order={kind:'move'|'attack'|'attackmove'|'gather'|'build'|'repair'|'hold'|'garrison'|'trade'|'repairtools'|'embark'|'unload';target?:number;point?:Point;resource?:Resource;gatherOrigin?:Point;groupSpeed?:number;skipped?:{id:number;until:number}[];landingWater?:Point};
 export interface Entity extends Point {replacedWalls?:Entity[];aiTask?:'scout'|'raid'|'defend';aiOrderAt?:number;id:number;type:'unit'|'building'|'resource';def:string;appearance?:VillagerAppearance;workSite?:{target:number;point:Point;version:number;last:Point;stalled:number;best?:number};workAvoid?:Point;workReplans?:number;workRetryAt?:number;idleSince?:number;resumeOrder?:Order;unreachable?:number;owner:Side;hp:number;maxHp:number;angle:number;state:string;order?:Order;orders:Order[];cargo:Stock;path:Point[];pathGoal?:Point;pathEnd?:Point;pathVersion:number;timer:number;cooldown:number;progress:number;tier:number;queue:{unit:string;progress:number;reserved:boolean}[];garrison:number[];inside?:number;amount:number;resource?:Resource;closed:boolean;gateOpen?:number;gateTarget?:number;gateMode?:'auto'|'open'|'locked';gateLastTraffic?:number;lastHit:number;facing?:number;visualEra?:number;workedAt?:number;renovation?:{progress:number;targetEra?:number};destroyedAt?:number;research?:{id:string;progress:number};rally?:Point;tradeLeg?:boolean;turn:number;toolCondition?:number;processUntil?:number;processed?:Stock;initialAmount?:number;depletedAt?:number;felledAt?:number;fallAngle?:number;chopProgress?:number;growth?:number;workPhase?:number;enteredAt?:number;entryPoint?:Point;landing?:{from:Point;to:Point;at:number;duration:number};unloadStartedAt?:number;landingAt?:number;landingRampUntil?:number;burningUntil?:number;lastAttackAt?:number;moveSpeed?:number;steeringAngle?:number;passingOffset?:number;depositTarget?:number;depositNavVersion?:number;stance?:'line'|'spread'|'testudo'|'column'|'wedge';pace?:'auto'|'walk';strike?:{target:number;remaining:number};smoothedAt?:number;}
 export interface Player {faction:Faction;stock:Stock;era:number;armor:number;tools:number;cart:boolean;defeat:number;tech:string[];}
 export interface Shot {id:number;owner:Side;from:Point;to:Point;target:number;damage:number;remaining:number;duration:number;splash:number;kind:string;fire?:boolean;launchHeight?:number;targetHeight?:number;}
@@ -293,6 +293,15 @@ export class World {
  }
  path(start:Point,goal:Point,radius=0):Point[]{const e=start as Entity;return findPath(start,goal,e.type==='unit'?this.routingBlocked(e.owner):this.blocked,radius);}
  private waterFits(p:Point,radius:number){if(Math.abs(p.x)>MAP_HALF-3-radius||Math.abs(p.z)>MAP_HALF-3-radius||!isWater(p.x,p.z))return false;for(let i=0;i<8;i++){const a=i*Math.PI/4;if(!isWater(p.x+Math.sin(a)*radius,p.z+Math.cos(a)*radius))return false;}return true;}
+ /** Water for a landing: the reachable spot nearest the chosen bank. waterExit favours points near the ship,
+  * so a transport stopped on its own side of the bay, 8–13 units off the beach, too far to land anyone. */
+ private landingWater(p:Point,ship:Entity):Point|undefined{
+  const radius=Math.max(.85,this.footprint(ship)*.8);
+  for(let ring=0;ring<=16;ring+=1){const options:Point[]=[];for(let i=0;i<(ring?24:1);i++){const a=i*Math.PI/12,q={x:p.x+Math.sin(a)*ring,z:p.z+Math.cos(a)*ring};if(this.waterFits(q,radius))options.push(q);}
+   options.sort((a,b)=>dist(a,ship)-dist(b,ship));
+   for(const q of options.slice(0,3))if(dist(ship,q)<1||findPath(ship,q,this.waterBlocked,radius).length>0)return q;}
+  return undefined;
+ }
  private waterExit(p:Point,from=3.5,to=12,ship?:Entity):Point|undefined{
   const radius=ship?Math.max(.85,this.footprint(ship)*.8):1.1;
   const previous=ship?.pathGoal;
@@ -363,7 +372,9 @@ export class World {
  private refitFleet(side:Side){for(const ship of this.alive(side,'unit').filter(e=>isNaval(e.def))){const ratio=ship.hp/ship.maxHp;ship.visualEra=this.players[side].era;ship.maxHp=this.shipStats(ship).hp;ship.hp=ship.maxHp*ratio;}}
  transportLoad(ship:Entity){return ship.garrison.reduce((n,id)=>n+(this.get(id)?UNITS[this.get(id)!.def].pop:0),0);}
  private landing(ship:Entity,unit?:Entity,preferredAngle?:number):Point|undefined{
-  const sites:Point[]=[];const angles=Array.from({length:24},(_,i)=>i*Math.PI/12);if(preferredAngle!==undefined)angles.sort((a,b)=>Math.abs(Math.atan2(Math.sin(a-preferredAngle),Math.cos(a-preferredAngle)))-Math.abs(Math.atan2(Math.sin(b-preferredAngle),Math.cos(b-preferredAngle))));for(let r=1.8;r<=6;r+=.7)for(const a of angles){const q={x:ship.x+Math.cos(a)*r,z:ship.z+Math.sin(a)*r},radius=unit?this.footprint(unit):.5;
+  const sites:Point[]=[];const angles=Array.from({length:24},(_,i)=>i*Math.PI/12);if(preferredAngle!==undefined)angles.sort((a,b)=>Math.abs(Math.atan2(Math.sin(a-preferredAngle),Math.cos(a-preferredAngle)))-Math.abs(Math.atan2(Math.sin(b-preferredAngle),Math.cos(b-preferredAngle))));// Up to 10 units: a transport's hull stops where the water is deep enough, often 5–8 units off the beach,
+  // and a 6-unit search found no bank, leaving the troops aboard forever.
+  for(let r=1.8;r<=10;r+=.7)for(const a of angles){const q={x:ship.x+Math.cos(a)*r,z:ship.z+Math.sin(a)*r},radius=unit?this.footprint(unit):.5;
    if(!this.walkable(q)||[-radius,radius].some(dx=>[-radius,radius].some(dz=>!this.walkable({x:q.x+dx,z:q.z+dz}))))continue;
    if(this.entities.some(e=>e.type==='unit'&&e.id!==unit?.id&&e.hp>0&&!e.inside&&!isNaval(e.def)&&dist(e,q)<this.footprint(e)+radius+.15))continue;sites.push(q);}
   sites.sort((a,b)=>dist(a,unit??ship)-dist(b,unit??ship));return sites.find(q=>{if(!unit||unit.inside||dist(unit,q)<.7)return true;const path=this.path(unit,q,this.footprint(unit));return path.length>0&&dist(path[path.length-1],q)<1.2;});
@@ -373,12 +384,12 @@ export class World {
   if((unit.workRetryAt??0)>this.time)return;const bank=this.landing(ship,unit);if(!bank){unit.state='waiting-transport';unit.workRetryAt=this.time+1;return;}
   if(this.approach(unit,bank,.5,dt)&&dist(unit,ship)<6.5&&(ship.moveSpeed??0)<.25){ship.angle=Math.atan2(unit.x-ship.x,unit.z-ship.z);ship.landingRampUntil=this.time+1.12;unit.inside=ship.id;unit.enteredAt=this.time;unit.entryPoint={x:unit.x,z:unit.z};unit.state='embarked';unit.order=undefined;unit.path=[];ship.garrison.push(unit.id);}
  }
- private unloadShip(ship:Entity){while(ship.garrison.length){const id=ship.garrison[0],unit=this.get(id);if(!unit){ship.garrison.shift();continue;}const target=ship.order?.point,shoreAngle=target?Math.atan2(target.x-ship.x,target.z-ship.z):ship.angle,p=this.landing(ship,unit,shoreAngle);if(!p)return false;const from={x:ship.x+Math.sin(shoreAngle)*1.05,z:ship.z+Math.cos(shoreAngle)*1.05};unit.inside=undefined;unit.enteredAt=undefined;unit.entryPoint=undefined;unit.landing={from,to:p,at:this.time,duration:.92};ship.landingRampUntil=this.time+1.12;unit.x=p.x;unit.z=p.z;unit.angle=Math.atan2(p.x-from.x,p.z-from.z);unit.order=undefined;unit.orders=[];unit.state='walk';unit.path=[];ship.garrison.shift();return !ship.garrison.length;}return true;}
+ private unloadShip(ship:Entity){while(ship.garrison.length){const id=ship.garrison[0],unit=this.get(id);if(!unit){ship.garrison.shift();continue;}const target=ship.order?.point,shoreAngle=target?Math.atan2(target.x-ship.x,target.z-ship.z):ship.angle,p=this.landing(ship,unit,shoreAngle);if(!p)return false;const from={x:ship.x+Math.sin(shoreAngle)*1.05,z:ship.z+Math.cos(shoreAngle)*1.05};unit.inside=undefined;unit.enteredAt=undefined;unit.entryPoint=undefined;unit.landing={from,to:p,at:this.time,duration:.7+dist(from,p)*.11};ship.landingRampUntil=this.time+1.12;unit.x=p.x;unit.z=p.z;unit.angle=Math.atan2(p.x-from.x,p.z-from.z);unit.order=undefined;unit.orders=[];unit.state='walk';unit.path=[];ship.garrison.shift();return !ship.garrison.length;}return true;}
  private updateShip(e:Entity,dt:number){
   for(const id of e.garrison){const u=this.get(id);if(u&&this.time-(u.enteredAt??0)>.7){u.x=e.x;u.z=e.z;}}
   if(UNITS[e.def].role==='fisher'){this.fishBoat(e,dt);return;}
   const o=e.order,stats=this.shipStats(e);if(o?.kind==='unload'&&e.def==='transport-ship'){
-   const goal=o.point?this.waterExit(o.point,0,10,e):e;if(!goal){e.order=undefined;e.state='idle';if(e.owner===0)this.emit('Choose a landing on the shoreline.');return;}
+   const goal=o.point?(o.landingWater??=this.landingWater(o.point,e)):e;if(!goal){e.order=undefined;e.state='idle';if(e.owner===0)this.emit('Choose a landing on the shoreline.');return;}
    // The landing water often sits too close to the bank for the hull's path, so the ship stopped a
     // couple of units short and stayed 'blocked' with its troops locked aboard. Close enough is a landing.
     const arrived=e.state==='unloading'||this.sailTo(e,goal,o.groupSpeed!==undefined?.35:1,dt)||e.state==='blocked'&&dist(e,goal)<this.footprint(e)+3;
