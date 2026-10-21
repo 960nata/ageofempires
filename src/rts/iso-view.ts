@@ -186,6 +186,8 @@ const arid=mapSpec().biome==='arid',bands=arid?[[16,'#9c7b4c10'],[8,'#a8875418']
    if(d.naval){
     const action=crewAction(e.def,e.state,moving),phase=boatPose(action,m?.phase??0,this.marineWorkTime(e));
     const boat=this.marine.boat(e.def,direction,phase,boatWidth(e.def,e.visualEra??this.world.players[e.owner].era)*this.scale,this.world.players[e.owner].faction,e.visualEra??this.world.players[e.owner].era);if(boat)return boat;
+    // Never draw a vessel with troop art: an empty frame until any hull atlas is decoded.
+    return {image:this.unitImage,sx:0,sy:0,sw:0,sh:0,width:0,height:0,anchor:1};
    }
    const target=this.world.get(e.order?.target);
    if(worker&&!moving&&['gather','cultivate','build','repair-tools'].includes(e.state)){

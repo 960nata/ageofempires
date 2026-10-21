@@ -93,16 +93,18 @@ export class NatureLayer {
 private feathered?:HTMLImageElement;
  /** The painted ground disc under each standing tree fades out at its rim, so pebbles and grass
   * blend into the map's own ground instead of reading as a plate. Trunk and canopy stay opaque;
-  * felled logs (last column) lie across the disc and keep it. */
+  * falling and felled trees (last two columns) lean across the disc and keep it. */
  private featheredTrees(source:HTMLImageElement){
   if(this.feathered)return this.feathered;
   const canvas=document.createElement('canvas');canvas.width=source.naturalWidth;canvas.height=source.naturalHeight;const c=canvas.getContext('2d')!;c.drawImage(source,0,0);
-  for(const row of this.atlases['biome-trees-lifecycle-v1']?.frames??[])for(const [x,y,w,h] of row.slice(0,3)){
+  for(const row of this.atlases['biome-trees-lifecycle-v1']?.frames??[])for(const [x,y,w,h] of row.slice(0,2)){
    c.save();c.beginPath();c.rect(x,y,w,h);c.clip();c.globalCompositeOperation='destination-in';
-   const mask=document.createElement('canvas');mask.width=w;mask.height=h;const m=mask.getContext('2d')!;
-   m.fillStyle='#000';m.fillRect(0,0,w,h*.66);
-   const cx=w/2,cy=h*.86,g=m.createRadialGradient(cx,cy,0,cx,cy,w*.46);g.addColorStop(0,'#000');g.addColorStop(.32,'#000');g.addColorStop(1,'rgba(0,0,0,0)');
-   m.save();m.translate(cx,cy);m.scale(1,.42);m.translate(-cx,-cy);m.fillStyle=g;m.fillRect(0,0,w,h/.42);m.restore();
+   // Above the disc centre only the horizontal reach fades, so trunks and canopies stay whole; below it
+   // the disc rim fades as an ellipse. (A separate opaque band above the disc left a cut through palm trunks.)
+   const mask=document.createElement('canvas');mask.width=w;mask.height=h;const m=mask.getContext('2d')!,px=m.createImageData(w,h),a=px.data;
+   const cx=w/2,cy=h*.84,rx=w*.5,ry=w*.5*.42;
+   for(let py=0;py<h;py++)for(let qx=0;qx<w;qx++){const nx=(qx-cx)/rx,ny=py>cy?(py-cy)/ry:0,d=py<h*.55?0:Math.hypot(nx,ny)*(py<cy?Math.min(1,(py-h*.55)/(cy-h*.55)):1),alpha=d<.55?1:Math.max(0,1-(d-.55)/.45);a[(py*w+qx)*4+3]=Math.round(alpha*255);}
+   m.putImageData(px,0,0);
    c.drawImage(mask,x,y);c.restore();
   }
   Object.defineProperty(canvas,'naturalWidth',{value:canvas.width});Object.defineProperty(canvas,'complete',{value:true});

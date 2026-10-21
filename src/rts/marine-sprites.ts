@@ -42,7 +42,11 @@ export class MarineSprites {
   const atlas=def==='transport-ship'?'transport-v1':def==='whaling-boat'?'whaling-v1':def==='scout-ship'?'fishing-v1':faction+'-'+(def==='war-ship'?'war':'fishing');
   const frame=def==='whaling-boat'||def==='scout-ship'?Math.max(0,Math.min(5,Math.floor(_phase)))*8+d:navalEra(era)*8+d;
   const articulated=def==='whaling-boat'||def==='scout-ship',next=Math.min(5,Math.ceil(_phase))*8+d;
-  const sprite=articulated?this.blend(atlas,frame,next,_phase-Math.floor(_phase),width):this.frame(atlas,frame,width);
+  // A faction's hull atlas loads on first use (AI realms, a match that just started); until it is ready
+  // another loaded hull stands in. Returning nothing let the renderer fall through to infantry art on the water.
+  if(!this.images.has(atlas))void this.load(atlas).catch(()=>{});
+  let sprite=articulated?this.blend(atlas,frame,next,_phase-Math.floor(_phase),width):this.frame(atlas,frame,width);
+  if(!sprite){const kind=def==='war-ship'?'-war':'-fishing',stand=[...this.images.keys()].find(k=>k.endsWith(kind)&&this.images.get(k)?.naturalWidth);sprite=stand?this.frame(stand,navalEra(era)*8+d,width):this.frame(def==='war-ship'||def==='transport-ship'?'transport-v1':'fishing-v1',def==='war-ship'||def==='transport-ship'?navalEra(era)*8+d:d,width);}
   // Rear-quarter source views face left: reflect the three starboard headings.
   if(sprite&&d>=5)sprite.flip=true;
   return sprite;
