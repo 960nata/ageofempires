@@ -34,7 +34,9 @@ export function drawMarineLife(c:CanvasRenderingContext2D,e:Entity,p:Point,scale
    c.globalAlpha=alpha;c.drawImage(sprite.image,sprite.sx,sprite.sy,sprite.sw,sprite.sh,x-sprite.width*(sprite.anchorX??.5),y-sprite.height*sprite.anchor,sprite.width,sprite.height);
   }
  }else{
-  const {progress,visible}=marineEvent(e.def,time,e.id),drift=Math.sin(time*.16+e.id)*scale*.2;
+  const {progress,visible}=marineEvent(e.def,time,e.id);
+  // Swim a slow loop around the resource point instead of hanging in place; the body faces its heading.
+  const lap=time*(tuna?.21:.085)+e.id*1.3,orbit=scale*(tuna?1.7:2.6),dx=Math.cos(lap)*orbit,dy=Math.sin(lap)*orbit*.45,heading=-Math.sin(lap),drift=dx;
   // Swimming has its own anatomy and tail cycle; splash frames never sit underwater.
   if(swimImage.complete&&swimImage.naturalWidth){
    const cellW=swimImage.naturalWidth/4,cellH=swimImage.naturalHeight/4;
@@ -42,20 +44,43 @@ export function drawMarineLife(c:CanvasRenderingContext2D,e:Entity,p:Point,scale
    const rect=(f:number)=>poseRect({x:(offset+f)%4*cellW,y:Math.floor((offset+f)/4)*cellH,w:cellW,h:cellH,anchorY:.5});
    const swim=poses.sample(swimImage,rect(frame),rect((frame+1)%8),cycle-frame,prey.width/cellW);
    c.filter='brightness(.65) saturate(.68)';c.globalAlpha=(busy?.76:.62)*(1-visible);
-   const y=p.y+scale*.18+Math.sin(time*.25+e.id)*scale*.04;
-   c.drawImage(swim.image,swim.sx,swim.sy,swim.sw,swim.sh,p.x+drift-swim.width*(swim.anchorX??.5),y-swim.height*swim.anchor,swim.width,swim.height);
+   const x=p.x+drift,y=p.y+dy+scale*.18,tail=Math.sin(cycle/8*Math.PI*2);
+   // The source frames barely differ, so a gentle roll and stretch with the tail stroke carries the swim.
+   c.save();c.translate(x,y);if(heading<0)c.scale(-1,1);c.rotate(tail*(tuna?.05:.035));c.scale(1+tail*.025,1-tail*.03);
+   c.drawImage(swim.image,swim.sx,swim.sy,swim.sw,swim.sh,-swim.width*(swim.anchorX??.5),-swim.height*swim.anchor,swim.width,swim.height);c.restore();
   }
   if(visible>.005){
    c.filter='brightness(.82) saturate(.9)';
    const frame=progress*3,first=Math.min(3,Math.floor(frame)),mix=smooth(frame-first);
    const leap=Math.sin(progress*Math.PI)*scale*(tuna?.32:.22);
-   paint(first,p.x+drift,p.y-leap,prey.width,visible*(1-mix));
-   paint(Math.min(3,first+1),p.x+drift,p.y-leap,prey.width,visible*mix);
+   paint(first,p.x+drift,p.y+dy-leap,prey.width,visible*(1-mix));
+   paint(Math.min(3,first+1),p.x+drift,p.y+dy-leap,prey.width,visible*mix);
   }
+  // Whales surface to breathe: a misty spout every ~11 s while swimming below.
+  if(!tuna){const blow=unitCycle(time/11+e.id*.41)*11;if(blow<1.6){const u=blow/1.6,sx=p.x+drift+prey.width*.18*(heading<0?-1:1),sy=p.y+dy-scale*.15;
+   c.filter='none';c.globalAlpha=1;for(let k=0;k<3;k++){const r=scale*(.25+u*.9)*(1-k*.22);c.fillStyle=`rgba(236,244,244,${(.32*(1-u)*(1-k*.25)).toFixed(3)})`;c.beginPath();c.ellipse(sx+(k-1)*r*.35,sy-scale*(.6+u*1.6)-k*r*.4,r,r*.8,0,0,TAU);c.fill();}
+   c.strokeStyle=`rgba(214,232,232,${(.4*(1-u)).toFixed(3)})`;c.lineWidth=Math.max(.7,scale*.05);c.beginPath();c.ellipse(sx,sy+scale*.1,scale*(.4+u*1.2),scale*(.15+u*.45),0,0,TAU);c.stroke();}}
  }
  c.restore();
  const ripple=(time*.2+e.id*.19)%1;
  c.save();c.strokeStyle=`rgba(39,104,117,${.12*(1-ripple)})`;c.lineWidth=Math.max(.65,scale*.025);c.beginPath();c.ellipse(p.x,p.y+1,prey.width*(.13+ripple*.13),prey.width*(.03+ripple*.04),0,0,TAU);c.stroke();c.restore();
+}
+
+/** Oar blades biting the water along both sides of the hull, on the catch of each stroke.
+ * Galley and transport hulls paint their oars into one still frame, so the stroke is carried by the water. */
+export function drawOarStrokes(c:CanvasRenderingContext2D,p:Point,s:SceneSprite,direction:number,speed:number,rowCycle:number,scale:number){
+ const strength=Math.min(1,Math.max(0,speed)/2.6);if(strength<.05)return;
+ const {x:dx,y:dy}=headingVector(direction),nx=-dy,ny=dx*.5,half=s.width*.26,beam=s.width*.17,u=unitCycle(rowCycle);
+ c.save();c.lineCap='round';
+ for(const side of [-1,1])for(let k=0;k<4;k++){
+  // Blades along a side enter together; a slight ripple down the bank keeps it from looking stamped.
+  const t=unitCycle(u-k*.035);if(t>.38)continue;const v=t/.38,along=-half+k*half*.55;
+  const x=p.x+dx*along+nx*beam*side,y=p.y+dy*along*.5+ny*beam*side*2;
+  c.fillStyle=`rgba(238,246,240,${(strength*.5*(1-v)).toFixed(3)})`;c.beginPath();c.ellipse(x,y,scale*(.14+v*.32),scale*(.06+v*.13),0,0,TAU);c.fill();
+  c.strokeStyle=`rgba(220,236,230,${(strength*.35*(1-v)).toFixed(3)})`;c.lineWidth=Math.max(.6,scale*.04);c.beginPath();c.ellipse(x,y,scale*(.25+v*.6),scale*(.1+v*.25),0,0,TAU);c.stroke();
+  if(v<.5){c.fillStyle=`rgba(244,250,248,${(strength*.6*(1-v*2)).toFixed(3)})`;for(let d=0;d<3;d++){const a=d*2.1+k,lift=Math.sin(v*2*Math.PI*.5)*scale*.35;c.fillRect(x+Math.cos(a)*scale*.18-scale*.03,y-lift-Math.abs(Math.sin(a))*scale*.12,Math.max(1,scale*.05),Math.max(1,scale*.05));}}
+ }
+ c.restore();
 }
 
 /** The wake trails the stern. Its strength follows speed, not a blinking clock. */

@@ -379,7 +379,10 @@ export class World {
   if(UNITS[e.def].role==='fisher'){this.fishBoat(e,dt);return;}
   const o=e.order,stats=this.shipStats(e);if(o?.kind==='unload'&&e.def==='transport-ship'){
    const goal=o.point?this.waterExit(o.point,0,10,e):e;if(!goal){e.order=undefined;e.state='idle';if(e.owner===0)this.emit('Choose a landing on the shoreline.');return;}
-   if(this.sailTo(e,goal,o.groupSpeed!==undefined?.35:1,dt)){if(e.state!=='unloading'){e.unloadStartedAt=this.time;e.landingAt=this.time;}e.state='unloading';if(this.time-(e.landingAt??this.time)>=.58){e.landingAt=this.time;if(this.unloadShip(e)){e.order=undefined;e.state='idle';}}}return;
+   // The landing water often sits too close to the bank for the hull's path, so the ship stopped a
+    // couple of units short and stayed 'blocked' with its troops locked aboard. Close enough is a landing.
+    const arrived=e.state==='unloading'||this.sailTo(e,goal,o.groupSpeed!==undefined?.35:1,dt)||e.state==='blocked'&&dist(e,goal)<this.footprint(e)+3;
+    if(arrived){if(e.state!=='unloading'){e.unloadStartedAt=this.time;e.landingAt=this.time;}e.state='unloading';if(this.time-(e.landingAt??this.time)>=.58){e.landingAt=this.time;if(this.unloadShip(e)){e.order=undefined;e.state='idle';}}}return;
   }
   let target=o?.kind==='attack'?this.get(o.target):undefined;if(target&&(!this.hostile(e.owner,target.owner)||!this.canSee(e.owner,target)))target=undefined;
   if(!target&&stats.damage>0&&(!o||o.kind==='hold'||o.kind==='attackmove'))target=this.enemiesNear(e,stats.range+4).filter(t=>isWater(t.x,t.z)||t.def==='harbor'||dist(e,t)<=stats.range).sort((a,b)=>dist(e,a)-dist(e,b))[0];
@@ -506,6 +509,11 @@ export class World {
  if(node.amount<=.001){node.amount=0;node.depletedAt=this.time;if(!isFoodSite(node.def))this.rebuildNav({x:node.x,z:node.z,r:2});}
  } }
 
+ /** Player-ordered demolition or dismissal of their own units and buildings (Delete key / Destroy button).
+  * Runs the normal death path, so buildings collapse, refund queued training and release their garrison. */
+ destroyOwn(ids:number[],side:Side=0){let count=0;const alert=this.lastAlert;this.lastAlert=this.time;
+  for(const id of ids){const e=this.get(id);if(!e||e.owner!==side||e.hp<=0||e.inside||e.type==='resource')continue;this.hit(e,e.hp);count++;}
+  this.lastAlert=alert;return count;}
  hit(target:Entity,damage:number){if(target.owner===0&&target.hp>0&&this.time-this.lastAlert>20){this.lastAlert=this.time;this.alert(target);this.emit(`⚔ Your ${target.type==='unit'?UNITS[target.def].name:BUILDINGS[target.def].name} is under attack!`,'warning');}target.hp-=damage;target.lastHit=this.time;if(target.hp<=0){target.hp=0;target.destroyedAt=this.time;target.state='dead';target.order=undefined;target.strike=undefined;if(target.def==='transport-ship'){for(const id of [...target.garrison]){const passenger=this.get(id);if(passenger){passenger.inside=undefined;this.hit(passenger,passenger.hp);}}target.garrison=[];}if(target.type==='building'){target.destroyedAt=this.time;for(const q of target.queue)if(!q.reserved)this.refund(target.owner,UNITS[q.unit].cost);target.queue=[];const occupants=[...target.garrison];this.release(target);for(const id of occupants){const unit=this.get(id);if(unit){unit.hp=Math.max(1,unit.hp*.75);if(unit.inside){unit.inside=undefined;unit.x=target.x;unit.z=target.z;unit.state='idle';}}}target.garrison=[];this.rebuildNav({x:target.x,z:target.z,r:BUILDINGS[target.def].radius+1});}if(target.owner===0)this.emit(`${target.type==='unit'?UNITS[target.def].name:BUILDINGS[target.def]?.name??'Entity'} lost.`,'warning');}}
  // Spatial version for per-tick targeting: unit buckets plus the tick's building list instead of every entity.
  enemiesNear(e:Entity,radius:number){const foe=(t:Entity)=>t.hp>0&&this.hostile(e.owner,t.owner)&&!t.inside&&dist(e,t)<radius&&this.canSee(e.owner,t);return[...this.unitsNear(e,radius).filter(foe),...this.buildingCache.filter(foe)];}

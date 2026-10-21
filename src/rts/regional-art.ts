@@ -13,6 +13,7 @@ export class RegionalArt {
  prefers(faction:string,def:string){return signatures[faction]===def&&!(faction==='khmer'&&def==='war-elephant')||faction==='ayyubid'&&(SARACEN_FOOT.has(def)||['light-horse','faris','horse-archer'].includes(def));}
  private sheets=new Map<string,{image:HTMLImageElement;rects:Rect[];cols:number;rows:number}>();
  private pending=new Set<string>();
+ private nominal=new Map<string,number>();
  private load(name:string,cols:number,rows:number){
   if(this.pending.has(name))return;this.pending.add(name);const image=new Image();
   image.onerror=()=>{this.pending.delete(name);};
@@ -39,8 +40,10 @@ export class RegionalArt {
   return{image:sheet.image,sx:r.x,sy:r.y,sw:r.w,sh:r.h,width:r.w*pixel,height:r.h*pixel,anchor:r.ground===undefined?1-width*.15/(r.h*pixel):(r.ground-r.y)/r.h,anchorX:r.cx===undefined?.5:(r.cx-r.x)/r.w};
  }
  private animated(name:string,cols:number,rows:number,row:number,sample:{from:number;to:number;mix:number},height:number,scale:number,flip=false){
-  this.load(name,cols,rows);const sheet=this.sheets.get(name);if(!sheet)return null;const rect=(col:number)=>poseRect(sheet.rects[row*cols+col]),ch=(isolatedAtlas(name)?.sourceHeight??sheet.image.height)/rows;
-  return poses.sample(sheet.image,rect(sample.from),rect(sample.to),sample.mix,height*scale/(ch*.9),flip,true);
+  this.load(name,cols,rows);const sheet=this.sheets.get(name);if(!sheet)return null;const rect=(col:number)=>poseRect(sheet.rects[row*cols+col]);
+  // Scale by the painted figure, not the cell: the French knight filled more of its cell and stood ~15% taller than other cavalry.
+  let nominal=this.nominal.get(name);if(nominal===undefined){const standing=Array.from({length:rows},(_,r)=>sheet.rects[r*cols].h).sort((a,b)=>a-b);nominal=standing[Math.floor(standing.length/2)];this.nominal.set(name,nominal);}
+  return poses.sample(sheet.image,rect(sample.from),rect(sample.to),sample.mix,height*scale/nominal,flip,true);
  }
  private saracenTroop(def:string,direction:number,moving:boolean,phase:number,attackAge:number,scale:number,speed:number,era:number):SceneSprite|null{
   const horses:Record<string,string>={'light-horse':'sword',faris:'shield','horse-archer':'archer'},infantry:Record<string,number>={militia:0,swordsman:1,heavy:1,spearman:2,pike:2,'shield-spear':3,archer:4,'dagger-fighter':5};

@@ -16,6 +16,9 @@ export class WaterEffects {
  private coast:{land:Point;water:Point}[]=[];
  private coastKey='';
  private low=false;
+ // Swell and foam wash are painted at quarter resolution and scaled up, which softens every edge
+ // like wet brushwork; drawn at full resolution they read as hard discs and ruled lines.
+ private soft=document.createElement('canvas');
  quality(quality:string){this.low=quality==='low';}
 
  /** Coarse land/water pairs along every coastline; beach rocks and props are placed on these. */
@@ -70,14 +73,16 @@ export class WaterEffects {
    const wave=Math.sin((s.x*.62+s.z*.38)*.42-time*1.15+s.seed*1.4)*.5+.5,strength=wave**4*(.35+.65*Math.min(1,s.depth+.25));
    const bucket=Math.min(BUCKETS-1,Math.floor(strength*BUCKETS));
    // Each crest casts a darker trough just below it, so the swell reads as raised water rather than a painted line.
-   if(strength>.12){const path=swell[bucket],w=half*(1+s.seed*.8),bob=Math.sin(time*1.6+s.seed*9)*scale*.05,low=trough[bucket],drop=lift*1.25;path.moveTo(p.x-w,p.y+bob);path.quadraticCurveTo(p.x,p.y-lift+bob,p.x+w,p.y+bob*.6);low.moveTo(p.x-w*.9,p.y+bob+drop*.55);low.quadraticCurveTo(p.x,p.y+bob+drop*.15,p.x+w*.9,p.y+bob*.6+drop*.55);}
+   // Soft lit faces and shaded troughs (filled, not stroked): thin crest lines read as scratches on glass.
+   if(strength>.12){const path=swell[bucket],w=half*(1.3+s.seed*.9),bob=Math.sin(time*1.6+s.seed*9)*scale*.05,low=trough[bucket];path.moveTo(p.x+w,p.y-lift*.3+bob);path.ellipse(p.x,p.y-lift*.3+bob,w,lift*1.1,0,0,Math.PI*2);low.moveTo(p.x+w*.95,p.y+lift*.9+bob);low.ellipse(p.x,p.y+lift*.9+bob,w*.95,lift*1.2,0,0,Math.PI*2);}
    // Brief sun glints, a few at a time.
    const g=unitCycle(time*.33+s.seed*17);if(g<.06&&s.depth>.2){const k=Math.sin(g/.06*Math.PI),r=scale*.22*k;glints.moveTo(p.x-r,p.y);glints.lineTo(p.x+r,p.y);glints.moveTo(p.x,p.y-r*.45);glints.lineTo(p.x,p.y+r*.45);}
   }
-  c.save();c.lineCap='round';c.lineWidth=Math.max(1.4,scale*.16);
-  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(8,30,40,${(.04+b*.05).toFixed(3)})`;c.stroke(trough[b]);}
-  c.lineWidth=Math.max(.9,scale*.075);
-  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${crest},${(.05+b*.075).toFixed(3)})`;c.stroke(swell[b]);}
+  const sw=Math.max(1,Math.ceil(width/4)),sh=Math.max(1,Math.ceil(height/4));if(this.soft.width!==sw||this.soft.height!==sh){this.soft.width=sw;this.soft.height=sh;}
+  const g=this.soft.getContext('2d')!;g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,sw,sh);g.setTransform(.25,0,0,.25,0,0);
+  for(let b=0;b<BUCKETS;b++){g.fillStyle=`rgba(8,28,38,${(.03+b*.035).toFixed(3)})`;g.fill(trough[b]);}
+  for(let b=0;b<BUCKETS;b++){g.fillStyle=`rgba(${crest},${(.025+b*.04).toFixed(3)})`;g.fill(swell[b]);}
+  c.save();c.lineCap='round';
   c.strokeStyle=`rgba(${glint},.75)`;c.lineWidth=Math.max(.6,scale*.03);c.stroke(glints);
   // Surf: each wave rolls from the water onto the beach, then the foam line fades back.
   const foam:Path2D[]=Array.from({length:BUCKETS},()=>new Path2D()),edge=new Path2D();
@@ -100,9 +105,12 @@ export class WaterEffects {
    // The wet edge on the sand brightens as each wave reaches it.
    const ex=land.x+(water.x-land.x)*.16,ey=land.y+(water.y-land.y)*.16;edge.moveTo(ex-tx*.85,ey-ty*.85);edge.lineTo(ex+tx*.85,ey+ty*.85);
   }
-  c.lineWidth=Math.max(1.2,scale*.1);
-  for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${winter?'246,250,252':'236,242,230'},${(.05+b*.08).toFixed(3)})`;c.stroke(foam[b]);}
-  c.lineWidth=Math.max(.9,scale*.08);c.strokeStyle=`rgba(${crest},${(.3+.12*Math.sin(time*1.2)).toFixed(3)})`;c.stroke(edge);
+  // Foam: a broad soft wash with a thin bright core, so the breaking wave has body.
+  const foamTint=winter?'246,250,252':'236,242,230';
+  g.lineCap='round';g.lineWidth=Math.max(3,scale*.5);for(let b=0;b<BUCKETS;b++){g.strokeStyle=`rgba(${foamTint},${(.03+b*.05).toFixed(3)})`;g.stroke(foam[b]);}
+  g.lineWidth=Math.max(2,scale*.3);g.strokeStyle=`rgba(${crest},${(.22+.1*Math.sin(time*1.2)).toFixed(3)})`;g.stroke(edge);
+  c.imageSmoothingEnabled=true;c.drawImage(this.soft,0,0,sw*4,sh*4);
+  c.lineWidth=Math.max(.8,scale*.05);for(let b=0;b<BUCKETS;b++){c.strokeStyle=`rgba(${foamTint},${(.015+b*.03).toFixed(3)})`;c.stroke(foam[b]);}
   c.restore();
   // Reeds sway on the wetter, milder shorelines.
   if(this.reeds.length){c.save();c.lineWidth=Math.max(.6,scale*.04);c.lineCap='round';

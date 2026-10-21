@@ -56,8 +56,10 @@ export class NatureLayer {
    const kind=hash(z,x);
    // Pebbled river banks with their own shallow water painted in, on rivers and streams (not in snow).
    if(biome!=='winter'&&kind<.55&&[[-3,0],[3,0],[0,-3],[0,3]].some(([dx,dz])=>isRiver(x+dx,z+dz))){this.props.push({x,z,sheet:'shore-river-props-v1',row:0,col:Math.floor(kind*5.4)%3,width:4.2+kind*2,flip:kind<.27});continue;}
+   // Desert beaches carry driftwood and the odd coconut palm; red sandstone belongs inland, not at the waterline.
+   if(biome==='arid'){if(kind<.4)this.props.push({x,z,sheet:'shore-river-props-v1',row:2,col:kind<.15?3:2,width:kind<.15?3.4:2.4+kind*1.6,flip:kind<.08||kind>.3});continue;}
    if(kind<.5)this.props.push({x,z,sheet:'biome-rock-shores-v1',row:bed[0],col:bed[1],width:4+kind*3,flip:kind<.25});
-   else this.props.push({x,z,sheet:'shore-river-props-v1',row:2,col:biome==='arid'?1:kind<.8?0:2,width:2.3+kind*1.4,flip:kind>.9});
+   else this.props.push({x,z,sheet:'shore-river-props-v1',row:2,col:kind<.8?0:2,width:2.3+kind*1.4,flip:kind>.9});
   }
   // Boulders standing in the rapids; the same rocks block boats and troops.
   for(const rock of riverRocks()){const h=hash(rock.x,rock.z);this.props.push({x:rock.x,z:rock.z,sheet:biome==='winter'?'biome-rock-shores-v1':'shore-river-props-v1',row:biome==='winter'?0:2,col:biome==='winter'?0:biome==='arid'?1:0,width:rock.r*(biome==='winter'?2.6:3.1),flip:h<.5});}
@@ -71,7 +73,7 @@ export class NatureLayer {
    // Wild grasses and flowers on open ground, away from water and cliffs.
    if(biome==='winter'||h>.075||isWater(jx,jz)||isCliff(jx,jz)||isShore(jx,jz))continue;
    // Desert: occasional sandstone outcrops instead of green garden grass on its own square of turf.
-   if(biome==='arid'){if(h<.022)this.props.push({x:jx,z:jz,sheet:'shore-river-props-v1',row:2,col:1,width:2.2+h*60,flip:h<.011});continue;}
+   if(biome==='arid'){if(h<.022&&![0,1,2,3,4,5,6,7].some(k=>isWater(jx+Math.cos(k*Math.PI/4)*9,jz+Math.sin(k*Math.PI/4)*9)))this.props.push({x:jx,z:jz,sheet:'shore-river-props-v1',row:2,col:1,width:2.2+h*60,flip:h<.011});continue;}
    const col=Math.floor(h/.025)%3;
    this.props.push({x:jx,z:jz,sheet:'tall-trees-gardens-v1',row:1,col,width:col===0?2.1:1.7,flip:h<.035});
   }
@@ -82,10 +84,29 @@ export class NatureLayer {
   const {biome,type}=mapSpec(),h=hash(id*.37,x+z);
   const row=biome==='winter'?0:biome==='arid'?1:biome==='autumn'?2:type==='wetlands'||type==='delta'?3:-1;
   if(row<0||h>(row===3?.4:.65)||isShore(x,z))return null;
-  const image=this.image('biome-trees-lifecycle-v1'),frames=this.atlases['biome-trees-lifecycle-v1']?.frames[row];if(!image?.complete||!image.naturalWidth||!frames)return null;
+  const source=this.image('biome-trees-lifecycle-v1'),frames=this.atlases['biome-trees-lifecycle-v1']?.frames[row];if(!source?.complete||!source.naturalWidth||!frames)return null;
+  const image=this.featheredTrees(source);
   // One pixel scale per species, from the standing tree, so the felled log keeps its length.
   const [sx,sy,sw,sh]=frames[stage],pixel=7.4*(1+(id%7-3)*.035)*scale/frames[0][3];
   return {image,sx,sy,sw,sh,width:sw*pixel,height:sh*pixel,anchor:.9,flip:id%2===1};
+ }
+private feathered?:HTMLImageElement;
+ /** The painted ground disc under each standing tree fades out at its rim, so pebbles and grass
+  * blend into the map's own ground instead of reading as a plate. Trunk and canopy stay opaque;
+  * felled logs (last column) lie across the disc and keep it. */
+ private featheredTrees(source:HTMLImageElement){
+  if(this.feathered)return this.feathered;
+  const canvas=document.createElement('canvas');canvas.width=source.naturalWidth;canvas.height=source.naturalHeight;const c=canvas.getContext('2d')!;c.drawImage(source,0,0);
+  for(const row of this.atlases['biome-trees-lifecycle-v1']?.frames??[])for(const [x,y,w,h] of row.slice(0,3)){
+   c.save();c.beginPath();c.rect(x,y,w,h);c.clip();c.globalCompositeOperation='destination-in';
+   const mask=document.createElement('canvas');mask.width=w;mask.height=h;const m=mask.getContext('2d')!;
+   m.fillStyle='#000';m.fillRect(0,0,w,h*.66);
+   const cx=w/2,cy=h*.86,g=m.createRadialGradient(cx,cy,0,cx,cy,w*.46);g.addColorStop(0,'#000');g.addColorStop(.32,'#000');g.addColorStop(1,'rgba(0,0,0,0)');
+   m.save();m.translate(cx,cy);m.scale(1,.42);m.translate(-cx,-cy);m.fillStyle=g;m.fillRect(0,0,w,h/.42);m.restore();
+   c.drawImage(mask,x,y);c.restore();
+  }
+  Object.defineProperty(canvas,'naturalWidth',{value:canvas.width});Object.defineProperty(canvas,'complete',{value:true});
+  return this.feathered=canvas as unknown as HTMLImageElement;
  }
  private blocked(world:World,p:Point,radius:number){
   for(const e of world.entities){if(e.hp<=0&&e.type!=='resource')continue;if(e.type==='building'){if(Math.hypot(e.x-p.x,e.z-p.z)<BUILDINGS[e.def].radius+radius)return true;}else if(e.type==='resource'&&e.amount>0&&Math.hypot(e.x-p.x,e.z-p.z)<radius+1.2)return true;}

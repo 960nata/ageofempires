@@ -7,8 +7,8 @@ import {FactionAnimations} from './faction-animations';
 import {EraUnitArt} from './era-unit-art';
 import {SceneArt} from './scene-art';
 import {MarineSprites,boatWidth,type CrewAction} from './marine-sprites';
-import {drawMarineLife,drawBoatWake,drawFishingNet} from './marine-life';
-import {rowingRate,boatPose,boatFloat,boatRock,crewAction,unitCycle,FISHING_SECONDS,hullRipple} from './marine-motion';
+import {drawMarineLife,drawBoatWake,drawFishingNet,drawOarStrokes} from './marine-life';
+import {rowingRate,boatPose,boatFloat,boatRock,crewAction,unitCycle,FISHING_SECONDS,hullRipple,headingVector} from './marine-motion';
 import {WaterEffects} from './water-effects';
 import {isNaval} from './naval-data';
 import {ConstructionFrames,CONSTRUCTION_FRAME_COUNT} from './construction-frames';
@@ -105,7 +105,8 @@ export class Battlefield {
   for(let k=0;k<20;k++){const a=k*2.399+tree.id,rr=3+Math.sqrt((k*13%23)/23)*22,cx=x+Math.cos(a)*rr,cy=y+Math.sin(a)*rr;c.strokeStyle=pine?'#84704c50':k%3?'#8c79524a':'#56633d48';c.lineWidth=pine?.55:.9;c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+Math.cos(a)*1.8,cy+Math.sin(a)*1.8);c.stroke();}
  }
 
- const drawRoad=(a:Point,b:Point,width:number)=>{const route=this.world.path(a,b);if(!route.length)return;const points=[a,...route.filter((_,i)=>i%3===0),route[route.length-1]];for(const [extra,color]of [[12,'#82744712'],[6,'#af98612b'],[0,'#b29b70a0']]as const){c.strokeStyle=extra===0&&roadTexture?roadTexture:color;c.lineWidth=width+extra;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(px(a.x),px(a.z));for(let i=1;i<points.length;i++){const p=points[i],q=points[Math.min(i+1,points.length-1)],wobble=Math.sin(p.x*.48+p.z*.31)*.45;c.quadraticCurveTo(px(p.x+wobble),px(p.z-wobble),px((p.x+q.x)/2),px((p.z+q.z)/2));}c.stroke();}};
+ const drawRoad=(a:Point,b:Point,width:number)=>{const route=this.world.path(a,b);if(!route.length)return;const points=[a,...route.filter((_,i)=>i%3===0),route[route.length-1]];// Desert tracks are trampled sand, not the grassland gravel texture (which read as dotted scribbles on dunes).
+const arid=mapSpec().biome==='arid',bands=arid?[[16,'#9c7b4c10'],[8,'#a8875418'],[0,'#b08e5e40']]as const:[[12,'#82744712'],[6,'#af98612b'],[0,'#b29b70a0']]as const;for(const [extra,color]of bands){c.strokeStyle=extra===0&&roadTexture&&!arid?roadTexture:color;c.lineWidth=width+extra;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(px(a.x),px(a.z));for(let i=1;i<points.length;i++){const p=points[i],q=points[Math.min(i+1,points.length-1)],wobble=Math.sin(p.x*.48+p.z*.31)*.45;c.quadraticCurveTo(px(p.x+wobble),px(p.z-wobble),px((p.x+q.x)/2),px((p.z+q.z)/2));}c.stroke();}};
  const towns=this.world.entities.filter(e=>e.type==='building'&&e.def==='town');const entrances=towns.map(t=>({x:t.x+6,z:t.z+6}));
  if(entrances.length===2&&mapSpec().type==='borderlands'){const waypoints=[entrances[0],{x:-33,z:-12},{x:6,z:5},{x:28,z:10},entrances[1]];for(let i=1;i<waypoints.length;i++)drawRoad(waypoints[i-1],waypoints[i],10);}
  for(const side of this.world.realms){const buildings=this.world.alive(side,'building'),town=buildings.find(b=>b.def==='town');if(!town)continue;const junctions=[{x:town.x-9,z:town.z-8},{x:town.x+7,z:town.z+7},{x:town.x+15,z:town.z-5}];for(let i=1;i<junctions.length;i++)drawRoad(junctions[i-1],junctions[i],8);for(const b of buildings){if(b.def==='farm'||b.def==='harbor')continue;const entrance={x:b.x+BUILDINGS[b.def].radius+1.5,z:b.z+2};const near=[...junctions].sort((a,b)=>Math.hypot(a.x-entrance.x,a.z-entrance.z)-Math.hypot(b.x-entrance.x,b.z-entrance.z))[0];drawRoad(near,entrance,4);const g=c.createRadialGradient(px(b.x),px(b.z),0,px(b.x),px(b.z),(BUILDINGS[b.def].radius+2)*8);g.addColorStop(0,'#95846428');g.addColorStop(1,'#95846400');c.fillStyle=g;c.fillRect(px(b.x)-55,px(b.z)-55,110,110);}}
@@ -125,7 +126,8 @@ export class Battlefield {
  for(const tree of trees){if(tree.id%3!==0)continue;for(let n=0;n<2;n++){const angle=tree.id*2.399+n*2.7,spread=1.25+(tree.id%4)*.28,x=tree.x+Math.cos(angle)*spread,z=tree.z+Math.sin(angle)*spread;if(isWater(x,z)||isCliff(x,z)||this.world.entities.some(e=>e.type==='building'&&e.hp>0&&Math.hypot(e.x-x,e.z-z)<BUILDINGS[e.def].radius+1))continue;this.wilds.push({x,z,index:(tree.id+n)%4,width:.42+(tree.id%4)*.07});}}
  if(hasRavine())for(let i=0;i<Math.round(21*MAP_SCALE);i++){const z=-89*MAP_SCALE+i*4.9+Math.sin(i*2.7)*1.25;for(const side of [-1,1]){if((i+(side>0?1:0))%4===0)continue;this.rocks.push({x:ravineX(z)+side*(5.5+Math.sin(i*1.7)*.9),z,index:8+(i+(side>0?1:0))%3,width:3.1+(i*7%5)*.38});}}
  if(mapSpec().type==='archipelago'){const shores=this.waterEffects.shoreSites();for(let i=0;i<Math.min(190,shores.length);i++){const q=shores[(i*29)%shores.length];if(this.world.entities.some(e=>e.type==='building'&&Math.hypot(e.x-q.land.x,e.z-q.land.z)<BUILDINGS[e.def].radius+2))continue;this.rocks.push({x:q.land.x,z:q.land.z,index:i%4,width:1.2+(i%4)*.34});}}
- else if(hasSea()){
+ else if(hasSea()&&mapSpec().biome!=='arid'){
+   // Grey boulders suit temperate and cold coasts; desert beaches stay open sand.
    // Uneven groups with open beach between them; one rock every 5.2 units lined the coast like a fence.
    const h=(n:number)=>{const v=Math.sin(n*127.1)*43758.5453;return v-Math.floor(v);};
    for(let z=-120*MAP_SCALE,i=0;z<120*MAP_SCALE;i++){const a=h(i+.3),b=h(i*1.7+5.1),d=h(i*2.3+9.7);z+=a<.3?14+b*22:2.2+b*6;if(d<.25)continue;
@@ -143,7 +145,8 @@ export class Battlefield {
  private updateMotion(e:Entity,dt:number){
   let m=this.motion.get(e.id);if(!m){m={x:e.x,z:e.z,phase:0,direction:this.facing(e.angle),speed:0,heading:this.facing(e.angle)*Math.PI/4,running:false,walking:false};this.motion.set(e.id,m);}
   if(dt<=0)return m;
-  if(e.inside&&e.entryPoint){const b=this.world.get(e.inside);if(b){const t=Math.max(0,Math.min(1,(this.visualTime-(e.enteredAt??0))/.65)),blend=t*t*(3-2*t),to={x:b.x+Math.sin((b.facing??0)*Math.PI/2)*BUILDINGS[b.def].radius*.8,z:b.z+Math.cos((b.facing??0)*Math.PI/2)*BUILDINGS[b.def].radius*.8};m.x=e.entryPoint.x+(to.x-e.entryPoint.x)*blend;m.z=e.entryPoint.z+(to.z-e.entryPoint.z)*blend;m.direction=this.facing(Math.atan2(to.x-e.entryPoint.x,to.z-e.entryPoint.z));m.speed=2;m.phase=(m.phase+dt*2/(UNITS[e.def].stride??2.6))%1;return m;}}
+  // A transport ship is a unit, not a building: troops walk to its deck. Reading a building radius here threw every frame and stopped the scene drawing.
+  if(e.inside&&e.entryPoint){const b=this.world.get(e.inside);if(b){const t=Math.max(0,Math.min(1,(this.visualTime-(e.enteredAt??0))/.65)),blend=t*t*(3-2*t),reach=(BUILDINGS[b.def]?.radius??0)*.8,to={x:b.x+Math.sin((b.facing??0)*Math.PI/2)*reach,z:b.z+Math.cos((b.facing??0)*Math.PI/2)*reach};m.x=e.entryPoint.x+(to.x-e.entryPoint.x)*blend;m.z=e.entryPoint.z+(to.z-e.entryPoint.z)*blend;m.direction=this.facing(Math.atan2(to.x-e.entryPoint.x,to.z-e.entryPoint.z));m.speed=2;m.phase=(m.phase+dt*2/(UNITS[e.def].stride??2.6))%1;return m;}}
   if(e.landing){const l=e.landing,t=Math.max(0,Math.min(1,(this.visualTime-l.at)/l.duration)),blend=t*t*(3-2*t);m.x=l.from.x+(l.to.x-l.from.x)*blend;m.z=l.from.z+(l.to.z-l.from.z)*blend;m.direction=this.facing(Math.atan2(l.to.x-l.from.x,l.to.z-l.from.z));m.speed=3;m.phase=(m.phase+dt*3/(UNITS[e.def].stride??2.6))%1;return m;}
   const prev=this.previousPositions.get(e.id)??e,blend=this.interpolation;
   const x=prev.x+(e.x-prev.x)*blend,z=prev.z+(e.z-prev.z)*blend,dx=x-m.x,dz=z-m.z,distance=Math.hypot(dx,dz);
@@ -273,7 +276,9 @@ export class Battlefield {
    const s=this.sprite(e);if(!s.image.complete||!s.image.naturalWidth)continue;if(p.x+s.width<0||p.x-s.width>this.width||p.y+s.height<0||p.y-s.height>this.height)continue;
    if(e.hp<=0){if(e.type==='unit'){c.save();c.globalAlpha=Math.min(1,Math.max(0,5-(this.visualTime-(e.destroyedAt??e.lastHit))));this.surface.clipObject(c,this.focus,this.width,this.height,this.scale,{x:p.x-s.width*(s.anchorX??.5),y:p.y-s.height*s.anchor,width:s.width,height:s.height},e.x+e.z-elevationFast(e.x,e.z)*2,p.y,elevationFast(e.x,e.z));c.drawImage(s.image,s.sx,s.sy,s.sw,s.sh,p.x-s.width*(s.anchorX??.5),p.y-s.height*s.anchor,s.width,s.height);c.restore();}else this.drawCollapse(e,p,s);continue;}
    if(e.type==='building'&&!isField(e.def))this.drawFooting(e,p,s);
-   if(e.type==='unit'&&UNITS[e.def].naval){const m=this.motion.get(e.id);drawBoatWake(c,p,s,m?.direction??this.facing(e.angle),m?.speed??0,m?.phase??0,this.scale);hullRipple(c,p,s.width,this.visualTime,e.id,this.scale,m?.speed??0,e.x,e.z);p.y+=boatFloat(this.visualTime,e.id,this.scale,m?.speed??0,e.x,e.z);}
+   if(e.type==='unit'&&UNITS[e.def].naval){const m=this.motion.get(e.id);drawBoatWake(c,p,s,m?.direction??this.facing(e.angle),m?.speed??0,m?.phase??0,this.scale);hullRipple(c,p,s.width,this.visualTime,e.id,this.scale,m?.speed??0,e.x,e.z);p.y+=boatFloat(this.visualTime,e.id,this.scale,m?.speed??0,e.x,e.z);
+    // Rowed hulls surge on each stroke and splash where the painted oars meet the water.
+    if(['war-ship','transport-ship','fishing-boat'].includes(e.def)&&m){const heading=headingVector(m.direction),surge=Math.sin(unitCycle(m.phase)*Math.PI*2)*this.scale*.07*Math.min(1,m.speed/2.6);drawOarStrokes(c,p,s,m.direction,m.speed,m.phase,this.scale);p.x+=heading.x*surge;p.y+=heading.y*surge*.5;}}
    const x=p.x-s.width*(s.anchorX??.5),y=p.y-s.height*s.anchor;if(this.selected.has(e.id)){c.beginPath();c.ellipse(p.x,p.y,Math.max(7,this.world.footprint(e)*this.scale*1.1),Math.max(3,this.world.footprint(e)*this.scale*.5),0,0,Math.PI*2);c.strokeStyle='#f9e2a1';c.lineWidth=1.8;c.stroke();}
    c.save();
    const fallingWood=e.type==='resource'&&e.resource==='wood'&&e.felledAt!==undefined&&e.amount>0?Math.max(0,Math.min(1,(this.visualTime-e.felledAt)/TREE_FALL_SECONDS)):-1;
